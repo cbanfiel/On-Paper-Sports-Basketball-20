@@ -3,12 +3,12 @@ import { Text, View, ScrollView, Image } from 'react-native';
 import { Button, Card, Slider, Divider, Input } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import Background from '../components/background';
-import {createTeam, conferences, teams} from '../data/script';
+import {createTeam, conferences, teams, saveData} from '../data/script';
 
 export default class CreateTeamMenu extends React.Component {
     state = {
         name: '',
-        logoSrc: '',
+        logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
         rating : 75,
         conference: this.initialConference(),
         conferenceName : this.initialConferenceName(this.initialConference()),
@@ -17,7 +17,18 @@ export default class CreateTeamMenu extends React.Component {
     saveChanges() {
         if(this.state.name != ''){
             createTeam(this.state.name, this.state.rating, this.state.logoSrc, this.state.conference);
-            Actions.mainmenu();
+            //roster autosave
+            saveData('Roster_Autosave');
+            Actions.popTo('mainmenu');
+        }
+    }
+
+    setLogoSrc(value){
+        //check to see if it is link
+        if(value.length < 5){
+            return;
+        }else{
+            this.setState({logoSrc: value});
         }
     }
 
@@ -48,6 +59,7 @@ export default class CreateTeamMenu extends React.Component {
                         containerStyle={{
                             width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
                             borderRadius: 25,
+                            alignSelf:'center'
                         }} >
 
                         <Image rounded style={{ height: 75, width: 75, resizeMode:'contain', flexDirection: 'column', alignSelf: 'center', marginBottom: 5 }} source={this.state.logoSrc!= '' ? { uri: this.state.logoSrc} : null} />
@@ -58,7 +70,7 @@ export default class CreateTeamMenu extends React.Component {
                         <Input onChangeText={value => this.setState({ name: value })} placeholder={'Enter Team Name'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"LOGO LINK: "}</Text>
-                        <Input onChangeText={value => this.setState({ logoSrc: value })} placeholder={'Paste Link To Logo'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
+                        <Input onChangeText={value => this.setLogoSrc(value)} placeholder={'Paste Link To Logo'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Rating: " + this.state.rating}</Text>

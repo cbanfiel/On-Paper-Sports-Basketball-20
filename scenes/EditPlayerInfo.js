@@ -35,7 +35,18 @@ export default class EditPlayerInfo extends React.Component {
         }catch(err){
             console.log('Error Reordering Lineup, Most likely during offseason')
         }
-        Actions.replace('playerprofile', { selectedPlayer: this.props.selectedPlayer, view:'na' });
+
+        this.props.updateState();
+        Actions.pop();
+    }
+
+    setFaceSource(value){
+        //check to see if it is link
+        if(value.length < 5){
+            return;
+        }else{
+            this.setState({faceSrc: value});
+        }
     }
 
     height(value){
@@ -240,6 +251,7 @@ export default class EditPlayerInfo extends React.Component {
                         containerStyle={{
                             width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
                             borderRadius: 25,
+                            alignSelf:'center'
                         }} >
 
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -255,7 +267,7 @@ export default class EditPlayerInfo extends React.Component {
                         <Input onChangeText={value => this.setState({ name: value })} placeholder={this.state.name} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"FACE LINK: "}</Text>
-                        <Input onChangeText={value => this.setState({ faceSrc: value })} placeholder={this.state.faceSrc} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
+                        <Input onChangeText={value => this.setFaceSource(value)} placeholder={'Paste Link To Photo'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"POS: " + this.state.positionString}</Text>
                         <Slider

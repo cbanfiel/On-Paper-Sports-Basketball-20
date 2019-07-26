@@ -15,7 +15,7 @@ export default class TeamList extends React.Component {
 
                     {conferences.map((conference, i) => (
                         <ListItem 
-                        onPress={() => Actions.standings({conferenceId : conference.id})} 
+                        onPress={() => Actions.standings({conferenceId : conference.id, linkTimer: this.props.linkTimer})} 
                         title={conference.name} 
                         key={i} 
                         leftAvatar={conference.logoSrc } ></ListItem>

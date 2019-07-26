@@ -7,12 +7,28 @@ import { conferences, selectedTeam, generateCustomRoster, deleteTeam, reloadConf
 import CachedImage from '../components/CachedImage';
 
 export default class EditTeam extends React.Component {
+    
+    componentWillUnmount(){
+        if(this.props.update!=null){
+          this.props.update();
+        }
+      }
+    
     state = {
         name: selectedTeam.name,
         logoSrc: selectedTeam.logoSrc,
         conference: selectedTeam.conferenceId,
         conferenceName : conferences[selectedTeam.conferenceId].name,
         rating : selectedTeam.rating
+    }
+
+    setLogoSrc(value){
+        //check to see if it is link
+        if(value.length < 5){
+            return;
+        }else{
+            this.setState({logoSrc: value});
+        }
     }
 
     saveChanges() {
@@ -25,7 +41,7 @@ export default class EditTeam extends React.Component {
                 selectedTeam.roster[i].teamLogoSrc = this.state.logoSrc;
             }
             reloadConferences();
-            Actions.reset('mainmenu');
+            Actions.pop();
         }
     }
 
@@ -48,6 +64,7 @@ export default class EditTeam extends React.Component {
                         containerStyle={{
                             width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
                             borderRadius: 25,
+                            alignSelf:'center'
                         }} >
 
                         <CachedImage rounded style={{ height: 75, width: 75, resizeMode:'contain', flexDirection: 'column', alignSelf: 'center', marginBottom: 5 }} uri={this.state.logoSrc!= '' ? this.state.logoSrc : null} />
@@ -58,7 +75,7 @@ export default class EditTeam extends React.Component {
                         <Input onChangeText={value => this.setState({ name: value })} placeholder={'Enter Team Name'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"LOGO LINK: "}</Text>
-                        <Input onChangeText={value => this.setState({ logoSrc: value })} placeholder={'Paste Link To Logo'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
+                        <Input onChangeText={value => this.setLogoSrc(value)} placeholder={'Paste Link To Logo'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Rating: " + this.state.rating}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}

@@ -35,7 +35,8 @@ export default class ImportExportMenu extends React.Component {
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+    alignSelf:'center'
   }}
 >
 
@@ -50,7 +51,8 @@ export default class ImportExportMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
             
@@ -62,7 +64,8 @@ export default class ImportExportMenu extends React.Component {
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+    alignSelf:'center'
   }}
 >
 
@@ -77,7 +80,8 @@ export default class ImportExportMenu extends React.Component {
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+    alignSelf:'center'
   }}
 >
 
@@ -92,7 +96,8 @@ export default class ImportExportMenu extends React.Component {
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+    alignSelf:'center'
   }}
 >
 

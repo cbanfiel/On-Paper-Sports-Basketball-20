@@ -6,8 +6,13 @@ import { TouchableOpacity } from 'react-native';
 import Background from '../components/background';
 import { loadRosters, resetFranchise, resetSliders, removeTeams, generateFreeAgents} from '../data/script';
 
-
 export default class OptionsMenu extends React.Component {
+  componentWillUnmount(){
+    if(this.props.update!=null){
+      this.props.update();
+    }
+  }
+
 
   render() {
     return (
@@ -15,12 +20,13 @@ export default class OptionsMenu extends React.Component {
       <Background>
         <ScrollView >
 
-        <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.communityrosters()}}>
+        <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.communityrosters({update: this.props.update})}}>
 
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+    alignSelf:'center'
   }}
 >
   <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Community Rosters</Text>
@@ -32,7 +38,8 @@ export default class OptionsMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Sliders</Text>
@@ -41,12 +48,13 @@ export default class OptionsMenu extends React.Component {
 
           
 
-          <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.savesmenu()}}>
+          <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.savesmenu({saveType: 'Roster'})}}>
 
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Manage Saves</Text>
@@ -58,7 +66,8 @@ export default class OptionsMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>New Franchise</Text>
@@ -70,7 +79,8 @@ export default class OptionsMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Remove All Teams</Text>
@@ -82,7 +92,8 @@ export default class OptionsMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Generate New Free Agents</Text>
@@ -94,7 +105,8 @@ export default class OptionsMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Import/Export</Text>
@@ -107,13 +119,27 @@ export default class OptionsMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
             >
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Reset</Text>
             </Card>
           </TouchableOpacity>
-         
+
+          <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.push('recentupdates')}}>
+
+            <Card
+              containerStyle={{
+                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
+                borderRadius: 25,
+                alignSelf:'center'
+              }}
+            >
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Patch Notes</Text>
+            </Card>
+          </TouchableOpacity>
+
         </ScrollView>
       </Background>
 

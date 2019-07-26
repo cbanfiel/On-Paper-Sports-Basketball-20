@@ -6,13 +6,49 @@ import { TouchableOpacity } from 'react-native';
 import Background from '../components/background';
 import { home, away, selectedTeam, generated1, generated2, generated3, generated4, teams, menuDisplayTeams} from '../data/script';
 import CachedImage from '../components/CachedImage';
+import {Updates} from 'expo';
 export default class MainMenu extends React.Component {
+
+  // componentDidMount(){
+  //   Alert.alert('7/7/19 Patch Notes:', 
+  //   "-In college mode players can now graduate early \n-In college mode you can now save graduates as draft classes for use in other \n");
+  // }
+
+  static async onEnter(){
+    try {
+      const update = await Expo.Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        await Expo.Updates.fetchUpdateAsync();
+        Alert.alert('New Update Available Restart Now?', '', [
+          {
+            text: 'Cancel',
+            onPress: () => {return},
+            style: 'cancel',
+          },
+          {
+            text: 'Restart',
+            onPress: () => {Expo.Updates.reloadFromCache();},
+          },
+        ]);
+        
+      }
+    } catch (e) {
+
+    }
+  }
+
+  // shuffles menu teams
+  // static onExit(){
+  //   menuDisplayTeams();
+  // }
+
+
 
 
   startFranchise(){
     if(teams.length % 2 == 0 ){
       if(teams.length >= 4){
-        Actions.teamlist({ home: 4 })
+        Actions.teamlist({ home: 4, updateState: this.update })
       }else{
         Alert.alert('LESS THAN 4 TEAMS','Currently for franchise mode you must have at least 4 teams' );
 
@@ -21,6 +57,15 @@ export default class MainMenu extends React.Component {
     Alert.alert('UNEVEN NUMBER OF TEAMS','Currently for franchise mode you must have an even number of teams, create another team or remove a team to start!' );
     }
 
+  }
+
+
+  state = {
+    team: selectedTeam
+  }
+
+  update = () =>{
+    this.setState({team: selectedTeam});
   }
 
   render() {
@@ -34,7 +79,8 @@ export default class MainMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
               >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -56,26 +102,28 @@ export default class MainMenu extends React.Component {
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
               >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5, marginLeft: 20 }} uri={selectedTeam.logoSrc } />
-                <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5, marginRight: 20 }} uri={selectedTeam.roster[0].faceSrc } />
+                <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5, marginLeft: 20 }} uri={this.state.team.logoSrc } />
+                <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5, marginRight: 20 }} uri={this.state.team.roster[0].faceSrc } />
 
               </View>
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{selectedTeam.roster[0].positionString + ' #' + selectedTeam.roster[0].number + ' ' + selectedTeam.roster[0].name}</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.state.team.roster[0].positionString + ' #' + this.state.team.roster[0].number + ' ' + this.state.team.roster[0].name}</Text>
               <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Franchise Mode'}</Text>
             </Card>
           </TouchableOpacity>
 
-          <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 5 })}>
+          <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 5, updateState: this.update })}>
 
             <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}
               >
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -94,7 +142,8 @@ export default class MainMenu extends React.Component {
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+                alignSelf:'center'
   }}
   >
   <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -113,7 +162,8 @@ export default class MainMenu extends React.Component {
 <Card
   containerStyle={{
     width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25
+    borderRadius: 25,
+                alignSelf:'center'
   }}
   >
   <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -130,11 +180,12 @@ export default class MainMenu extends React.Component {
 
 
 
-          <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.optionsmenu()}>
+          <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.optionsmenu({update: this.update})}>
           <Card
               containerStyle={{
                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25
+                borderRadius: 25,
+                alignSelf:'center'
               }}>
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5, marginLeft: 20 }} uri={generated2.logoSrc } />

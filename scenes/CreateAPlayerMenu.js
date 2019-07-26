@@ -3,7 +3,9 @@ import { Text, View, ScrollView, Image } from 'react-native';
 import { Button, Card, Slider, Divider, Input } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import Background from '../components/background';
-import {createPlayer} from '../data/script';
+import {createPlayer, saveData} from '../data/script';
+import CachedImage from '../components/CachedImage';
+
 
 
 export default class CreateAPlayerMenu extends React.Component {
@@ -15,11 +17,23 @@ export default class CreateAPlayerMenu extends React.Component {
         age: 21,
         salary: 1200000,
         faceSrc: 'https://www.2kratings.com/wp-content/uploads/NBA-Player.png',
-        height:"6\"6'"
+        height:"6\"6'",
+        team : null
+    }
+
+    setFaceSource(value){
+        //check to see if it is link
+        if(value.length < 5){
+            return;
+        }else{
+            this.setState({faceSrc: value});
+        }
     }
 
     saveChanges() {
-        let ply = createPlayer(this.state.name, this.state.number, this.state.position, this.state.age, this.state.salary, this.state.faceSrc, this.state.height)
+        let ply = createPlayer(this.state.name, this.state.number, this.state.position, this.state.age, this.state.salary, this.state.faceSrc, this.state.height, this.state.team);
+        //roster autosave
+        saveData('Roster_Autosave');
         Actions.replace('playerprofile', { selectedPlayer: ply });
     }
 
@@ -109,6 +123,10 @@ export default class CreateAPlayerMenu extends React.Component {
         this.setState({height : height});
     }
 
+    updateTeam = (team) =>{
+        this.setState({team : team});
+    }
+
     position(value) {
         var str = '';
         if (value === 0) {
@@ -140,7 +158,20 @@ export default class CreateAPlayerMenu extends React.Component {
                         containerStyle={{
                             width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
                             borderRadius: 25,
+                            alignSelf:'center'
                         }} >
+
+
+                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            {
+                                this.state.team != null?
+                                <CachedImage uri={this.state.team.logoSrc  } style={{ height: 30, width: 30, maxHeight: 30, resizeMode: 'contain', marginRight: 5 }}/>
+                                : null
+                            }
+
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.state.team == null? 'Free Agents' : this.state.team.name}</Text>
+                        </View>
+                        <Divider style={{ backgroundColor: 'white', margin: 10 }}></Divider>   
 
                         <Image rounded style={{ height: 75, width: 75, resizeMode:'contain', flexDirection: 'column', alignSelf: 'center', marginBottom: 5 }} source={{ uri: this.state.faceSrc }} />
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.state.positionString + ' #' + this.state.number + ' ' + this.state.name}</Text>
@@ -150,7 +181,7 @@ export default class CreateAPlayerMenu extends React.Component {
                         <Input onChangeText={value => this.setState({ name: value })} placeholder={this.state.name} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"FACE LINK: "}</Text>
-                        <Input onChangeText={value => this.setState({ faceSrc: value })} placeholder={this.state.faceSrc} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
+                        <Input onChangeText={value => this.setFaceSource(value)} placeholder={'Paste Link To Photo'} placeholderTextColor={'rgb(180,180,180)'} inputStyle={{ color: 'white', fontFamily: 'advent-pro' }} ></Input>
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"POS: " + this.state.positionString}</Text>
                         <Slider
@@ -208,6 +239,9 @@ export default class CreateAPlayerMenu extends React.Component {
                             value={this.state.salary}
                             onValueChange={value => this.setState({ salary: value })}
                         />
+
+                        <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25, marginBottom:10 }} title="Select Team" onPress={() => { Actions.push('teamlist', {updateTeam : this.updateTeam, home:6}) }}></Button>
+                        
 
                         <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25 }} title="Create Player" onPress={() => { this.saveChanges() }}></Button>
 

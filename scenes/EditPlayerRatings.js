@@ -43,7 +43,8 @@ export default class EditPlayerRatings extends React.Component {
         this.props.selectedPlayer.ft=this.state.ft;
         this.props.selectedPlayer.threePoint=this.state.threePoint;
         selectedTeam.reorderLineup();
-        Actions.replace('playerprofile',{selectedPlayer : this.props.selectedPlayer});
+        this.props.updateState();
+        Actions.pop();
 
     }
 
@@ -70,6 +71,7 @@ export default class EditPlayerRatings extends React.Component {
                         containerStyle={{
                             width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
                             borderRadius: 25,
+                            alignSelf:'center'
                         }} >
 
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>

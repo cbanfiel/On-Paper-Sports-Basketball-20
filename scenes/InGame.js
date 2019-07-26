@@ -2,12 +2,24 @@ import React from 'react';
 import { TouchableOpacity, Text, ScrollView, View, Image} from 'react-native';
 import { Card, Divider, ListItem, Slider } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import { home, away, Results, seriesWinCount, setHome, setAway } from '../data/script';
+import { home, away, Results, seriesWinCount, setHome, setAway, selectedTeam } from '../data/script';
 import Background from '../components/background';
 import Picache from 'picache';
+import CachedImage from '../components/CachedImage';
 
 let poss;
 export default class InGame extends React.Component {
+
+  resetCoachingSliders(){
+    selectedTeam.offVsDefFocus = this.state.offVsDefFocus;
+    selectedTeam.offTwoVsThree = this.state.offTwoVsThree;
+    selectedTeam.defTwoVsThree = this.state.defTwoVsThree;
+    selectedTeam.tempo = this.state.tempo;
+    selectedTeam.frontCourtVsBackCourt = this.state.frontCourtVsBackCourt;
+    selectedTeam.reboundVsRunInTransition =  this.state.reboundVsRunInTransition;
+  }
+
+
   state = {
     homescore: 0,
     awayscore: 0,
@@ -16,7 +28,14 @@ export default class InGame extends React.Component {
     time:12,
     playByPlay: null,
     speed: 100,
-    completed: false
+    completed: false,
+    offVsDefFocus: selectedTeam.offVsDefFocus,
+    offTwoVsThree: selectedTeam.offTwoVsThree,
+    defTwoVsThree: selectedTeam.defTwoVsThree,
+    tempo: selectedTeam.tempo,
+    rotationSize: selectedTeam.rotationSize,
+    frontCourtVsBackCourt: selectedTeam.frontCourtVsBackCourt,
+    reboundVsRunInTransition: selectedTeam.reboundVsRunInTransition
   }
 
   time = () => {
@@ -90,7 +109,14 @@ export default class InGame extends React.Component {
 
       if(this.props.game.time <= 0){
           clearInterval(timer);
+
+          
           this.props.game.saveStats();
+
+          //FIX annoying ass gltich
+          home.bench = [...home.constantBench];
+          away.bench = [...away.constantBench];
+
           this.setState({completed: true})
       if(this.props.season){
         home.played[this.props.franchise.season.day] = new Results(this.props.game.homescore, this.props.game.awayscore);
@@ -168,6 +194,17 @@ componentWillUnmount(){
     clearInterval(this.state.timer);
     this.setState({timer : null});
   }
+
+  if(this.props.updateSeason != null){
+    this.props.updateSeason();
+  }
+
+  if(this.props.updateState != null){
+    this.props.updateState();
+  }
+
+  this.resetCoachingSliders();
+
 }
 
 leavePage(){
@@ -192,7 +229,8 @@ leavePage(){
           <Card
                     containerStyle={{
                       width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25
+                      borderRadius: 25,
+                      alignSelf:'center'
                     }}
                     >
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -210,7 +248,8 @@ leavePage(){
           <Card
                     containerStyle={{
                       width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25
+                      borderRadius: 25,
+                      alignSelf:'center'
                     }}
                     >
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -231,7 +270,8 @@ leavePage(){
                 <Card
                     containerStyle={{
                       width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25
+                      borderRadius: 25,
+                      alignSelf:'center'
                     }}
                     >
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -256,7 +296,8 @@ leavePage(){
 
           containerStyle={{
             width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-            borderRadius: 25
+            borderRadius: 25,
+            alignSelf:'center'
           }}
           >
           <Slider
@@ -274,6 +315,31 @@ leavePage(){
           <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
           <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Simulation Speed'}</Text>
         </Card>
+
+{
+        //IN GAME ADJUSTMENTS
+
+        this.props.allowAdjustments?(
+          selectedTeam === home || selectedTeam === away? (
+        <TouchableOpacity style={{ width: '100%' }} onPress={() => {this.leavePage(), Actions.push('coachsettings', {inGame : true})}}>
+                        <Card
+                            containerStyle={{
+                                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
+                                borderRadius: 25,
+                                alignSelf:'center'
+                            }}
+                            >
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri = { selectedTeam.logoSrc } />
+                            </View>
+                            <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'In Game Adjustments'}</Text>
+                        </Card>
+                    </TouchableOpacity>
+        ):null):null
+
+}
 
         </ScrollView>
       </Background>

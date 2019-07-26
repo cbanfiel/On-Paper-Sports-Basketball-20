@@ -9,6 +9,10 @@ import CachedImage from '../components/CachedImage';
 
 export default class SeasonRosterMenu extends React.Component {
 
+    componentWillUnmount(){
+        this.props.updateLineupState();
+    }
+
 
     render() {
 
@@ -19,7 +23,8 @@ export default class SeasonRosterMenu extends React.Component {
                         <Card
                             containerStyle={{
                                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                                borderRadius: 25
+                                borderRadius: 25,
+                                alignSelf:'center'
                             }}
                             >
 
@@ -35,7 +40,8 @@ export default class SeasonRosterMenu extends React.Component {
                         <Card
                             containerStyle={{
                                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                                borderRadius: 25
+                                borderRadius: 25,
+                                alignSelf:'center'
                             }}
                             >
 
@@ -47,14 +53,49 @@ export default class SeasonRosterMenu extends React.Component {
                         </Card>
                     </TouchableOpacity>
 
-{
-    !collegeMode ? (
-                <View>
-                    <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 3, back: 'season' })}>
+                    <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.playerrolemenu()}}>
                         <Card
                             containerStyle={{
                                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                                borderRadius: 25
+                                borderRadius: 25,
+                                alignSelf:'center'
+                            }}
+                            >
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={selectedTeam.logoSrc } />
+                            </View>
+                            <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Edit Player Roles'}</Text>
+                        </Card>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.push('coachsettings')}}>
+                        <Card
+                            containerStyle={{
+                                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
+                                borderRadius: 25,
+                                alignSelf:'center'
+                            }}
+                            >
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri = { selectedTeam.logoSrc } />
+                            </View>
+                            <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Coach Settings'}</Text>
+                        </Card>
+                    </TouchableOpacity>
+
+{
+    !collegeMode ? (
+                <View>
+                    <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 3, back: 'season', isForced: false })}>
+                        <Card
+                            containerStyle={{
+                                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
+                                borderRadius: 25,
+                                alignSelf:'center'
                             }}
                             >
 
@@ -66,11 +107,12 @@ export default class SeasonRosterMenu extends React.Component {
                         </Card>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.signplayermenu({ back: 'seasonmenu' }) }}>
+                    <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.signplayermenu({ back: 'seasonmenu', forced:false }) }}>
                         <Card
                             containerStyle={{
                                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                                borderRadius: 25
+                                borderRadius: 25,
+                                alignSelf:'center'
                             }}
                             >
 
@@ -82,11 +124,14 @@ export default class SeasonRosterMenu extends React.Component {
                         </Card>
                     </TouchableOpacity>
 
+                    
+
                     <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.draftclassmenu({ back: 'seasonmenu' }) }}>
                         <Card
                             containerStyle={{
                                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                                borderRadius: 25
+                                borderRadius: 25,
+                                alignSelf:'center'
                             }}
                             >
 
@@ -101,6 +146,24 @@ export default class SeasonRosterMenu extends React.Component {
         ) : null
 
 }
+
+<TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.playersearch() }}>
+                        <Card
+                            containerStyle={{
+                                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
+                                borderRadius: 25,
+                                alignSelf:'center'
+                            }}
+                            >
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={selectedTeam.logoSrc } />
+                            </View>
+                            <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Player Search'}</Text>
+                        </Card>
+                    </TouchableOpacity>
+
                 </ScrollView>
             </Background>
 

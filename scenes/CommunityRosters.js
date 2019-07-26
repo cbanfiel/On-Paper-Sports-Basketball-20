@@ -7,6 +7,34 @@ import ListItem from '../components/ListItem';
 
 export default class CommunityRosters extends React.Component {
 
+    componentWillUnmount(){
+        if(this.props.update!=null){
+          this.props.update();
+        }
+      }
+
+    filterList(){
+
+        if(this.props.filtered != null){
+            let filtered = [];
+            for(let i=0; i<communityRosters.length; i++){
+                if(communityRosters[i].type === this.props.filtered){
+                    filtered.push(communityRosters[i]);
+                }
+            }
+            return filtered;
+        }else{
+            return communityRosters;
+        }
+    }
+
+    state = {
+        filteredList : this.filterList()
+    }
+
+
+
+
     render() {
         return (
             <Background>
@@ -21,15 +49,20 @@ export default class CommunityRosters extends React.Component {
                 </View>
                 <ScrollView>
 
-                    {communityRosters.map((item, i) => (
+                    {
+                        this.state.filteredList.length > 1 ?
+                        
+                        
+                        this.state.filteredList.map((item, i) => (
                         <ListItem titleStyle={{ fontFamily: 'advent-pro' }} subtitleStyle={{ fontFamily: 'advent-pro' }} containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }} 
-                        onPress={() => {getDataFromLink(item.link, item.type), Actions.popTo('mainmenu')}} 
+                        onPress={() => {getDataFromLink(item.link, item.type, item.sliderType), this.props.filtered!= null? (Actions.pop()) : Actions.popTo('mainmenu')}}
                         title={item.name} 
                         rightTitleStyle={{fontFamily:'advent-pro'}}
                         rightTitle={item.type}
                         key={i} 
                         ></ListItem>
-                    ))}
+                    )): null
+                    }
                 </ScrollView>
             </Background>
         )

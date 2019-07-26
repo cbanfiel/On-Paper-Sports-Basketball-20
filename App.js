@@ -36,6 +36,17 @@ import ImportExportMenu from './scenes/ImportExportMenu';
 import CommunityRosters from './scenes/CommunityRosters';
 import InGameStats from './scenes/InGameStats';
 import LastPlay from './scenes/LastPlay';
+import PlayerStatsHistory from './scenes/PlayerStatsHistory';
+import CoachSettings from './scenes/CoachSettings';
+import PlayerRoleMenu from './scenes/PlayerRoleMenu';
+import ResigningStage from './scenes/ResigningStage';
+import RetirementStage from './scenes/RetirementStage';
+import FreeAgencyStage from './scenes/FreeAgencyStage';
+import RecoveryMenu from './scenes/RecoveryMenu';
+import RecentUpdates from './scenes/RecentUpdates';
+import PlayerSearch from './scenes/PlayerSearch';
+import TrainingStage from './scenes/TrainingStage';
+import TrainingScreen from './scenes/TrainingScreen';
 
 
 export default class App extends React.Component {
@@ -53,7 +64,7 @@ export default class App extends React.Component {
               <Scene key="ingame" component={InGame} title="Teamlist" hideNavBar />
               <Scene key="statslist" component={StatsList} title="Statslist" hideNavBar />
               <Scene key="rosterlist" component={RosterList} title="Rosterlist" hideNavBar />
-              <Scene key="seasonmenu" component={SeasonMenu} title="Rosterlist" hideNavBar panHandlers={null} />
+              <Scene key="seasonmenu" component={SeasonMenu} title="Rosterlist" hideNavBar />
               <Scene key="scheduleview" component={ScheduleView} title="Rosterlist" hideNavBar />
               <Scene key="standings" component={Standings} title="Rosterlist" hideNavBar />
               <Scene key="trademenu" component={TradeMenu} title="TradeMenu" hideNavBar />
@@ -66,10 +77,10 @@ export default class App extends React.Component {
               <Scene key="signplayermenu" component={SignPlayerMenu} title="EditPlayerInfo" hideNavBar />
               <Scene key="offercontractmenu" component={OfferContractMenu} title="EditPlayerInfo" hideNavBar />
               <Scene key="draftclassmenu" component={DraftClassMenu} title="EditPlayerInfo" hideNavBar />
-              <Scene key="draftmenu" component={DraftMenu} title="EditPlayerInfo" hideNavBar panHandlers={null} />
+              <Scene key="draftmenu" component={DraftMenu} title="EditPlayerInfo" hideNavBar />
               <Scene key="optionsmenu" component={OptionsMenu} title="EditPlayerInfo" hideNavBar />
               <Scene key="conferencelist" component={ConferenceList} title="EditPlayerInfo" hideNavBar />
-              <Scene key="playoffmenu" component={PlayoffMenu} title="EditPlayerInfo" hideNavBar panHandlers={null} />
+              <Scene key="playoffmenu" component={PlayoffMenu} title="EditPlayerInfo" hideNavBar />
               <Scene key="slidersmenu" component={SlidersMenu} title="EditPlayerInfo" hideNavBar />
               <Scene key="teamhistory" component={TeamHistory} title="EditPlayerInfo" hideNavBar />
               <Scene key="seasonstatsmenu" component={SeasonStatsMenu} title="EditPlayerInfo" hideNavBar />
@@ -84,6 +95,23 @@ export default class App extends React.Component {
               <Scene key="communityrosters" component={CommunityRosters} title="EditPlayerInfo" hideNavBar />
               <Scene key="ingamestats" component={InGameStats} title="EditPlayerInfo" hideNavBar />
               <Scene key="lastplay" component={LastPlay} title="EditPlayerInfo" hideNavBar />
+              <Scene key="playerstatshistory" component={PlayerStatsHistory} title="PlayerStatsHistory" hideNavBar />
+              <Scene key="coachsettings" component={CoachSettings} title="CoachSettings" hideNavBar />
+              <Scene key="playerrolemenu" component={PlayerRoleMenu} title="PlayerRoleMenu" hideNavBar />
+              <Scene key="resigningstage" component={ResigningStage} title="ResigningStage" hideNavBar />
+              <Scene key="retirementstage" component={RetirementStage} title="Retirements" hideNavBar />
+              <Scene key="freeagencystage" component={FreeAgencyStage} title="FreeAgency" hideNavBar />
+              <Scene key="recentupdates" component={RecentUpdates} title="Reccent Updates" hideNavBar />
+              <Scene key="playersearch" component={PlayerSearch} title="Reccent Updates" hideNavBar />
+              <Scene key="trainingstage" component={TrainingStage} title="Training Stage" hideNavBar />
+              <Scene key="trainingscreen" component={TrainingScreen} title="Training Stage" hideNavBar />
+              {/* <Scene key="recoverymenu" component={RecoveryMenu} title="FreeAgency" hideNavBar /> */}
+
+              
+
+
+
+
 
 
 

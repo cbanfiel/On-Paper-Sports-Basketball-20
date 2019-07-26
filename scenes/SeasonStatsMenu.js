@@ -9,17 +9,46 @@ import CachedImage from '../components/CachedImage';
 
 export default class SeasonStatsMenu extends React.Component {
 
+    componentWillMount(){
+      if(this.props.linkTimer != null){
+        this.props.linkTimer(this.setTeam);
+      }
+    }
+
+    componentWillUnmount(){
+      if(this.props.linkTimer != null){
+        this.props.linkTimer(null);
+      }
+    }
+
+    linkTimer = (update) =>{
+      this.setState({linked: update})
+    }
+
+    state = {
+      team: selectedTeam
+    }
+
+    setTeam = () =>{
+      if(this.state.linked!=null){
+        this.state.linked();
+      }
+
+      this.setState({team: selectedTeam})
+    }
+
 
     render() {
 
         return (
             <Background>
                 <ScrollView >
-                    <TouchableOpacity style={{ width: '100%' }} onPress={() => conferencesOn ? Actions.conferencelist() : Actions.standings({conferenceId : 3})}>
+                    <TouchableOpacity style={{ width: '100%' }} onPress={() => conferencesOn ? Actions.conferencelist({linkTimer: this.linkTimer}) : Actions.standings({conferenceId : 3, linkTimer: this.linkTimer})}>
                         <Card
                             containerStyle={{
                                 width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                                borderRadius: 25
+                                borderRadius: 25,
+                                alignSelf:'center'
                             }}
                             >
 
@@ -35,20 +64,21 @@ export default class SeasonStatsMenu extends React.Component {
                     </TouchableOpacity>
 
 
-                    <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.statslist({ selectedTeam: selectedTeam, season: true })}>
+                    <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.statslist({ selectedTeam: this.state.team, season: true })}>
                     <Card
                 containerStyle={{
                   width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                  borderRadius: 25
+                  borderRadius: 25,
+                  alignSelf:'center'
                 }}
                 >
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={{ flex: 1, textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{ conferencesOn ? 'Seed #' + selectedTeam.seed : 'Rank #' + selectedTeam.seed}</Text>
-                  <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={selectedTeam.logoSrc } />
-                    <CachedImage style={{ flex:1,  overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={sortedRoster(selectedTeam,'ppg')[0].faceSrc } />
-                    <Text style={{ flex:1,  textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{sortedRoster(selectedTeam,'ppg')[0].statsHistory.length > 0 ? (Math.round((sortedRoster(selectedTeam,'ppg')[0].seasonPoints / sortedRoster(selectedTeam,'ppg')[0].statsHistory.length) * 10) / 10) + ' PPG' : null}</Text>
+                  <Text style={{ flex: 1, textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{ conferencesOn ? 'Seed #' + this.state.team.seed : 'Rank #' + this.state.team.seed}</Text>
+                  <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={this.state.team.logoSrc } />
+                    <CachedImage style={{ flex:1,  overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={sortedRoster(this.state.team,'ppg')[0].faceSrc } />
+                    <Text style={{ flex:1,  textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{sortedRoster(this.state.team,'ppg')[0].statsHistory.length > 0 ? (Math.round((sortedRoster(this.state.team,'ppg')[0].seasonPoints / sortedRoster(this.state.team,'ppg')[0].statsHistory.length) * 10) / 10) + ' PPG' : null}</Text>
                 </View>
-                <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'#' + sortedRoster(selectedTeam,'ppg')[0].number + ' ' + sortedRoster(selectedTeam,'ppg')[0].name}</Text>
+                <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'#' + sortedRoster(this.state.team,'ppg')[0].number + ' ' + sortedRoster(this.state.team,'ppg')[0].name}</Text>
                 <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
 
                 <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Player Stats'}</Text>
@@ -60,7 +90,8 @@ export default class SeasonStatsMenu extends React.Component {
                     <Card
                 containerStyle={{
                   width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                  borderRadius: 25
+                  borderRadius: 25,
+                  alignSelf:'center'
                 }}
                 >
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -77,11 +108,13 @@ export default class SeasonStatsMenu extends React.Component {
             </TouchableOpacity>
 
 
+
             <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.teamstats() }}>
                     <Card
                     containerStyle={{
                       width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25
+                      borderRadius: 25,
+                      alignSelf:'center'
                     }}
                     >
 
@@ -97,7 +130,8 @@ export default class SeasonStatsMenu extends React.Component {
                     <Card
                     containerStyle={{
                       width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25
+                      borderRadius: 25,
+                      alignSelf:'center'
                     }}
                     >
 
@@ -113,7 +147,8 @@ export default class SeasonStatsMenu extends React.Component {
                     <Card
                     containerStyle={{
                       width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25
+                      borderRadius: 25,
+                      alignSelf:'center'
                     }}
                     >
 

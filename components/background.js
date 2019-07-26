@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground, Image} from 'react-native';
+import { StyleSheet, View, ImageBackground, Image, Dimensions} from 'react-native';
 import NavigationHeader from '../components/NavigationHeader';
 import { Font } from 'expo';
 
+var {height, width} = Dimensions.get('window');
 
 
 
@@ -19,7 +20,7 @@ export default class Background extends React.Component {
   }
   render() {
     return (
-      <View styles={{ flex: 1, backgroundColor: 'rgba(60,60,60,1)' }} >
+      <View styles={{ flex: 1, backgroundColor: 'rgba(60,60,60,1)'}} >
         {
           this.state.fontLoaded ? (
             <ImageBackground style={{ height: '100%', backgroundColor:'rgb(0,0,0)'}} resizeMode="cover" source={require('../assets/img/background.jpg')}  >
