@@ -61,7 +61,7 @@ export let difficulty = -1;
 
 let autoSign = true;
 
-export function setAutoSign(bool){
+export function setAutoSign(bool) {
     autoSign = bool;
 }
 
@@ -104,25 +104,25 @@ export function collegeSliderPreset() {
     reboundSlider = 50;
     trainingPointsAvailable = 2;
 
-            if (teams.length >= 64) {
-                playoffSeeds= 64;
-            } else if (teams.length >= 32) {
-                playoffSeeds= 32;
-            }
-            else if (teams.length >= 16) {
-                playoffSeeds= 16;
-            } else if (teams.length >= 8) {
-                playoffSeeds= 8;
-            }
-            else if (teams.length >= 4) {
-                playoffSeeds= 4;
-            }
-            else if (teams.length >= 2) {
-                playoffSeeds= 2;
-            }
-            else if (teams.length >= 1) {
-                playoffSeeds= 1;
-            }
+    if (teams.length >= 64) {
+        playoffSeeds = 64;
+    } else if (teams.length >= 32) {
+        playoffSeeds = 32;
+    }
+    else if (teams.length >= 16) {
+        playoffSeeds = 16;
+    } else if (teams.length >= 8) {
+        playoffSeeds = 8;
+    }
+    else if (teams.length >= 4) {
+        playoffSeeds = 4;
+    }
+    else if (teams.length >= 2) {
+        playoffSeeds = 2;
+    }
+    else if (teams.length >= 1) {
+        playoffSeeds = 1;
+    }
 }
 
 export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeDiff, rebSli, tptsavail) {
@@ -135,16 +135,16 @@ export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeD
     secondsOffClock = soc;
     difficulty = diff;
     tradeThreshold = tradeDiff;
-    if(rebSli == null){
-    reboundSlider = 50;   
-    }else{
+    if (rebSli == null) {
+        reboundSlider = 50;
+    } else {
         reboundSlider = rebSli;
     }
-    if(tptsavail == null){
-        trainingPointsAvailable = 2;   
-        }else{
-            trainingPointsAvailable = tptsavail;
-        }
+    if (tptsavail == null) {
+        trainingPointsAvailable = 2;
+    } else {
+        trainingPointsAvailable = tptsavail;
+    }
 }
 
 export function setFranchiseSliders(gps, ps, swc, confOn, collm, skipNew) {
@@ -154,7 +154,7 @@ export function setFranchiseSliders(gps, ps, swc, confOn, collm, skipNew) {
     conferencesOn = confOn;
     collegeMode = collm;
 
-    if(skipNew === true){
+    if (skipNew === true) {
         console.log('Load Franchise Save')
         return;
     }
@@ -410,11 +410,11 @@ class Team {
         this.defTwoVsThree = Math.round(Math.random() * 6) - 3;
         this.tempo = Math.round(Math.random() * 6) - 3;
         this.rotationSize = Math.round(Math.random() * 2) + 9;
-        
+
         //usage only 
-        this.frontCourtVsBackCourt = Math.round(Math.random() * 6) -3;
+        this.frontCourtVsBackCourt = Math.round(Math.random() * 6) - 3;
         //+- rebounding and +- off/def (not including 3pt)
-        this.reboundVsRunInTransition = Math.round(Math.random() * 6) -3;
+        this.reboundVsRunInTransition = Math.round(Math.random() * 6) - 3;
 
 
     }
@@ -869,31 +869,31 @@ class Team {
 
             let tot = 0;
             for (let i = 0; i < this.firstTeam.length; i++) {
-            tot += (scaleBetween(this.firstTeam[i].off, 0, 400, 40, 99) + (scaleBetween(this.firstTeam[i].threePoint, 0, 400, 40, 99) / 4));
-            if(i<2){
-                //backcourt
-                tot += this.frontCourtVsBackCourt * 35;
-            }else{
-                //frontcourt
-                tot -= (this.frontCourtVsBackCourt * 35);
+                tot += (scaleBetween(this.firstTeam[i].off, 0, 400, 40, 99) + (scaleBetween(this.firstTeam[i].threePoint, 0, 400, 40, 99) / 4));
+                if (i < 2) {
+                    //backcourt
+                    tot += this.frontCourtVsBackCourt * 35;
+                } else {
+                    //frontcourt
+                    tot -= (this.frontCourtVsBackCourt * 35);
+                }
+
+
             }
 
+            for (let i = 0; i < this.firstTeam.length; i++) {
+                let usage = (scaleBetween(this.firstTeam[i].off, 0, 400, 40, 99) + (scaleBetween(this.firstTeam[i].threePoint, 0, 400, 40, 99) / 4));
+                if (i < 2) {
+                    //backcourt
+                    tot += this.frontCourtVsBackCourt * 35;
+                } else {
+                    //frontcourt
+                    tot -= (this.frontCourtVsBackCourt * 35);
+                }
 
-        }
+                this.firstTeam[i].usage = (usage / tot) * 100;
 
-        for (let i = 0; i < this.firstTeam.length; i++) {
-            let usage = (scaleBetween(this.firstTeam[i].off, 0, 400, 40, 99) + (scaleBetween(this.firstTeam[i].threePoint, 0, 400, 40, 99) / 4));
-            if(i<2){
-                //backcourt
-                tot += this.frontCourtVsBackCourt * 35;
-            }else{
-                //frontcourt
-                tot -= (this.frontCourtVsBackCourt * 35);
             }
-
-            this.firstTeam[i].usage = (usage  / tot) * 100;
-        
-        }
 
             // tot = 0;
             // for (let i = 0; i < this.secondTeam.length; i++) {
@@ -1318,7 +1318,7 @@ export function generateFreeAgents(amount, ratingSubtraction) {
 
 function generateDraftClass() {
     draftClass.roster = [];
-    for (let i = 0; i < Math.floor(teams.length*2.5); i++) {
+    for (let i = 0; i < Math.floor(teams.length * 2.5); i++) {
         let name = draftData[Math.floor(Math.random() * draftData.length)].firstname + " " + draftData[Math.floor(Math.random() * draftData.length)].lastname;
         let faceSrc = draftData[0].faceSrc;
         let number = draftData[Math.floor(Math.random() * draftData.length)].number;
@@ -1477,10 +1477,10 @@ export class Game {
         let tot = 0;
         for (let i = 0; i < team.lineup.length; i++) {
             tot += (scaleBetween(team.lineup[i].off, 0, 400, 40, 99) + (scaleBetween(team.lineup[i].threePoint, 0, 400, 40, 99) / 4));
-            if(i<2){
+            if (i < 2) {
                 //backcourt
                 tot += team.frontCourtVsBackCourt * 35;
-            }else{
+            } else {
                 //frontcourt
                 tot -= (team.frontCourtVsBackCourt * 35);
             }
@@ -1490,17 +1490,17 @@ export class Game {
 
         for (let i = 0; i < team.lineup.length; i++) {
             let usage = (scaleBetween(team.lineup[i].off, 0, 400, 40, 99) + (scaleBetween(team.lineup[i].threePoint, 0, 400, 40, 99) / 4));
-            if(i<2){
+            if (i < 2) {
                 //backcourt
                 usage += team.frontCourtVsBackCourt * 35;
-            }else{
+            } else {
                 //frontcourt
                 usage -= (team.frontCourtVsBackCourt * 35);
             }
 
 
-            team.lineup[i].usage = (usage  / tot) * 100;
-        
+            team.lineup[i].usage = (usage / tot) * 100;
+
         }
 
         let lineupUsageTot = 0;
@@ -1510,7 +1510,7 @@ export class Game {
         if (lineupUsageTot < 99) {
             console.log(lineupUsageTot);
             console.log(team.name);
-            for(let i=0; i<team.lineup.length; i++){
+            for (let i = 0; i < team.lineup.length; i++) {
                 console.log(team.lineup[i].name);
             }
         }
@@ -1567,10 +1567,10 @@ export class Game {
                 team.lineup[i] = team.bench.shift();
                 team.bench.push(ply);
 
-                for(let i=0; i< team.lineup.length; i++){
+                for (let i = 0; i < team.lineup.length; i++) {
                     let obj = team.lineup[i];
 
-                    if(i != team.lineup.indexOf(obj)){
+                    if (i != team.lineup.indexOf(obj)) {
                         console.log('duplicate lineup error');
                         console.log(team.name);
                         team.lineup = team.firstTeam;
@@ -1615,13 +1615,13 @@ export class Game {
         for (let i = 0; i < def.lineup.length; i++) {
             currentNumber += def.lineup[i].reboundUsage;
             if (selection <= currentNumber) {
-               rebounder = def.lineup[i];
-               offRebounder = off.lineup[i];
+                rebounder = def.lineup[i];
+                offRebounder = off.lineup[i];
                 break;
             }
         }
 
-        let reboundFormula = scaleBetween(((offRebounder.reb - (off.reboundVsRunInTransition * 3) )- (rebounder.reb - (def.reboundVsRunInTransition * 3))), 0, reboundSlider, -59, 59);
+        let reboundFormula = scaleBetween(((offRebounder.reb - (off.reboundVsRunInTransition * 3)) - (rebounder.reb - (def.reboundVsRunInTransition * 3))), 0, reboundSlider, -59, 59);
 
         if ((Math.random() * 100 <= reboundFormula)) {
             //offensive rebound
@@ -1842,7 +1842,7 @@ export class Game {
                         homeScore: this.homescore,
                         awayScore: this.awayscore
                     })
-                    offensiveRebound = this.rebound(off,def);
+                    offensiveRebound = this.rebound(off, def);
                 }
             } else {
                 //SHOOT TWO
@@ -1889,7 +1889,7 @@ export class Game {
                         homeScore: this.homescore,
                         awayScore: this.awayscore
                     })
-                    offensiveRebound = this.rebound(off,def);
+                    offensiveRebound = this.rebound(off, def);
                 }
 
             }
@@ -1912,8 +1912,8 @@ export class Game {
         shotPercentage += (off.offVsDefFocus + def.offVsDefFocus);
 
         //fast break
-        if(Math.random()*100 <= 20){
-            shotPercentage += ((off.reboundVsRunInTransition*2) - (def.reboundVsRunInTransition*2));
+        if (Math.random() * 100 <= 20) {
+            shotPercentage += ((off.reboundVsRunInTransition * 2) - (def.reboundVsRunInTransition * 2));
         }
 
 
@@ -1965,7 +1965,7 @@ export class Game {
                 homeScore: this.homescore,
                 awayScore: this.awayscore
             })
-           offensiveRebound = this.rebound(off,def);
+            offensiveRebound = this.rebound(off, def);
             // possesion = def;
         }
         //COACHING TEMPO
@@ -1999,7 +1999,7 @@ export class Game {
         }
 
         //offensive rebound
-        if(offensiveRebound){
+        if (offensiveRebound) {
             // console.log('offensive rebound');
             this.possesion(off);
         }
@@ -2248,9 +2248,13 @@ export class Season {
             shuffle(teams);
             for (let j = 0; j < teams.length; j++) {
                 if (teams[j].schedule[i] == null) {
-
-                    teams[j].schedule[i] = teams[(j + 1)]
-                    teams[(j + 1)].schedule[i] = teams[(j)];
+                    //allows bye weeks for uneven teams
+                    try {
+                        teams[j].schedule[i] = teams[(j + 1)]
+                        teams[(j + 1)].schedule[i] = teams[(j)];
+                    } catch{
+                        teams[j].schedule[i] = teams[j];
+                    }
 
                 }
             }
@@ -2283,34 +2287,50 @@ export class Season {
         for (let i = 0; i < teams.length; i++) {
             home = teams[i];
             away = home.schedule[this.day];
-
-            if (home.played[this.day] == null) {
-                let game = new Game();
-                game.playGame();
-                home.played[this.day] = new Results(game.homescore, game.awayscore);
-                away.played[this.day] = new Results(game.awayscore, game.homescore);
-                if (game.homescore > game.awayscore) {
-                    home.wins++;
-                    away.losses++;
-                } else {
-                    home.losses++;
-                    away.wins++;
+            if (home === away) {
+                //bye week
+                home.played[this.day] = new Results(1, 0);
+                home.wins++;
+                for (let i = 0; i < home.roster.length; i++) {
+                    home.roster[i].statsHistory.push({
+                        points: 0,
+                        twoPointersAtt: 0,
+                        twoPointersMade: 0,
+                        rebounds: 0,
+                        threePointersAtt: 0,
+                        threePointersMade: 0
+                    });
                 }
 
+            } else {
 
-                //WHY WAS THIS IN HERE????? UHH WHAT
+                if (home.played[this.day] == null) {
+                    let game = new Game();
+                    game.playGame();
+                    home.played[this.day] = new Results(game.homescore, game.awayscore);
+                    away.played[this.day] = new Results(game.awayscore, game.homescore);
+                    if (game.homescore > game.awayscore) {
+                        home.wins++;
+                        away.losses++;
+                    } else {
+                        home.losses++;
+                        away.wins++;
+                    }
 
-                // availableFreeAgents.roster[i].statsHistory.push({
-                //     points: 0,
-                //     twoPointersAtt: 0,
-                //     twoPointersMade: 0,
-                //     rebounds: 0,
-                //     threePointersAtt: 0,
-                //     threePointersMade: 0
-                // });
+
+                    //WHY WAS THIS IN HERE????? UHH WHAT
+
+                    // availableFreeAgents.roster[i].statsHistory.push({
+                    //     points: 0,
+                    //     twoPointersAtt: 0,
+                    //     twoPointersMade: 0,
+                    //     rebounds: 0,
+                    //     threePointersAtt: 0,
+                    //     threePointersMade: 0
+                    // });
 
 
-
+                }
             }
         }
 
@@ -2338,22 +2358,39 @@ export class Season {
             for (let i = 0; i < teams.length; i++) {
                 home = teams[i];
                 away = home.schedule[this.day];
-
-                if (home.played[this.day] == null) {
-                    let game = new Game();
-                    game.playGame();
-                    home.played[this.day] = new Results(game.homescore, game.awayscore);
-                    away.played[this.day] = new Results(game.awayscore, game.homescore);
-                    if (game.homescore > game.awayscore) {
-                        home.wins++;
-                        away.losses++;
-                    } else {
-                        home.losses++;
-                        away.wins++;
+                if (home === away) {
+                    //bye week
+                    home.played[this.day] = new Results(1, 0);
+                    home.wins++;
+                    for (let i = 0; i < home.roster.length; i++) {
+                        home.roster[i].statsHistory.push({
+                            points: 0,
+                            twoPointersAtt: 0,
+                            twoPointersMade: 0,
+                            rebounds: 0,
+                            threePointersAtt: 0,
+                            threePointersMade: 0
+                        });
                     }
 
+                }
+                else {
+                    if (home.played[this.day] == null) {
+                        let game = new Game();
+                        game.playGame();
+                        home.played[this.day] = new Results(game.homescore, game.awayscore);
+                        away.played[this.day] = new Results(game.awayscore, game.homescore);
+                        if (game.homescore > game.awayscore) {
+                            home.wins++;
+                            away.losses++;
+                        } else {
+                            home.losses++;
+                            away.wins++;
+                        }
 
 
+
+                    }
                 }
             }
             this.day++;
@@ -2548,7 +2585,7 @@ export class Franchise {
             setSalaryExpectations(availableFreeAgents);
         }
 
-        if(this.stage === 'freeagencyend'){
+        if (this.stage === 'freeagencyend') {
             this.signing();
             //roster size limit
             this.releasePlayers();
@@ -2570,10 +2607,10 @@ export class Franchise {
 
     }
 
-    trainingPoints(){
-        for(let i=0; i<teams.length; i++){
+    trainingPoints() {
+        for (let i = 0; i < teams.length; i++) {
             teams[i].trainingPoints = trainingPointsAvailable;
-            for(let j=0; j<teams[i].roster.length; j++){
+            for (let j = 0; j < teams[i].roster.length; j++) {
                 teams[i].roster[j].trained = false;
             }
         }
@@ -2671,18 +2708,18 @@ export class Franchise {
 
             //fix for free agents having no history
             let history = "";
-                //SAVE PREVIOUS SEASONS STATS
-                if (ply.seasonThreePointersAtt > 0) {
-                    history = "PTS: " + (Math.round((ply.seasonPoints / ply.statsHistory.length) * 10) / 10) + " FG% " + Math.floor((((ply.seasonTwoPointersMade / ply.seasonTwoPointersAtt) + (ply.seasonThreePointersMade / ply.seasonThreePointersAtt)) / 2) * 100)
-                        + " 3P% " + Math.floor((ply.seasonThreePointersMade / ply.seasonThreePointersAtt) * 100) + " FT% " + Math.floor((ply.seasonFreeThrowsMade / ply.seasonFreeThrowsAttempted) * 100) + ' REB: ' + (Math.round((ply.seasonRebounds / ply.statsHistory.length) * 10) / 10)
-                } else {
-                    history = "PTS: " + (Math.round((ply.seasonPoints / ply.statsHistory.length) * 10) / 10) + " FG% " + Math.floor((ply.seasonTwoPointersMade / ply.seasonTwoPointersAtt) * 100)
-                        + " 3P% " + Math.floor((ply.seasonThreePointersMade / ply.seasonThreePointersAtt) * 100) + " FT% " + Math.floor((ply.seasonFreeThrowsMade / ply.seasonFreeThrowsAttempted) * 100) + ' REB: ' + (Math.round((ply.seasonRebounds / ply.statsHistory.length) * 10) / 10)
-                }
-                ply.previousSeasonsStats.push({
-                    team: availableFreeAgents.logoSrc,
-                    data: history
-                })
+            //SAVE PREVIOUS SEASONS STATS
+            if (ply.seasonThreePointersAtt > 0) {
+                history = "PTS: " + (Math.round((ply.seasonPoints / ply.statsHistory.length) * 10) / 10) + " FG% " + Math.floor((((ply.seasonTwoPointersMade / ply.seasonTwoPointersAtt) + (ply.seasonThreePointersMade / ply.seasonThreePointersAtt)) / 2) * 100)
+                    + " 3P% " + Math.floor((ply.seasonThreePointersMade / ply.seasonThreePointersAtt) * 100) + " FT% " + Math.floor((ply.seasonFreeThrowsMade / ply.seasonFreeThrowsAttempted) * 100) + ' REB: ' + (Math.round((ply.seasonRebounds / ply.statsHistory.length) * 10) / 10)
+            } else {
+                history = "PTS: " + (Math.round((ply.seasonPoints / ply.statsHistory.length) * 10) / 10) + " FG% " + Math.floor((ply.seasonTwoPointersMade / ply.seasonTwoPointersAtt) * 100)
+                    + " 3P% " + Math.floor((ply.seasonThreePointersMade / ply.seasonThreePointersAtt) * 100) + " FT% " + Math.floor((ply.seasonFreeThrowsMade / ply.seasonFreeThrowsAttempted) * 100) + ' REB: ' + (Math.round((ply.seasonRebounds / ply.statsHistory.length) * 10) / 10)
+            }
+            ply.previousSeasonsStats.push({
+                team: availableFreeAgents.logoSrc,
+                data: history
+            })
 
             ply.off += Math.floor(Math.random() * 6) - 6;
             ply.def += Math.floor(Math.random() * 6) - 6;
@@ -2722,7 +2759,8 @@ export class Franchise {
 
 
             ply.off += randomFactor
-            ply.off += randomFactor
+            //fixed bug found in hockey
+            ply.def += randomFactor
             ply.threePoint += randomFactor
             ply.reb += randomFactor
 
@@ -2787,123 +2825,123 @@ export class Franchise {
         })
 
         for (let i = 0; i < teams.length; i++) {
-            if(teams[i] === selectedTeam && !autoSign){
+            if (teams[i] === selectedTeam && !autoSign) {
                 console.log('autosign off')
-            }else{
+            } else {
 
 
 
-            for (let j = 0; j < availableFreeAgents.roster.length; j++) {
+                for (let j = 0; j < availableFreeAgents.roster.length; j++) {
 
-                if (teams[i].pg < POS_PG_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_PG) {
+                    if (teams[i].pg < POS_PG_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_PG) {
 
-                    if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
+                        if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
 
-                        availableFreeAgents.roster[j].teamName = teams[i].name;
-                        availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
-                        availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                            availableFreeAgents.roster[j].teamName = teams[i].name;
+                            availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
+                            availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
 
-                        teams[i].roster.push(availableFreeAgents.roster[j]);
-                        teams[i].salary += availableFreeAgents.roster[j].salary;
-                        teams[i].pg++;
-                        availableFreeAgents.roster.splice(j, 1);
+                            teams[i].roster.push(availableFreeAgents.roster[j]);
+                            teams[i].salary += availableFreeAgents.roster[j].salary;
+                            teams[i].pg++;
+                            availableFreeAgents.roster.splice(j, 1);
+                        }
                     }
+
+                    if (teams[i].sg < POS_SG_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_SG) {
+
+                        if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
+
+                            availableFreeAgents.roster[j].teamName = teams[i].name;
+                            availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
+                            availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
+
+                            teams[i].roster.push(availableFreeAgents.roster[j]);
+                            teams[i].salary += availableFreeAgents.roster[j].salary;
+                            teams[i].sg++;
+                            availableFreeAgents.roster.splice(j, 1);
+                        }
+                    }
+
+                    if (teams[i].sf < POS_SF_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_SF) {
+
+                        if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
+
+                            availableFreeAgents.roster[j].teamName = teams[i].name;
+                            availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
+                            availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
+
+                            teams[i].roster.push(availableFreeAgents.roster[j]);
+                            teams[i].salary += availableFreeAgents.roster[j].salary;
+                            teams[i].sf++;
+                            availableFreeAgents.roster.splice(j, 1);
+                        }
+                    }
+
+                    if (teams[i].pf < POS_PF_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_PF) {
+
+
+                        if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
+
+                            availableFreeAgents.roster[j].teamName = teams[i].name;
+                            availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
+                            availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
+
+                            teams[i].roster.push(availableFreeAgents.roster[j]);
+                            teams[i].salary += availableFreeAgents.roster[j].salary;
+                            teams[i].pf++;
+                            availableFreeAgents.roster.splice(j, 1);
+                        }
+                    }
+
+                    if (teams[i].c < POS_C_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_C) {
+
+                        if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
+
+                            availableFreeAgents.roster[j].teamName = teams[i].name;
+                            availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
+                            availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                            teams[i].roster.push(availableFreeAgents.roster[j]);
+                            teams[i].salary += availableFreeAgents.roster[j].salary;
+
+                            teams[i].c++;
+                            availableFreeAgents.roster.splice(j, 1);
+                        }
+                    }
+
+
                 }
 
-                if (teams[i].sg < POS_SG_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_SG) {
-
-                    if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
-
-                        availableFreeAgents.roster[j].teamName = teams[i].name;
-                        availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
-                        availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
-
-                        teams[i].roster.push(availableFreeAgents.roster[j]);
-                        teams[i].salary += availableFreeAgents.roster[j].salary;
-                        teams[i].sg++;
-                        availableFreeAgents.roster.splice(j, 1);
+                while (teams[i].roster.length < 14) {
+                    if (teams[i] != selectedTeam) {
+                        let index = Math.floor(Math.random() * 20);
+                        if (index >= availableFreeAgents.roster.length) {
+                            index = 0;
+                        }
+                        let signing = availableFreeAgents.roster[index];
+                        signing.salary = VETERANSMINIMUM;
+                        if (canSign(teams[i], signing.salary)) {
+                            signing.teamName = teams[i].name;
+                            signing.teamLogoSrc = teams[i].logoSrc;
+                            signing.years = 1
+                            teams[i].roster.push(signing);
+                            teams[i].salary += signing.salary;
+                            availableFreeAgents.roster.splice(index, 1);
+                        }
+                    } else {
+                        let index = Math.floor(Math.random() * availableFreeAgents.roster.length);
+                        let signing = availableFreeAgents.roster[index];
+                        if (canSign(teams[i], signing.salary)) {
+                            signing.teamName = teams[i].name;
+                            signing.teamLogoSrc = teams[i].logoSrc;
+                            signing.years = 1
+                            teams[i].roster.push(signing);
+                            teams[i].salary += signing.salary;
+                            availableFreeAgents.roster.splice(index, 1);
+                        }
                     }
                 }
-
-                if (teams[i].sf < POS_SF_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_SF) {
-
-                    if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
-
-                        availableFreeAgents.roster[j].teamName = teams[i].name;
-                        availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
-                        availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
-
-                        teams[i].roster.push(availableFreeAgents.roster[j]);
-                        teams[i].salary += availableFreeAgents.roster[j].salary;
-                        teams[i].sf++;
-                        availableFreeAgents.roster.splice(j, 1);
-                    }
-                }
-
-                if (teams[i].pf < POS_PF_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_PF) {
-
-
-                    if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
-
-                        availableFreeAgents.roster[j].teamName = teams[i].name;
-                        availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
-                        availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
-
-                        teams[i].roster.push(availableFreeAgents.roster[j]);
-                        teams[i].salary += availableFreeAgents.roster[j].salary;
-                        teams[i].pf++;
-                        availableFreeAgents.roster.splice(j, 1);
-                    }
-                }
-
-                if (teams[i].c < POS_C_REQUIREMENTS && availableFreeAgents.roster[j].position === POS_C) {
-
-                    if (canSign(teams[i], availableFreeAgents.roster[j].salary)) {
-
-                        availableFreeAgents.roster[j].teamName = teams[i].name;
-                        availableFreeAgents.roster[j].teamLogoSrc = teams[i].logoSrc;
-                        availableFreeAgents.roster[j].years = Math.floor(Math.random() * 4) + 1;
-                        teams[i].roster.push(availableFreeAgents.roster[j]);
-                        teams[i].salary += availableFreeAgents.roster[j].salary;
-
-                        teams[i].c++;
-                        availableFreeAgents.roster.splice(j, 1);
-                    }
-                }
-
-
             }
-
-            while (teams[i].roster.length < 14) {
-                if (teams[i] != selectedTeam) {
-                    let index = Math.floor(Math.random() * 20);
-                    if (index >= availableFreeAgents.roster.length) {
-                        index = 0;
-                    }
-                    let signing = availableFreeAgents.roster[index];
-                    signing.salary = VETERANSMINIMUM;
-                    if (canSign(teams[i], signing.salary)) {
-                        signing.teamName = teams[i].name;
-                        signing.teamLogoSrc = teams[i].logoSrc;
-                        signing.years = 1
-                        teams[i].roster.push(signing);
-                        teams[i].salary += signing.salary;
-                        availableFreeAgents.roster.splice(index, 1);
-                    }
-                } else {
-                    let index = Math.floor(Math.random() * availableFreeAgents.roster.length);
-                    let signing = availableFreeAgents.roster[index];
-                    if (canSign(teams[i], signing.salary)) {
-                        signing.teamName = teams[i].name;
-                        signing.teamLogoSrc = teams[i].logoSrc;
-                        signing.years = 1
-                        teams[i].roster.push(signing);
-                        teams[i].salary += signing.salary;
-                        availableFreeAgents.roster.splice(index, 1);
-                    }
-                }
-            }
-        }
         }
 
     }
@@ -2949,37 +2987,82 @@ export class Franchise {
         let released = [];
         for (let i = 0; i < teams.length; i++) {
 
-            for (let j = 0; j < teams[i].expiring.roster.length; j++) {
+            if (teams[i] === selectedTeam) {
+                //user
+                for (let j = 0; j < teams[i].expiring.roster.length; j++) {
 
-                //CPU RESIGN LOGIC
-                if (teams[i].expiring.roster[j].rating > 84) {
-                    if ((Math.random() * 10) < 8) {
-                        teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
-                        teams[i].roster.push(teams[i].expiring.roster[j]);
+                    if ((teams[i].salary + teams[i].expiring.roster[j].salary) <= CAPROOM || teams[i].expiring.roster[j].salary <= VETERANSMINIMUM) {
 
-                    } else {
+                        //USER RESIGN LOGIC
+                        if (teams[i].expiring.roster[j].rating > 84) {
+                            if ((Math.random() * 10) < 8) {
+                                teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                                teams[i].roster.push(teams[i].expiring.roster[j]);
+                                teams[i].salary += teams[i].expiring.roster[j];
+
+                            } else {
+                                released.push(teams[i].expiring.roster[j]);
+                            }
+                        }
+                        else if (teams[i].expiring.roster[j].rating > 76) {
+                            if ((Math.random() * 10) < 6) {
+                                teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                                teams[i].roster.push(teams[i].expiring.roster[j]);
+                                teams[i].salary += teams[i].expiring.roster[j];
+                            } else {
+                                released.push(teams[i].expiring.roster[j]);
+                            }
+                        }
+                        else if (teams[i].expiring.roster[j].rating > 69) {
+                            if ((Math.random() * 10) < 4) {
+                                teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                                teams[i].roster.push(teams[i].expiring.roster[j]);
+                                teams[i].salary += teams[i].expiring.roster[j];
+                            } else {
+                                released.push(teams[i].expiring.roster[j]);
+                            }
+                        } else {
+                            released.push(teams[i].expiring.roster[j]);
+                        }
+                    }else{
                         released.push(teams[i].expiring.roster[j]);
                     }
                 }
-                else if (teams[i].expiring.roster[j].rating > 76) {
-                    if ((Math.random() * 10) < 6) {
-                        teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
-                        teams[i].roster.push(teams[i].expiring.roster[j]);
-                    } else {
-                        released.push(teams[i].expiring.roster[j]);
-                    }
-                }
-                else if (teams[i].expiring.roster[j].rating > 69) {
-                    if ((Math.random() * 10) < 4) {
-                        teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
-                        teams[i].roster.push(teams[i].expiring.roster[j]);
-                    } else {
-                        released.push(teams[i].expiring.roster[j]);
-                    }
-                } else {
-                    released.push(teams[i].expiring.roster[j]);
-                }
 
+            } else {
+
+                for (let j = 0; j < teams[i].expiring.roster.length; j++) {
+
+                    //CPU RESIGN LOGIC
+                    if (teams[i].expiring.roster[j].rating > 84) {
+                        if ((Math.random() * 10) < 8) {
+                            teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                            teams[i].roster.push(teams[i].expiring.roster[j]);
+
+                        } else {
+                            released.push(teams[i].expiring.roster[j]);
+                        }
+                    }
+                    else if (teams[i].expiring.roster[j].rating > 76) {
+                        if ((Math.random() * 10) < 6) {
+                            teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                            teams[i].roster.push(teams[i].expiring.roster[j]);
+                        } else {
+                            released.push(teams[i].expiring.roster[j]);
+                        }
+                    }
+                    else if (teams[i].expiring.roster[j].rating > 69) {
+                        if ((Math.random() * 10) < 4) {
+                            teams[i].expiring.roster[j].years = Math.floor(Math.random() * 4) + 1;
+                            teams[i].roster.push(teams[i].expiring.roster[j]);
+                        } else {
+                            released.push(teams[i].expiring.roster[j]);
+                        }
+                    } else {
+                        released.push(teams[i].expiring.roster[j]);
+                    }
+
+                }
             }
 
         }
@@ -3065,7 +3148,7 @@ export class Franchise {
         }
 
         //fix for free agents having old team logos
-        for(let i=0; i<availableFreeAgents.roster.length; i++){
+        for (let i = 0; i < availableFreeAgents.roster.length; i++) {
             availableFreeAgents.roster[i].teamLogoSrc = availableFreeAgents.logoSrc;
             availableFreeAgents.roster[i].teamName = availableFreeAgents.name;
         }
@@ -3651,8 +3734,12 @@ export function calculateCapRoom(team) {
     return CAPROOM - team.salary;
 }
 
-export function displaySalary(salary) {
+export function displaySalary(salary, player) {
     let sal = Math.round(salary);
+    if(salary<=VETERANSMINIMUM && player=== true){
+        return 'Minimum';
+    }
+    
     return sal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -4034,7 +4121,7 @@ export const loadFromFileSystem = async (fileName) => {
         }).catch((err) => {
             console.log(err);
         });
-    }else{
+    } else {
         const load = FileSystem.readAsStringAsync(FileSystem.documentDirectory + "saves/" + file).then((value) => {
             loadData(value);
         }).catch((err) => {
@@ -4157,9 +4244,7 @@ export function createTeam(name, rating, logoSrc, conferenceId) {
     sortedRoster(team, 'rating');
     setSalaryExpectations(team);
     setTeamSalaries();
-    if (teams.length % 2 === 0) {
-        franchise = new Franchise();
-    }
+    franchise = new Franchise();
 
 
 
@@ -4342,7 +4427,7 @@ export async function getDataFromLink(link, type, sliderType) {
         let responseJson = await response.json();
         if (type === 'roster') {
             loadRosterJson(responseJson);
-            if(sliderType === 'college'){
+            if (sliderType === 'college') {
                 collegeSliderPreset();
                 resetFranchise();
             }
@@ -4471,9 +4556,7 @@ export function deleteTeam(team) {
     }
     teams.splice(teams.indexOf(team), 1);
 
-    if (teams.length % 2 === 0) {
-        franchise = new Franchise();
-    }
+    franchise = new Franchise();
 
 }
 
@@ -4773,209 +4856,210 @@ export function manageSaveName(value) {
 
 export function returnStatsView(player) {
     let str;
-      if(player.seasonThreePointersAtt>0){
-        return "MIN: " + (Math.round(player.minutesPlayed/player.statsHistory.length*10)/10) + "\nPTS: " + (Math.round((player.seasonPoints / player.statsHistory.length) * 10) / 10) + "\nFG%: " + Math.floor((((player.seasonTwoPointersMade / player.seasonTwoPointersAtt) + (player.seasonThreePointersMade/player.seasonThreePointersAtt))/2) * 100)
-         + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT%: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10) 
-      }else{
-        return "MIN: " + (Math.round(player.minutesPlayed/player.statsHistory.length*10)/10) + "\nPTS: " + (Math.round((player.seasonPoints / player.statsHistory.length) * 10) / 10) + "\nFG%: " + Math.floor((player.seasonTwoPointersMade / player.seasonTwoPointersAtt) * 100)
-         + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT%: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10) 
-      }
-
-
+    if (player.seasonThreePointersAtt > 0) {
+        return "MIN: " + (Math.round(player.minutesPlayed / player.statsHistory.length * 10) / 10) + "\nPTS: " + (Math.round((player.seasonPoints / player.statsHistory.length) * 10) / 10) + "\nFG%: " + Math.floor((((player.seasonTwoPointersMade / player.seasonTwoPointersAtt) + (player.seasonThreePointersMade / player.seasonThreePointersAtt)) / 2) * 100)
+            + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT%: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10)
+    } else {
+        return "MIN: " + (Math.round(player.minutesPlayed / player.statsHistory.length * 10) / 10) + "\nPTS: " + (Math.round((player.seasonPoints / player.statsHistory.length) * 10) / 10) + "\nFG%: " + Math.floor((player.seasonTwoPointersMade / player.seasonTwoPointersAtt) * 100)
+            + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT%: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10)
     }
 
 
-    export function saveFranchise(slot) {
-        let data = {
-            teams: [],
-            freeAgents: '',
-            draftClass: '',
-            sliders: '',
-            day: franchise.season.day,
-            pastChampions : franchise.pastChampions
-        }
-    
-        for (let i = 0; i < teams.length; i++) {
-            scheduleString = [];
-            for(let j=0; j<teams[i].schedule.length; j++){
-                scheduleString.push(teams[i].schedule[j].name);
-            }
-
-            let teamDat = {
-                name: teams[i].name,
-                id: teams[i].id,
-                conferenceId: teams[i].conferenceId,
-                logoSrc: teams[i].logoSrc,
-                roster: teams[i].roster,
-                history: teams[i].history,
-                offVsDefFocus : teams[i].offVsDefFocus,
-                offTwoVsThree : teams[i].offTwoVsThree,
-                defTwoVsThree : teams[i].defTwoVsThree,
-                tempo : teams[i].tempo,
-                rotationSize : teams[i].rotationSize,
-                frontCourtVsBackCourt : teams[i].frontCourtVsBackCourt,
-                reboundVsRunInTransition : teams[i].reboundVsRunInTransition,
-                scheduleString: scheduleString,
-                wins: teams[i].wins,
-                losses: teams[i].losses,
-                played: teams[i].played,
-                seasonPoints : teams[i].seasonPoints,
-                seasonPointsAllowed: teams[i].seasonPointsAllowed,
-                seasonRebounds: teams[i].seasonRebounds,
-                seasonOffRebounds: teams[i].seasonOffRebounds,
-                seasonFieldGoalsAttempted : teams[i].seasonFieldGoalsAttempted,
-                seasonFieldGoalsMade : teams[i].seasonFieldGoalsMade,
-                seasonThreesAttempted: teams[i].seasonThreesAttempted ,
-                seasonThreesMade: teams[i].seasonThreesMade,
-                seasonFreeThrowsMade: teams[i].seasonFreeThrowsMade,
-                seasonFreeThrowsAttempted: teams[i].seasonFreeThrowsAttempted,
-
-            };
-            
+}
 
 
-            data.teams.push(teamDat);
-        }
-
-    
-        data.freeAgents = availableFreeAgents;
-        data.sliders = {
-            twoPointPercentageLow: twoPointPercentageLow,
-            twoPointPercentageHigh: twoPointPercentageHigh,
-            threePointPercentageLow: threePointPercentageLow,
-            threePointPercentageHigh: threePointPercentageHigh,
-            defenseLow: defenseLow,
-            defenseHigh: defenseHigh,
-            secondsOffClock: secondsOffClock,
-            gamesPerSeason: gamesPerSeason,
-            playoffSeeds: playoffSeeds,
-            seriesWinCount: seriesWinCount,
-            conferencesOn: conferencesOn,
-            collegeMode: collegeMode,
-            difficulty: difficulty,
-            tradeThreshold: tradeThreshold
-        }
-
-        let dc = [];
-        for (let i = 0; i < draftClass.roster.length; i++) {
-            dc.push({
-                name: draftClass.roster[i].name,
-                position: draftClass.roster[i].position,
-                faceSrc: draftClass.roster[i].faceSrc,
-                number: draftClass.roster[i].number,
-                height: draftClass.roster[i].height,
-                off: draftClass.roster[i].off,
-                def: draftClass.roster[i].def,
-                threePoint: draftClass.roster[i].threePoint,
-                reb: draftClass.roster[i].reb,
-                ft: draftClass.roster[i].ft,
-                years: draftClass.roster[i].years,
-                salary: draftClass.roster[i].salary,
-                age: draftClass.roster[i].age
-            });
-        }
-
-        data.draftClass = dc;
-    
-        
-    
-        let write = JSON.stringify(data);
-        // checkForFile(write, slot);
-    
-    
-        fileName = slot;
-        if (!slot.includes('.franchise')) {
-            fileName += '.franchise';
-        }
-        saveToFileSystem(write, fileName, 'franchise');
+export function saveFranchise(slot) {
+    let data = {
+        teams: [],
+        freeAgents: '',
+        draftClass: '',
+        sliders: '',
+        day: franchise.season.day,
+        pastChampions: franchise.pastChampions
     }
 
-    export const loadFranchise = (data) => {
-        try {
-            let loadedData = JSON.parse(data);
-    
-    
-            teams = [];
-            for (let i = 0; i < conferences.length; i++) {
-                conferences[i].teams = [];
+    for (let i = 0; i < teams.length; i++) {
+        scheduleString = [];
+        for (let j = 0; j < teams[i].schedule.length; j++) {
+            scheduleString.push(teams[i].schedule[j].name);
+        }
+
+        let teamDat = {
+            name: teams[i].name,
+            id: teams[i].id,
+            conferenceId: teams[i].conferenceId,
+            logoSrc: teams[i].logoSrc,
+            roster: teams[i].roster,
+            history: teams[i].history,
+            offVsDefFocus: teams[i].offVsDefFocus,
+            offTwoVsThree: teams[i].offTwoVsThree,
+            defTwoVsThree: teams[i].defTwoVsThree,
+            tempo: teams[i].tempo,
+            rotationSize: teams[i].rotationSize,
+            frontCourtVsBackCourt: teams[i].frontCourtVsBackCourt,
+            reboundVsRunInTransition: teams[i].reboundVsRunInTransition,
+            scheduleString: scheduleString,
+            wins: teams[i].wins,
+            losses: teams[i].losses,
+            played: teams[i].played,
+            seasonPoints: teams[i].seasonPoints,
+            seasonPointsAllowed: teams[i].seasonPointsAllowed,
+            seasonRebounds: teams[i].seasonRebounds,
+            seasonOffRebounds: teams[i].seasonOffRebounds,
+            seasonFieldGoalsAttempted: teams[i].seasonFieldGoalsAttempted,
+            seasonFieldGoalsMade: teams[i].seasonFieldGoalsMade,
+            seasonThreesAttempted: teams[i].seasonThreesAttempted,
+            seasonThreesMade: teams[i].seasonThreesMade,
+            seasonFreeThrowsMade: teams[i].seasonFreeThrowsMade,
+            seasonFreeThrowsAttempted: teams[i].seasonFreeThrowsAttempted,
+
+        };
+
+
+
+        data.teams.push(teamDat);
+    }
+
+
+    data.freeAgents = availableFreeAgents;
+    data.sliders = {
+        twoPointPercentageLow: twoPointPercentageLow,
+        twoPointPercentageHigh: twoPointPercentageHigh,
+        threePointPercentageLow: threePointPercentageLow,
+        threePointPercentageHigh: threePointPercentageHigh,
+        defenseLow: defenseLow,
+        defenseHigh: defenseHigh,
+        secondsOffClock: secondsOffClock,
+        gamesPerSeason: gamesPerSeason,
+        playoffSeeds: playoffSeeds,
+        seriesWinCount: seriesWinCount,
+        conferencesOn: conferencesOn,
+        collegeMode: collegeMode,
+        difficulty: difficulty,
+        tradeThreshold: tradeThreshold
+    }
+
+    let dc = [];
+    for (let i = 0; i < draftClass.roster.length; i++) {
+        dc.push({
+            name: draftClass.roster[i].name,
+            position: draftClass.roster[i].position,
+            faceSrc: draftClass.roster[i].faceSrc,
+            number: draftClass.roster[i].number,
+            height: draftClass.roster[i].height,
+            off: draftClass.roster[i].off,
+            def: draftClass.roster[i].def,
+            threePoint: draftClass.roster[i].threePoint,
+            reb: draftClass.roster[i].reb,
+            ft: draftClass.roster[i].ft,
+            years: draftClass.roster[i].years,
+            salary: draftClass.roster[i].salary,
+            age: draftClass.roster[i].age
+        });
+    }
+
+    data.draftClass = dc;
+
+
+
+    let write = JSON.stringify(data);
+    // checkForFile(write, slot);
+
+
+    fileName = slot;
+    if (!slot.includes('.franchise')) {
+        fileName += '.franchise';
+    }
+    saveToFileSystem(write, fileName, 'franchise');
+}
+
+export const loadFranchise = (data) => {
+    try {
+        let loadedData = JSON.parse(data);
+
+
+        teams = [];
+        for (let i = 0; i < conferences.length; i++) {
+            conferences[i].teams = [];
+        }
+        for (let i = 0; i < loadedData.teams.length; i++) {
+            teams.push(new Team(loadedData.teams[i]));
+            teams[i].history = loadedData.teams[i].history;
+            teams[i].roster = [];
+            //coach sliders
+            teams[i].offVsDefFocus = loadedData.teams[i].offVsDefFocus;
+            teams[i].offTwoVsThree = loadedData.teams[i].offTwoVsThree;
+            teams[i].defTwoVsThree = loadedData.teams[i].defTwoVsThree;
+            teams[i].tempo = loadedData.teams[i].tempo;
+            teams[i].rotationSize = loadedData.teams[i].rotationSize;
+            teams[i].frontCourtVsBackCourt = loadedData.teams[i].frontCourtVsBackCourt;
+            teams[i].reboundVsRunInTransition = loadedData.teams[i].reboundVsRunInTransition;
+            //stats
+            teams[i].seasonPoints = loadedData.teams[i].seasonPoints;
+            teams[i].seasonPointsAllowed = loadedData.teams[i].seasonPointsAllowed;
+            teams[i].seasonRebounds = loadedData.teams[i].seasonRebounds;
+            teams[i].seasonOffRebounds = loadedData.teams[i].seasonOffRebounds;
+            teams[i].seasonFieldGoalsAttempted = loadedData.teams[i].seasonFieldGoalsAttempted;
+            teams[i].seasonFieldGoalsMade = loadedData.teams[i].seasonFieldGoalsMade;
+            teams[i].seasonThreesAttempted = loadedData.teams[i].seasonThreesAttempted;
+            teams[i].seasonThreesMade = loadedData.teams[i].seasonThreesMade;
+            teams[i].seasonFreeThrowsMade = loadedData.teams[i].seasonFreeThrowsMade;
+            teams[i].seasonFreeThrowsAttempted = loadedData.teams[i].seasonFreeThrowsAttempted;
+
+            for (let j = 0; j < loadedData.teams[i].roster.length; j++) {
+                ply = new Player(loadedData.teams[i].roster[j]);
+                ply.calculateRating();
+                teams[i].roster.push(ply);
+                ply.teamLogoSrc = teams[i].logoSrc;
+                ply.teamName = teams[i].name;
+                ply.previousSeasonsStats = loadedData.teams[i].roster[j].previousSeasonsStats;
+                ply.statsHistory = loadedData.teams[i].roster[j].statsHistory;
+                ply.seasonPoints = loadedData.teams[i].roster[j].seasonPoints;
+                ply.seasonRebounds = loadedData.teams[i].roster[j].seasonRebounds;
+                ply.seasonOffRebounds = loadedData.teams[i].roster[j].seasonOffRebounds;
+                //fixed bug found in hockey
+                ply.seasonTwoPointersAtt = loadedData.teams[i].roster[j].seasonTwoPointersAtt;
+                ply.seasonTwoPointersMade = loadedData.teams[i].roster[j].seasonTwoPointersMade;
+                ply.seasonThreePointersAtt = loadedData.teams[i].roster[j].seasonThreePointersAtt;
+                ply.seasonThreePointersMade = loadedData.teams[i].roster[j].seasonThreePointersMade;
+                ply.seasonFreeThrowsMade = loadedData.teams[i].roster[j].seasonFreeThrowsMade;
+                ply.seasonFreeThrowsAttempted = loadedData.teams[i].roster[j].seasonFreeThrowsAttempted;
+                ply.minutesPlayed = loadedData.teams[i].roster[j].minutesPlayed;
+
             }
-            for (let i = 0; i < loadedData.teams.length; i++) {
-                teams.push(new Team(loadedData.teams[i]));
-                teams[i].history = loadedData.teams[i].history;
-                teams[i].roster = [];
-                //coach sliders
-                teams[i].offVsDefFocus = loadedData.teams[i].offVsDefFocus;
-                teams[i].offTwoVsThree = loadedData.teams[i].offTwoVsThree;
-                teams[i].defTwoVsThree = loadedData.teams[i].defTwoVsThree;
-                teams[i].tempo = loadedData.teams[i].tempo;
-                teams[i].rotationSize = loadedData.teams[i].rotationSize;
-                teams[i].frontCourtVsBackCourt = loadedData.teams[i].frontCourtVsBackCourt;
-                teams[i].reboundVsRunInTransition = loadedData.teams[i].reboundVsRunInTransition;
-                //stats
-                teams[i].seasonPoints = loadedData.teams[i].seasonPoints;
-                teams[i].seasonPointsAllowed = loadedData.teams[i].seasonPointsAllowed;
-                teams[i].seasonRebounds = loadedData.teams[i].seasonRebounds;
-                teams[i].seasonOffRebounds = loadedData.teams[i].seasonOffRebounds;
-                teams[i].seasonFieldGoalsAttempted = loadedData.teams[i].seasonFieldGoalsAttempted;
-                teams[i].seasonFieldGoalsMade = loadedData.teams[i].seasonFieldGoalsMade;
-                teams[i].seasonThreesAttempted = loadedData.teams[i].seasonThreesAttempted;
-                teams[i].seasonThreesMade = loadedData.teams[i].seasonThreesMade;
-                teams[i].seasonFreeThrowsMade = loadedData.teams[i].seasonFreeThrowsMade;
-                teams[i].seasonFreeThrowsAttempted = loadedData.teams[i].seasonFreeThrowsAttempted;
 
-                for (let j = 0; j < loadedData.teams[i].roster.length; j++) {
-                    ply = new Player(loadedData.teams[i].roster[j]);
-                    ply.calculateRating();
-                    teams[i].roster.push(ply);
-                    ply.teamLogoSrc = teams[i].logoSrc;
-                    ply.teamName = teams[i].name;
-                    ply.previousSeasonsStats = loadedData.teams[i].roster[j].previousSeasonsStats;
-                    ply.statsHistory = loadedData.teams[i].roster[j].statsHistory;
-                    ply.seasonPoints = loadedData.teams[i].roster[j].seasonPoints;
-                    ply.seasonRebounds = loadedData.teams[i].roster[j].seasonRebounds;
-        ply.seasonOffRebounds = loadedData.teams[i].roster[j].seasonOffRebounds;
-        ply.seasonTwoPointersAtt = loadedData.teams[i].roster[j].seasonThreePointersAtt;
-        ply.seasonTwoPointersMade = loadedData.teams[i].roster[j].seasonTwoPointersMade;
-        ply.seasonThreePointersAtt = loadedData.teams[i].roster[j].seasonThreePointersAtt;
-        ply.seasonThreePointersMade = loadedData.teams[i].roster[j].seasonThreePointersMade;
-        ply.seasonFreeThrowsMade = loadedData.teams[i].roster[j].seasonFreeThrowsMade;
-        ply.seasonFreeThrowsAttempted = loadedData.teams[i].roster[j].seasonFreeThrowsAttempted;
-        ply.minutesPlayed = loadedData.teams[i].roster[j].minutesPlayed;
 
+
+            for (let k = 0; k < conferences.length; k++) {
+                if (teams[i].conferenceId === conferences[k].id) {
+                    conferences[k].teams.push(teams[i]);
                 }
-    
-    
-    
-                for (let k = 0; k < conferences.length; k++) {
-                    if (teams[i].conferenceId === conferences[k].id) {
-                        conferences[k].teams.push(teams[i]);
-                    }
-                }
-    
-                teams[i].reorderLineup();
-                teams[i].calculateRating();
             }
 
-    
-            if (teams.length > 7) {
-                menuDisplayTeams();
-            }
+            teams[i].reorderLineup();
+            teams[i].calculateRating();
+        }
 
-       
-    
-            setTeamSalaries();
-    
-            //NO NEEED TO PARSE JSON ITS ALREADY IN OBJECT FORMAT
-            // for (let i = 0; i < rosterData.length; i++) {
-            //     teams.push(new Team(rosterData[i]));
-            // }
-            availableFreeAgents.roster = [];
-            for (let i = 0; i < loadedData.freeAgents.roster.length; i++) {
-                availableFreeAgents.roster.push(new Player(loadedData.freeAgents.roster[i]));
-                availableFreeAgents.roster[i].calculateRating();
-                availableFreeAgents.roster[i].teamLogoSrc = availableFreeAgents.logoSrc;
-                availableFreeAgents.roster[i].teamName = availableFreeAgents.name;
-                for(let j =0; j<loadedData.day; j++)
+
+        if (teams.length > 7) {
+            menuDisplayTeams();
+        }
+
+
+
+        setTeamSalaries();
+
+        //NO NEEED TO PARSE JSON ITS ALREADY IN OBJECT FORMAT
+        // for (let i = 0; i < rosterData.length; i++) {
+        //     teams.push(new Team(rosterData[i]));
+        // }
+        availableFreeAgents.roster = [];
+        for (let i = 0; i < loadedData.freeAgents.roster.length; i++) {
+            availableFreeAgents.roster.push(new Player(loadedData.freeAgents.roster[i]));
+            availableFreeAgents.roster[i].calculateRating();
+            availableFreeAgents.roster[i].teamLogoSrc = availableFreeAgents.logoSrc;
+            availableFreeAgents.roster[i].teamName = availableFreeAgents.name;
+            for (let j = 0; j < loadedData.day; j++)
                 availableFreeAgents.roster[i].statsHistory.push({
                     points: 0,
                     twoPointersAtt: 0,
@@ -4984,104 +5068,116 @@ export function returnStatsView(player) {
                     threePointersAtt: 0,
                     threePointersMade: 0
                 });
-    
+
+        }
+
+
+        availableFreeAgents.reorderLineup();
+        setSalaryExpectations(availableFreeAgents);
+
+        //this resets franchise
+        if (loadedData.sliders != null) {
+
+            if (loadedData.sliders.tradeThreshold == null) {
+                resetSliders();
+            } else {
+                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold);
+                setFranchiseSliders(loadedData.sliders.gamesPerSeason, loadedData.sliders.playoffSeeds, loadedData.sliders.seriesWinCount, loadedData.sliders.conferencesOn, loadedData.sliders.collegeMode, true);
             }
 
-            
-            availableFreeAgents.reorderLineup();
-            setSalaryExpectations(availableFreeAgents);
-    
-            //this resets franchise
-            if (loadedData.sliders != null) {
-    
-                if (loadedData.sliders.tradeThreshold == null) {
-                    resetSliders();
-                } else {
-                    setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold);
-                    setFranchiseSliders(loadedData.sliders.gamesPerSeason, loadedData.sliders.playoffSeeds, loadedData.sliders.seriesWinCount, loadedData.sliders.conferencesOn, loadedData.sliders.collegeMode, true);
+
+        }
+
+        // generateDraftClass();
+
+
+        // resetFranchise();
+
+        //loadschedules
+        for (let i = 0; i < teams.length; i++) {
+            teams[i].schedule = [];
+            let schedule;
+            let played;
+            for (let n = 0; n < loadedData.teams.length; n++) {
+                if (loadedData.teams[n].name === teams[i].name) {
+                    schedule = loadedData.teams[n].scheduleString;
+                    played = loadedData.teams[n].played;
+                    teams[i].wins = loadedData.teams[n].wins;
+                    teams[i].losses = loadedData.teams[n].losses;
                 }
-    
-    
             }
-    
-            // generateDraftClass();
 
-
-            // resetFranchise();
-
-                 //loadschedules
-                 for(let i=0; i<teams.length; i++){
-                    teams[i].schedule=[];
-                    let schedule;
-                    let played;
-                    for(let n=0; n<loadedData.teams.length; n++){
-                        if(loadedData.teams[n].name === teams[i].name){
-                            schedule = loadedData.teams[n].scheduleString;
-                            played = loadedData.teams[n].played;
-                            teams[i].wins =  loadedData.teams[n].wins;
-                            teams[i].losses =  loadedData.teams[n].losses;
-                        }
+            for (let j = 0; j < schedule.length; j++) {
+                for (let k = 0; k < teams.length; k++) {
+                    if (schedule[j] === teams[k].name) {
+                        teams[i].schedule.push(teams[k]);
                     }
-                    
-                    for(let j=0; j<schedule.length; j++){
-                        for(let k=0; k<teams.length; k++){
-                            if(schedule[j] === teams[k].name){
-                                teams[i].schedule.push(teams[k]);
-                            }
-                        }
-                    }
-
-                    teams[i].played =  played;
                 }
+            }
 
-
-                //franchhise filec
-                franchise.season.day = loadedData.day;
-                franchise.pastChampions = loadedData.pastChampions;
-                franchise.season.endOfSeason = false;
-                franchise.offSeason = false;
-                franchise.advance = false;
-                franchise.stage = '';
-                franchise.currentDraft = '';
-                franchise.playoffs= '';
-
-                //draft class
-                draftClass.roster = [];
-                for (let i = 0; i < loadedData.draftClass.length; i++) {
-                    ply = new Player(loadedData.draftClass[i]);
-                    ply.calculateRating();
-                    draftClass.roster.push(ply);
-                    ply.teamLogoSrc = draftClass.logoSrc;
-                    ply.teamName = draftClass.name;
-                }
-            
-                draftClass.reorderLineup();
-
-
-    
-            // if(loadData.draftClass.roster.length > 0){
-            //     draftClass.roster = [];
-            //     for (let i = 0; i < loadedData.draftClass.roster.length; i++) {
-            //         availableFreeAgents.roster.push(new Player(draftClassData[i]));
-            //         availableFreeAgents.roster[i].calculateRating();
-            //         availableFreeAgents.roster[i].teamLogoSrc = availableFreeAgents.logoSrc;
-            //         availableFreeAgents.roster[i].teamName = availableFreeAgents.name;
-    
-            //     }
-            // }
-    
-    
-    
-    
-    
+            teams[i].played = played;
         }
-        catch (err) {
-            console.log(err);
+
+
+        //franchhise filec
+        franchise.season.day = loadedData.day;
+        franchise.pastChampions = loadedData.pastChampions;
+        franchise.season.endOfSeason = false;
+        franchise.offSeason = false;
+        franchise.advance = false;
+        franchise.stage = '';
+        franchise.currentDraft = '';
+        franchise.playoffs = '';
+
+        //draft class
+        draftClass.roster = [];
+        for (let i = 0; i < loadedData.draftClass.length; i++) {
+            ply = new Player(loadedData.draftClass[i]);
+            ply.calculateRating();
+            draftClass.roster.push(ply);
+            ply.teamLogoSrc = draftClass.logoSrc;
+            ply.teamName = draftClass.name;
         }
+
+        draftClass.reorderLineup();
+
+
+
+        // if(loadData.draftClass.roster.length > 0){
+        //     draftClass.roster = [];
+        //     for (let i = 0; i < loadedData.draftClass.roster.length; i++) {
+        //         availableFreeAgents.roster.push(new Player(draftClassData[i]));
+        //         availableFreeAgents.roster[i].calculateRating();
+        //         availableFreeAgents.roster[i].teamLogoSrc = availableFreeAgents.logoSrc;
+        //         availableFreeAgents.roster[i].teamName = availableFreeAgents.name;
+
+        //     }
+        // }
+
+
+
+
+
     }
+    catch (err) {
+        console.log(err);
+    }
+}
 
+// export let fantasyDraft = () => {
+//     let fantasyDraftArray = [];
+//     for (let i = 0; i < teams.length; i++) {
+//         for (let j = 0; j < teams[i].roster.length; j++) {
+//             fantasyDraftArray.push(teams[i].roster[j]);
+//         }
+//     }
 
+//     for (let i = 0; i < availableFreeAgents.roster.length; i++) {
+//         fantasyDraftArray.push(availableFreeAgents.roster[i]);
+//     }
 
+//     return fantasyDraftArray;
+// }
 
 
 

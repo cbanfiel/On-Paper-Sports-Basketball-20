@@ -190,6 +190,23 @@ export default class SeasonMenu extends React.Component {
                   </TouchableOpacity>
 
          
+                  {
+                    this.state.team === this.state.team.schedule[franchise.season.day] ? (
+                      <TouchableOpacity style={{ width: '100%' }} onPress={() => {}}>
+                    <Card containerStyle={{
+                      width: '90%', backgroundColor: 'rgba(0,0,0,0.75)', borderRadius: 25,
+                      alignSelf: 'center'
+                    }} >
+                      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.state.team.wins + '-' + this.state.team.losses}</Text>
+                        <Picache style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5, marginRight: 20 }} source={{ uri: this.state.team.logoSrc }} />
+                      </View>
+                      <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                      <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Bye'}</Text>
+                    </Card>
+                  </TouchableOpacity>
+
+                    ):
 
                   <TouchableOpacity style={{ width: '100%' }} onPress={() => { this.stopSim(), Actions.ingame({ game: franchise.season.manualDay(), season: true, franchise: franchise, updateSeason: this.updateLineup, allowAdjustments: true }) }}>
                     <Card containerStyle={{
@@ -206,6 +223,7 @@ export default class SeasonMenu extends React.Component {
                       <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Play Next Game'}</Text>
                     </Card>
                   </TouchableOpacity>
+                  }
                 </View>
 
 
@@ -239,6 +257,22 @@ export default class SeasonMenu extends React.Component {
 
             {
               franchise.season.day > 0 ? (
+                this.state.team === this.state.team.schedule[franchise.season.day -1] ? (
+                  <TouchableOpacity style={{ width: '100%' }} onPress={() => {}}>
+                    <Card containerStyle={{
+                      width: '90%', backgroundColor: 'rgba(0,0,0,0.75)', borderRadius: 25,
+                      alignSelf: 'center'
+                    }} >
+                      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.state.team.wins + '-' + this.state.team.losses}</Text>
+                        <Picache style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5, marginRight: 20 }} source={{ uri: this.state.team.logoSrc }} />
+                      </View>
+                      <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                      <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Bye'}</Text>
+                    </Card>
+                  </TouchableOpacity>
+
+                ):
 
                 <TouchableOpacity style={{ width: '100%' }} onPress={() => { setSelectedTeam2(selectedTeam.schedule[franchise.season.day - 1]), Actions.gamestats({ currentGame: (franchise.season.day - 1) }) }}>
 

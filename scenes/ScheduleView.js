@@ -80,6 +80,9 @@ export default class ScheduleView extends React.Component {
         <ScrollView >
 
           {this.state.team.schedule.map((team, i) => (
+            this.state.team === team? (
+              null
+            ):
             <ListItem title={"Game: " + (i + 1) + " " + team.name} key={i} leftAvatar={team.logoSrc } 
             subtitle={this.state.team.played[i] != null ? this.state.team.played[i].userScore + '-' + this.state.team.played[i].oppScore : null} 
             rightTitleStyle={this.state.team.played[i] != null ? this.state.team.played[i].won ? {color:'green', fontFamily: 'advent-pro', fontSize:25, textAlign:'center'} : {color:'red', fontFamily: 'advent-pro', fontSize:25, textAlign:'center'} : null}

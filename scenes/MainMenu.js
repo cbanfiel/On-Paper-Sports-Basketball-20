@@ -46,16 +46,12 @@ export default class MainMenu extends React.Component {
 
 
   startFranchise(){
-    if(teams.length % 2 == 0 ){
       if(teams.length >= 4){
         Actions.teamlist({ home: 4, updateState: this.update })
       }else{
         Alert.alert('LESS THAN 4 TEAMS','Currently for franchise mode you must have at least 4 teams' );
 
       }
-    }else{
-    Alert.alert('UNEVEN NUMBER OF TEAMS','Currently for franchise mode you must have an even number of teams, create another team or remove a team to start!' );
-    }
 
   }
 
@@ -65,6 +61,7 @@ export default class MainMenu extends React.Component {
   }
 
   update = () =>{
+    menuDisplayTeams();
     this.setState({team: selectedTeam});
   }
 

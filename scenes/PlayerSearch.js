@@ -82,6 +82,17 @@ setModalVisible(visible, player) {
         allPlayers.push(availableFreeAgents.roster[i]);
     }
 
+    allPlayers.sort(function(a,b){
+      if (a.rating < b.rating) {
+        return 1;
+    }
+    if (a.rating > b.rating) {
+        return -1;
+    }
+    return 0;
+    })
+
+    
     for(let i=0; i<allPlayers.length; i++){
       data.push({
         type:'NORMAL',

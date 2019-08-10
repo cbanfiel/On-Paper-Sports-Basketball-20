@@ -70,7 +70,7 @@ setModalVisible(visible, player) {
             title={player.positionString + ' #' + player.number + ' ' + player.name}
             leftAvatar={player.faceSrc }
             subtitle={'Rating: ' + player.rating}
-            rightTitle = {collegeMode? 'Recruiting: ' + displaySalary(player.salary)  : '$' +  displaySalary(player.salary)}
+            rightTitle = {collegeMode? 'Recruiting: ' + displaySalary(player.salary, true)  : '$' +  displaySalary(player.salary, true)}
             onLongPress={() => this.setModalVisible(true, player)}
         />
         )

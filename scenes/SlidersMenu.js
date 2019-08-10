@@ -233,7 +233,6 @@ export default class SlidersMenu extends React.Component {
 
     saveFranchiseChanges() {
 
-        if(teams.length % 2 == 0 ){
             if(teams.length >= 4){
                 Alert.alert(
                     'THESE CHANGES WILL RESTART YOUR FRANCHISE',
@@ -255,9 +254,6 @@ export default class SlidersMenu extends React.Component {
               Alert.alert('LESS THAN 4 TEAMS','Currently for franchise mode you must have at least 4 teams' );
       
             }
-          }else{
-          Alert.alert('UNEVEN NUMBER OF TEAMS','Currently for franchise mode you must have an even number of teams, create another team or remove a team to start!' );
-          }
     }
 
     resetSliders(){
