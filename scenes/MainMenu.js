@@ -16,9 +16,9 @@ export default class MainMenu extends React.Component {
 
   static async onEnter(){
     try {
-      const update = await Expo.Updates.checkForUpdateAsync();
+      const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
-        await Expo.Updates.fetchUpdateAsync();
+        await Updates.fetchUpdateAsync();
         Alert.alert('New Update Available Restart Now?', '', [
           {
             text: 'Cancel',
@@ -27,13 +27,13 @@ export default class MainMenu extends React.Component {
           },
           {
             text: 'Restart',
-            onPress: () => {Expo.Updates.reloadFromCache();},
+            onPress: () => {Updates.reloadFromCache();},
           },
         ]);
         
       }
     } catch (e) {
-
+      console.log(e);
     }
   }
 
@@ -93,6 +93,9 @@ export default class MainMenu extends React.Component {
               <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Play Game'}</Text>
             </Card>
           </TouchableOpacity>
+
+   
+
 
           <TouchableOpacity style={{ width: '100%' }} onPress={() => this.startFranchise()}>
 

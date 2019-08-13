@@ -3,12 +3,12 @@
     "name": "On Paper Sports Basketball '20",
     "slug": "OPS-Basketball-20",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.1.6",
+    "version": "1.1.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,11 +25,11 @@
     "ios": {
       "bundleIdentifier": "com.chadbanfield.onpapersportsbasketball20",
       "supportsTablet": true,
-      "buildNumber": "1.1.6"
+      "buildNumber": "1.1.8"
     },
     "android": {
       "package": "com.chadbanfield.onpapersportsbasketball20",
-      "versionCode": 17
+      "versionCode": 18
     },
     "description": ""
   }

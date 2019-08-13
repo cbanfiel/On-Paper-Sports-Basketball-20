@@ -7,7 +7,7 @@ var freeAgents = require('./JSON/FreeAgents.json');
 
 var draftData = require('./JSON/DraftData.json');
 
-import { FileSystem } from 'expo';
+import * as FileSystem from 'expo-file-system';
 
 //for draft trades
 export let inDraft = false;
@@ -3411,7 +3411,7 @@ export class Franchise {
 
 
 
-var shuffle = function (array) {
+export var shuffle = function (array) {
 
     var currentIndex = array.length;
     var temporaryValue, randomIndex;
@@ -3721,7 +3721,7 @@ export function canSign(team, salary) {
     }
 }
 
-function setTeamSalaries() {
+export function setTeamSalaries() {
     for (let i = 0; i < teams.length; i++) {
         teams[i].salary = 0;
         for (let j = 0; j < teams[i].roster.length; j++) {
@@ -5164,20 +5164,34 @@ export const loadFranchise = (data) => {
     }
 }
 
-// export let fantasyDraft = () => {
-//     let fantasyDraftArray = [];
-//     for (let i = 0; i < teams.length; i++) {
-//         for (let j = 0; j < teams[i].roster.length; j++) {
-//             fantasyDraftArray.push(teams[i].roster[j]);
-//         }
-//     }
+export let fantasyDraft = () => {
+    let fantasyDraftArray = [];
+    for (let i = 0; i < teams.length; i++) {
+        for (let j = 0; j < teams[i].roster.length; j++) {
+            fantasyDraftArray.push(teams[i].roster[j]);
+        }
+    }
 
-//     for (let i = 0; i < availableFreeAgents.roster.length; i++) {
-//         fantasyDraftArray.push(availableFreeAgents.roster[i]);
-//     }
+    for (let i = 0; i < availableFreeAgents.roster.length; i++) {
+        fantasyDraftArray.push(availableFreeAgents.roster[i]);
+    }
 
-//     return fantasyDraftArray;
-// }
+    fantasyDraftArray.sort(function (a, b) {
+        if (a.rating < b.rating) {
+            return 1;
+        }
+        if (a.rating > b.rating) {
+            return -1;
+        }
+        return 0;
+    });
+
+    return {
+        name: 'Fantasy Draft',
+        logoSrc: '',
+        roster: fantasyDraftArray
+    };
+}
 
 
 

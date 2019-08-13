@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, ScrollView, View, Clipboard } from 'react-native';
 import { Card, Divider } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import { selectedTeam, Season, exportTeamJSON, availableFreeAgents, saveData } from '../data/script';
+import { selectedTeam, Season, exportTeamJSON, availableFreeAgents, saveData, shuffle, teams } from '../data/script';
 import Background from '../components/background';
 import CachedImage from '../components/CachedImage';
 let season = new Season()
@@ -235,6 +235,25 @@ export default class RosterMenu extends React.Component {
                             <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Edit Draft Class'}</Text>
                         </Card>
                     </TouchableOpacity>
+
+                    {
+                <TouchableOpacity style={{ width: '100%' }} onPress={() => {shuffle(teams),Actions.fantasydraft({update: this.updateState})}}>
+
+                <Card
+                  containerStyle={{
+                    width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
+                    borderRadius: 25,
+                    alignSelf:'center'
+                  }}
+                  >
+                  <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <CachedImage style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri = { selectedTeam.logoSrc } />
+                  </View>
+                  <Divider style={{ backgroundColor: 'white', height: 1, margin: 5 }} ></Divider>
+                  <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Fantasy Draft'}</Text>
+                </Card>
+              </TouchableOpacity>
+              }
 
                     <TouchableOpacity style={{ width: '100%' }} onPress={() => { this.writeToClipboard(exportTeamJSON(selectedTeam))}}>
                         <Card

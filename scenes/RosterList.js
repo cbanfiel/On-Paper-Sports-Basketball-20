@@ -119,6 +119,18 @@ export default class RosterList extends React.Component {
                     ></ListItem>
                 )
             } 
+            if(this.props.view === 'fantasydraft'){
+                return(
+                <ListItem
+                    title={player.positionString + ' #' + player.number + ' ' + player.name}
+                     leftAvatar={player.faceSrc} 
+                    subtitle={'Rating: ' + player.rating}
+                    rightAvatar = {player.teamLogoSrc}
+                    onPress={this.props.selectable === true ? () => {this.props.draft(player), Actions.pop()} : null }
+                    onLongPress={() => this.setModalVisible(true, player)}
+                    ></ListItem>
+                )
+            } 
             if(this.props.view === 'resigning'){
                 return(
                     <ListItem
