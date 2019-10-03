@@ -8,7 +8,7 @@ export default class TeamHeader extends React.Component {
 
         if(this.props.season){
             return(
-<View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth:1, paddingBottom:2  }}>
+<View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth:1, paddingBottom:2  }}>
                     <CachedImage
                         style={{ resizeMode:'contain', height: 50 }}
                         uri= { this.props.selectedTeam.logoSrc }/>
@@ -20,7 +20,7 @@ export default class TeamHeader extends React.Component {
             )
         }
         return (
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth:1  }}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth:1  }}>
                     <CachedImage
                         style={{ resizeMode:'contain', height: 50 }}
                         uri={this.props.selectedTeam.logoSrc } />

@@ -7,12 +7,29 @@ import { sortedRoster, allPlayers } from '../data/script';
 import ListItem from '../components/ListItem';
 import { LayoutProvider, DataProvider, RecyclerListView } from 'recyclerlistview';
 import PlayerCardModal from '../components/PlayerCardModal';
+import StatFilter from '../components/StatFilter';
 
 
 var {height, width} = Dimensions.get('window');
 
 export default class StatsList extends React.Component {
 
+
+  setStatFilter(arr){
+    const data = [];
+    const empty = [];
+
+    for(let i=0; i<arr.length; i++){
+      data.push({
+        type:'NORMAL',
+        item: arr[i]
+      })
+    }
+
+    this.setState({
+      list: new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(data)
+    });
+  }
 
   statsView(player) {
     let str;
@@ -56,6 +73,8 @@ export default class StatsList extends React.Component {
       modalPlayer: null,
       modalVisible: false
     };
+
+    this.setStatFilter = this.setStatFilter.bind(this);
   
     this.layoutProvider = new LayoutProvider((i) => {
       return this.state.list.getDataForIndex(i).type
@@ -129,6 +148,7 @@ export default class StatsList extends React.Component {
                 }
 
 
+<StatFilter selectedTeam={this.props.selectedTeam} setStatFilter={this.setStatFilter}></StatFilter>
 
 <RecyclerListView style={{flex:1, padding: 0, margin: 0}} rowRenderer={this.rowRenderer} dataProvider={this.state.list} layoutProvider={this.layoutProvider} forceNonDeterministicRendering={false}/>
 

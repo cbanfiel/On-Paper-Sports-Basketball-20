@@ -2477,6 +2477,7 @@ export class Franchise {
     }
 
     startPlayoffs() {
+        //fixed glitch from football
         teams.sort(function (a, b) {
             if (a.seed > b.seed) return 1;
             if (a.seed < b.seed) return -1;
@@ -2528,7 +2529,7 @@ export class Franchise {
     }
 
     sim20() {
-        for (let i = 0; i <= 20; i++) {
+        for (let i = 0; i <= 5; i++) {
             this.season.simToEnd();
             sortStandings();
             this.offSeason = true;
@@ -3300,7 +3301,7 @@ export class Franchise {
             for (let i = 0; i < teams.length; i++) {
                 let seedRat = teams.length - teams[i].seed;
                 let teamRating = teams[i].rating;
-                let scaledSeed = scaleBetween((seedRat), 70, 95, 0, teams.length);
+                let scaledSeed = scaleBetween((seedRat), 68, 90, 0, teams.length);
 
 
                 let rating = Math.round((teamRating + scaledSeed) / 2) - 20;
@@ -3536,7 +3537,24 @@ export class Franchise {
 
         //AUTOSAVE THE FRANCHISE ROSTER
 
-        saveFranchise('Franchise_Autosave');
+        let low = 200;
+        let high = 0;
+        let total = 0;
+        for(let i=0; i<teams.length; i++){
+          if(teams[i]!= selectedTeam){
+          if(teams[i].rating>high){
+            high = teams[i].rating;
+          }
+          if(teams[i].rating<low){
+            low = teams[i].rating;
+          }
+        }
+          total+= teams[i].rating;
+        }
+    
+        console.log(`H: ${high} L: ${low} AVG: ${total/teams.length}`);
+
+        // saveFranchise('Franchise_Autosave');
 
 
     }
@@ -5294,11 +5312,21 @@ export function returnStatsView(player) {
             + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT%: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10)
     } else {
         return "MIN: " + (Math.round(player.minutesPlayed / player.statsHistory.length * 10) / 10) + "\nPTS: " + (Math.round((player.seasonPoints / player.statsHistory.length) * 10) / 10) + "\nFG%: " + Math.floor((player.seasonTwoPointersMade / player.seasonTwoPointersAtt) * 100)
-            + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT%: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10)
+            + "\n3P%: " + Math.floor((player.seasonThreePointersMade / player.seasonThreePointersAtt) * 100) + "\nFT: " + Math.floor((player.seasonFreeThrowsMade / player.seasonFreeThrowsAttempted) * 100) + '\nREB: ' + (Math.round((player.seasonRebounds / player.statsHistory.length) * 10) / 10) + '\nOREB: ' + (Math.round((player.seasonOffRebounds / player.statsHistory.length) * 10) / 10)
     }
 
 
 }
+
+export function returnStatsListView(player) {
+    if (player.threePointersAtt > 0) {
+        return "PTS: " + player.points + " FG: " + `${player.twoPointersMade+player.threePointersMade}-${player.twoPointersAtt + player.threePointersAtt}`
+            + " 3PT: " + `${player.threePointersMade}-${player.threePointersAtt}`  + " FT: " + `${player.freeThrowsMade}-${player.freeThrowsAttempted}`+ ' REB: ' + player.rebounds + ' OREB: ' + player.offRebounds;
+    } else {
+        return "PTS: " + player.points + " FG: " +  `${player.twoPointersMade+player.threePointersMade}-${player.twoPointersAtt + player.threePointersAtt}`
+        +  " FT: " + `${player.freeThrowsMade}-${player.freeThrowsAttempted}` + ' REB: ' + player.rebounds + ' OREB: ' + player.offRebounds;
+    }
+  }
 
 
 export function saveFranchise(slot) {
@@ -5445,8 +5473,8 @@ export const loadFranchise = (data) => {
                 teams[i].roster.push(ply);
                 ply.teamLogoSrc = teams[i].logoSrc;
                 ply.teamName = teams[i].name;
-                ply.redshirted = loadData.teams[i].roster[j].redshirted;
-                ply.redshirt = loadData.teams[i].roster[j].redshirt;
+                ply.redshirted = loadedData.teams[i].roster[j].redshirted;
+                ply.redshirt = loadedData.teams[i].roster[j].redshirt;
                 ply.previousSeasonsStats = loadedData.teams[i].roster[j].previousSeasonsStats;
                 ply.statsHistory = loadedData.teams[i].roster[j].statsHistory;
                 ply.seasonPoints = loadedData.teams[i].roster[j].seasonPoints;
@@ -5494,7 +5522,8 @@ export const loadFranchise = (data) => {
             availableFreeAgents.roster[i].calculateRating();
             availableFreeAgents.roster[i].teamLogoSrc = availableFreeAgents.logoSrc;
             availableFreeAgents.roster[i].teamName = availableFreeAgents.name;
-            for (let j = 0; j < loadedData.day; j++)
+            //fixed glitch from football
+            for (let j = 0; j < loadedData.day; j++){
                 availableFreeAgents.roster[i].statsHistory.push({
                     points: 0,
                     twoPointersAtt: 0,
@@ -5503,6 +5532,7 @@ export const loadFranchise = (data) => {
                     threePointersAtt: 0,
                     threePointersMade: 0
                 });
+            }
 
         }
 
@@ -5556,6 +5586,7 @@ export const loadFranchise = (data) => {
 
         //franchhise filec
         franchise.season.day = loadedData.day;
+        franchise.season.games = teams[0].schedule.length;
         franchise.pastChampions = loadedData.pastChampions;
         franchise.season.endOfSeason = false;
         franchise.offSeason = false;
@@ -5874,6 +5905,39 @@ function cpuRedshirting() {
 function playerWillStart(ply, team) {
     //just check if players better then average player rating idk
     return ply.rating > team.rating;
+}
+
+export function played(roster){
+    let plyed = [];
+    for(let i=0; i<roster.length; i++){
+      if(roster[i].points > 0){
+        plyed.push(roster[i]);
+      }
+     else if(roster[i].rebounds > 0){
+       plyed.push(roster[i]);
+     }
+     else if(roster[i].twoPointersAtt > 0){
+       plyed.push(roster[i]);
+     }
+     else if(roster[i].threePointersAtt > 0){
+       plyed.push(roster[i]);
+     }
+     else if(roster[i].freeThrowsAttempted > 0){
+       plyed.push(roster[i]);
+     }
+    }
+
+    plyed.sort(function(a,b){
+        if(a.points < b.points){
+          return 1;
+        }
+        if(a.points > b.points){
+         return -1;
+       }
+       return 0;
+      })
+   
+      return plyed;
 }
 
 function playerWouldStart(ply, team) {

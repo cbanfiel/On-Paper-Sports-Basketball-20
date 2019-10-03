@@ -39,7 +39,7 @@ export default class CommunityRosters extends React.Component {
         return (
             <Background>
 
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth:1}}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth:1}}>
                     <Image
                         style={{ resizeMode:'contain', height: 50, alignSelf:'center', margin:5 }}
                         source={require('../assets/icon.png')} />
@@ -54,7 +54,7 @@ export default class CommunityRosters extends React.Component {
                         
                         
                         this.state.filteredList.map((item, i) => (
-                        <ListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }} 
+                        <ListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0)' }} 
                         onPress={() => {getDataFromLink(item.link, item.type, item.sliderType), this.props.filtered!= null? (Actions.pop()) : Actions.popTo('mainmenu')}}
                         title={item.name} 
                         rightTitleStyle={{fontFamily:'advent-pro'}}

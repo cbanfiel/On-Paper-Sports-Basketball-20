@@ -140,7 +140,7 @@ export default class EditLineupMenu extends React.Component {
 
                 <TeamHeader selectedTeam={selectedTeam}></TeamHeader>
 
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)'}}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)'}}>
                     <Button titleStyle={{ fontFamily: 'advent-pro', color:'black' }} buttonStyle={{ padding: 15 , borderRadius:0, borderBottomWidth:1, backgroundColor: 'rgba(255,255,255,0)', borderColor: 'rgba(0,0,0,0.75)'}} title="Auto Reorder Lineup" onPress={() => { this.autoReorder() }}></Button>
                 </View>
 

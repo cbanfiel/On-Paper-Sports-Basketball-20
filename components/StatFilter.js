@@ -15,90 +15,106 @@ export default class StatFilter extends React.Component {
 
     setFilter(filter){
         let filteredArray = [];
-        if(filter === 'passing'){
+        if(filter === 'points'){
             for(let i=0; i<this.props.selectedTeam.roster.length; i++){
                 let ply = this.props.selectedTeam.roster[i]
-                if(ply.seasonAttempts>0 && ply.position === 0 ){
+                if(ply.seasonPoints>0){
                     filteredArray.push(ply);
                 }
             }
         }
 
-        if(filter === 'rushing'){
+        if(filter === 'rebounds'){
             for(let i=0; i<this.props.selectedTeam.roster.length; i++){
                 let ply = this.props.selectedTeam.roster[i]
-                if(ply.seasonRushAttempts>0){
+                if(ply.seasonRebounds>0){
                     filteredArray.push(ply);
                 }
             }
 
             filteredArray.sort(function(a,b){
-                if(a.seasonRushYards < b.seasonRushYards){
+                if(a.seasonRebounds < b.seasonRebounds){
                     return 1;
                 }
-                if(a.seasonRushYards > b.seasonRushYards){
+                if(a.seasonRebounds > b.seasonRebounds){
                     return -1;
                 }
                 return 0;
             })
         }
 
-        if(filter === 'receiving'){
+        if(filter === 'fg'){
             for(let i=0; i<this.props.selectedTeam.roster.length; i++){
                 let ply = this.props.selectedTeam.roster[i]
-                if(ply.seasonReceptions>0){
+                if(ply.seasonPoints>0){
                     filteredArray.push(ply);
                 }
             }
 
             filteredArray.sort(function(a,b){
-                if(a.seasonYards < b.seasonYards){
+
+                let afg = Math.floor((((a.seasonTwoPointersMade / a.seasonTwoPointersAtt) + (a.seasonThreePointersMade / a.seasonThreePointersAtt)) / 2) * 100);
+                let bfg = Math.floor((((b.seasonTwoPointersMade / b.seasonTwoPointersAtt) + (b.seasonThreePointersMade / b.seasonThreePointersAtt)) / 2) * 100);
+
+
+                if(afg < bfg){
                     return 1;
                 }
-                if(a.seasonYards > b.seasonYards){
+                if(afg > bfg){
                     return -1;
                 }
                 return 0;
             })
         }
 
-        if(filter === 'defense'){
+        if(filter === '3pt'){
             for(let i=0; i<this.props.selectedTeam.roster.length; i++){
                 let ply = this.props.selectedTeam.roster[i]
-                if(ply.seasonTackles>0){
+                if(ply.seasonPoints>0){
                     filteredArray.push(ply);
                 }
             }
 
             filteredArray.sort(function(a,b){
-                if(a.seasonTackles < b.seasonTackles){
+
+                let afg = Math.floor((a.seasonThreePointersMade / a.seasonThreePointersAtt) * 100)
+                let bfg = Math.floor((b.seasonThreePointersMade / b.seasonThreePointersAtt) * 100)
+
+
+                if(afg < bfg){
                     return 1;
                 }
-                if(a.seasonTackles > b.seasonTackles){
+                if(afg > bfg){
                     return -1;
                 }
                 return 0;
             })
         }
 
-        if(filter === 'kicking'){
+        if(filter === 'ft'){
             for(let i=0; i<this.props.selectedTeam.roster.length; i++){
                 let ply = this.props.selectedTeam.roster[i]
-                if(ply.seasonKicksAttempted>0 || ply.seasonPunts >0){
+                if(ply.seasonPoints>0){
                     filteredArray.push(ply);
                 }
             }
 
             filteredArray.sort(function(a,b){
-                if(a.seasonKicksMade < b.seasonKicksMade){
+
+                let afg = Math.floor((a.seasonFreeThrowsMade / a.seasonFreeThrowsAttempted) * 100);
+                let bfg = Math.floor((b.seasonFreeThrowsMade / b.seasonFreeThrowsAttempted) * 100)
+
+
+                if(afg < bfg){
                     return 1;
                 }
-                if(a.seasonKicksMade > b.seasonKicksMade){
+                if(afg > bfg){
                     return -1;
                 }
                 return 0;
             })
         }
+
 
         while(filteredArray.length>=150){
             filteredArray.pop();
@@ -110,33 +126,33 @@ export default class StatFilter extends React.Component {
     render() {
         return (
                 <View style={{ backgroundColor: 'rgba(255,255,255,0)', height:50, width:width, flexDirection:'row', justifyContent:'center', alignItems:'center', display:'flex'}}>
-                    <TouchableOpacity  onPress={() => this.setFilter('passing')} style={{flex:1}}>
+                    <TouchableOpacity  onPress={() => this.setFilter('points')} style={{flex:1}}>
                         <View style={{backgroundColor:'rgb(30,30,30)', height:'100%', justifyContent:'center'}}>
                         <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>Points</Text>
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('rushing')}>
+                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('rebounds')}>
                         <View style={{backgroundColor:'rgb(30,30,30)', height:'100%', justifyContent:'center'}}>
                         <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>Rebounds</Text>
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('receiving')}>
+                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('fg')}>
                         <View style={{backgroundColor:'rgb(30,30,30)', height:'100%', justifyContent:'center'}}>
-                        <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>Receiving</Text>
+                        <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>FG%</Text>
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('defense')}>
+                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('3pt')}>
                         <View style={{backgroundColor:'rgb(30,30,30)', height:'100%', justifyContent:'center'}}>
-                        <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>Defense</Text>
+                        <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>3PT%</Text>
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('kicking')}>
+                    <TouchableOpacity style={{flex:1}} onPress={() => this.setFilter('ft')}>
                         <View style={{backgroundColor:'rgb(30,30,30)', height:'100%', justifyContent:'center'}}>
-                        <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>Kicking</Text>
+                        <Text style={{ fontFamily: 'advent-pro' , fontSize:16, color:'white', textAlign: 'center' }}>FT%</Text>
                         </View>
                     </TouchableOpacity>
 

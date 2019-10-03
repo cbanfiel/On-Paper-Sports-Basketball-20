@@ -259,7 +259,7 @@ manageOffer(ply){
                         </Modal>
                     ) : null
                 }
-            <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth:1 }}>
+            <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth:1 }}>
                     <CachedImage
                         style={{ resizeMode:'contain', height: 50 }}
                         uri= {selectedTeam.logoSrc }/>

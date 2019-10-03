@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import {Icon} from 'react-native-elements';
-import { home, away, sortedRoster, gamesPerSeason } from '../data/script';
+import { home, away, sortedRoster, gamesPerSeason, returnStatsView, returnStatsListView, played } from '../data/script';
 import Background from '../components/background';
 import CachedImage from '../components/CachedImage';
 import ListItem from '../components/ListItem';
@@ -39,8 +39,8 @@ export default class InGameStats extends React.Component {
                                 alignItems: 'center'
                             }}>
                                 <View style={{
-                                    width: '90%',
-                                    height: '75%', backgroundColor: 'rgba(255,255,255,.97)', alignSelf: 'center', borderRadius: 25
+                                    width: '95%',
+                                    height: '75%', backgroundColor: 'rgba(255,255,255,1)', alignSelf: 'center', 
                                 }}>
                                     <TouchableOpacity
                                         onPress={() => {
@@ -56,7 +56,7 @@ export default class InGameStats extends React.Component {
                     ) : null
                 }
 
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth: 1 }}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth: 1 }}>
                     <CachedImage
                         style={{ resizeMode: 'contain', height: 50 }}
                         uri= { home.logoSrc } />
@@ -65,19 +65,18 @@ export default class InGameStats extends React.Component {
                 </View>
                 <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
-                    {sortedRoster(home, 'position').map((player, i) => (
+                    {played(home.roster).map((player, i) => (
                         <ListItem 
                             title={player.positionString + ' #' + player.number + ' ' + player.name}
                             key={i} leftAvatar={player.faceSrc } 
-                            subtitle={"PTS: " + player.points + " FG% " + Math.floor((player.twoPointersMade / player.twoPointersAtt) * 100)
-                                + " 3P% " + Math.floor((player.threePointersMade / player.threePointersAtt) * 100)+ " FT% " + Math.floor((player.freeThrowsMade / player.freeThrowsAttempted) * 100)}
+                            subtitle={returnStatsListView(player)}
                             onLongPress={() => this.setModalVisible(true, player)}
 
                         ></ListItem>
                     ))}
                 </ScrollView>
 
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth: 1 }}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth: 1 }}>
                     <CachedImage
                         style={{ resizeMode: 'contain', height: 50 }}
                         uri= { away.logoSrc } />
@@ -86,12 +85,11 @@ export default class InGameStats extends React.Component {
                 </View>
                 <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
-                    {sortedRoster(away, 'position').map((player, i) => (
+                    {played(away.roster).map((player, i) => (
                         <ListItem
                             title={player.positionString + ' #' + player.number + ' ' + player.name}
                             key={i} leftAvatar={player.faceSrc }
-                            subtitle={"PTS: " + player.points + " FG% " + Math.floor((player.twoPointersMade / player.twoPointersAtt) * 100)
-                                + " 3P% " + Math.floor((player.threePointersMade / player.threePointersAtt) * 100)}
+                            subtitle={returnStatsListView(player)}
                             onLongPress={() => this.setModalVisible(true, player)}
 
                                 />
