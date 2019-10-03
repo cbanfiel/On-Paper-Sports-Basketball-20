@@ -7,7 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^34.0.3",
+    "expo": "^34.0.4",
     "expo-ads-admob": "^6.0.0",
     "expo-asset": "^6.0.0",
     "expo-file-system": "^6.0.2",

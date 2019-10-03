@@ -47,14 +47,14 @@ export default class CommunityRosters extends React.Component {
                     <Text style={{ fontFamily: 'advent-pro', textAlign:'center', fontSize:14}}>{'Note: These are free rosters created by the community'}</Text>
 
                 </View>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {
                         this.state.filteredList.length > 1 ?
                         
                         
                         this.state.filteredList.map((item, i) => (
-                        <ListItem titleStyle={{ fontFamily: 'advent-pro' }} subtitleStyle={{ fontFamily: 'advent-pro' }} containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }} 
+                        <ListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }} 
                         onPress={() => {getDataFromLink(item.link, item.type, item.sliderType), this.props.filtered!= null? (Actions.pop()) : Actions.popTo('mainmenu')}}
                         title={item.name} 
                         rightTitleStyle={{fontFamily:'advent-pro'}}

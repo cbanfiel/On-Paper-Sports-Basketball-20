@@ -146,7 +146,7 @@ export default class EditLineupMenu extends React.Component {
 
 
 
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
                     {
                     selectedTeam.firstTeam.map((player, i) => (
                             <ListItem 

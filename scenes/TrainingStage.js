@@ -14,14 +14,31 @@ export default class TrainingStage extends React.Component{
 
 return (
     <Background>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
 
         <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.rosterlist({view: 'training', selectedTeam: selectedTeam})}}>
          <Card
           containerStyle={{
-            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-            borderRadius: 25,
+            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+          }}
+          >
+
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <Picache style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} source = {{uri: selectedTeam.logoSrc }} />
+          </View>
+          <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+          <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Training Focus'}</Text>
+        </Card>
+      </TouchableOpacity>
+
+      {
+    collegeMode?(
+      <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.rosterlist({view: 'redshirt', selectedTeam: selectedTeam})}}>
+         <Card
+          containerStyle={{
+            width: '95%', backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: 'black',
             alignSelf:'center'
           }}
           >
@@ -29,26 +46,29 @@ return (
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Picache style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} source = {{uri: selectedTeam.logoSrc }} />
           </View>
-          <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-          <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Training Focus'}</Text>
+          <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+          <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Redshirt Players'}</Text>
         </Card>
-      </TouchableOpacity>
+      </TouchableOpacity>):null
+
+
+
+
+}
 
 
         <TouchableOpacity style={{ width: '100%' }} onPress={() => {franchise.stage = "advance", franchise.simStage(), this.props.teamListStage(franchise.stage), Actions.replace('seasonmenu', {teamListStage: this.props.teamListStage})}}>
         <Card
           containerStyle={{
-            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-            borderRadius: 25,
-            alignSelf:'center'
+            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
           }}
           >
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Picache style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} source = {{uri: selectedTeam.logoSrc }}/>
           </View>
-          <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-          <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Advance To Season'}</Text>
+          <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+          <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Advance To Season'}</Text>
         </Card>
       </TouchableOpacity>
 

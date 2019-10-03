@@ -101,30 +101,28 @@ export default class CoachSettings extends React.Component {
     render() {
         return (
             <Background>
-                <ScrollView >
+                <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
                     <Card
                         containerStyle={{
-                            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                            borderRadius: 25,
-                            alignSelf:'center'
+                            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                         }} >
 {
                 this.props.inGame ===  true? (
 
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: 10 }}>
-                            <Text style={{ textAlign: "center", fontSize: 15, color: 'white', fontFamily: 'advent-pro' }}>{'Note: These changes only affect the current game, to make them permanent make sure to set them in your teams Coach Settings'}</Text>
+                            <Text style={{ textAlign: "center", fontSize: 15, color: 'black', fontFamily: 'advent-pro' }}>{'Note: These changes only affect the current game, to make them permanent make sure to set them in your teams Coach Settings'}</Text>
                         </View>    
                 ): null
 }
 
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                             <CachedImage uri={selectedTeam.logoSrc} style={{ height: 30, width: 30, maxHeight: 30, resizeMode: 'contain', marginRight: 5 }} />
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{selectedTeam.name}</Text>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{selectedTeam.name}</Text>
                         </View>
-                        <Divider style={{ backgroundColor: 'white', margin: 10 }}></Divider>
+                        <Divider style={{ backgroundColor: 'black', margin: 10 }}></Divider>
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.getOffVsDefFocusString()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffVsDefFocusString()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -137,7 +135,7 @@ export default class CoachSettings extends React.Component {
 
 
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.getOffTwoVsThreeString()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffTwoVsThreeString()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -148,7 +146,7 @@ export default class CoachSettings extends React.Component {
                             onValueChange={value => { this.setState({ offTwoVsThree: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.getDefTwoVsThree()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getDefTwoVsThree()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -159,7 +157,7 @@ export default class CoachSettings extends React.Component {
                             onValueChange={value => { this.setState({ defTwoVsThree: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.getTempo()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getTempo()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -170,7 +168,7 @@ export default class CoachSettings extends React.Component {
                             onValueChange={value => { this.setState({ tempo: value }) }}
                         />
 
-                    <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.getFrontCourtVsBackCourt()}</Text>
+                    <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getFrontCourtVsBackCourt()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -181,7 +179,7 @@ export default class CoachSettings extends React.Component {
                             onValueChange={value => { this.setState({ frontCourtVsBackCourt: value }) }}
                         />   
 
-                         <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{this.getReboundVsRunInTransition()}</Text>
+                         <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getReboundVsRunInTransition()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -196,7 +194,7 @@ export default class CoachSettings extends React.Component {
                         this.props.inGame === true ? (null):
                         <View>
 
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Rotation Size: " + this.state.rotationSize}</Text>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Rotation Size: " + this.state.rotationSize}</Text>
                             <Slider
                                 thumbTintColor={'rgb(180,180,180)'}
                                 maximumTrackTintColor={'rgb(180,180,180)'}
@@ -213,7 +211,7 @@ export default class CoachSettings extends React.Component {
                     }
 
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25 }} title="Commit Changes" onPress={() => { this.saveChanges() }}></Button>
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title="Commit Changes" onPress={() => { this.saveChanges() }}></Button>
 
 
                     </Card>

@@ -177,7 +177,7 @@ export default class TradeMenu extends React.Component {
                     // <Button titleStyle={{ fontFamily: 'advent-pro', color:'black' }} buttonStyle={{ padding: 15 , borderRadius:0, borderBottomWidth:1, backgroundColor: 'rgba(255,255,255,0.75)', borderColor: 'rgba(0,0,0,0.75)'}} title="Back To Season" onPress={() => { Actions.seasonmenu() }}></Button>
 
                 }
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {sortedRoster(selectedTeam, 'rating').map((player, i) => (
                         <ListItem onPress={() => { this.addToTrade(player, selectedTeam) }}
@@ -211,7 +211,7 @@ export default class TradeMenu extends React.Component {
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20 }}>{'Cap Space: $' + displaySalary((this.state.t2salary - CAPROOM) * -1)}</Text>
 
                 </View>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {sortedRoster(selectedTeam2, 'rating').map((player, i) => (
                         <ListItem

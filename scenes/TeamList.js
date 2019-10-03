@@ -117,12 +117,12 @@ export default class TeamList extends React.Component {
                     ) : null
                 }
 
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {sortedTeams().map((team, i) => (
                         <ListItem 
-                        titleStyle={{ fontFamily: 'advent-pro' }} 
-                        subtitleStyle={{ fontFamily: 'advent-pro' }} 
+                        titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} 
+                        subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} 
                         onPress={this.setTeam.bind(this, team)} 
                         title={team.name} 
                         key={i} 

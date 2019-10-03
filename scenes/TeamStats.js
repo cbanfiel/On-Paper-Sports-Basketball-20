@@ -55,7 +55,7 @@ export default class TeamStats extends React.Component {
                 }
 
 
-        <ScrollView>
+        <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
           {teamStats().map((team, i) => (
             <ListItem

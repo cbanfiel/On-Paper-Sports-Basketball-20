@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, View, TouchableOpacity, Modal } from 'react-native';
 import {Icon} from 'react-native-elements';
-import { standings } from '../data/script';
+import { standings, collegeMode } from '../data/script';
 import Background from '../components/background';
 import ListItem from '../components/ListItem';
 import TeamCardModal from '../components/TeamCardModal';
@@ -60,8 +60,8 @@ export default class Standings extends React.Component {
                                 alignItems: 'center'
                             }}>
                                 <View style={{
-                                    width: '90%',
-                                    height: '75%', backgroundColor: 'rgba(255,255,255,.97)', alignSelf: 'center', borderRadius: 25
+                                    width: '95%',
+                                    height: '75%', backgroundColor: 'rgba(255,255,255,1)', alignSelf: 'center', 
                                 }}>
                                     <TouchableOpacity
                                         onPress={() => {
@@ -77,14 +77,14 @@ export default class Standings extends React.Component {
                     ) : null
                 }
 
-        <ScrollView>
+        <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
           {this.state.standings.map((team,i) => (
             <ListItem
-             title={i+1 + '. ' + team.name} 
+             title={collegeMode ? (`#${i+1} ${team.name}`):  i+1 + '. ' + team.name} 
              key={team.name} 
              leftAvatar={team.logoSrc }
-             subtitle={'Record: ' + team.wins + '-' + team.losses}
+             subtitle={'Record: ' + team.wins + '-' + (team.losses)}
             onLongPress={() => this.setModalVisible(true, team)}
             ></ListItem>
           ))}

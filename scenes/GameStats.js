@@ -63,13 +63,13 @@ export default class GameStats extends React.Component {
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 30 }}>{selectedTeam.played[this.props.currentGame].userScore}</Text>
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20 }}>{selectedTeam.name}</Text>
                 </View>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {
 
                             sortedRoster(selectedTeam, 'position').map((player, i) => (
-                            <ListItem titleStyle={{ fontFamily: 'advent-pro' }}
-                                subtitleStyle={{ fontFamily: 'advent-pro' }}
+                            <ListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}}
+                                subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}}
                                 containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)', }}
                                 title={player.positionString + ' #' + player.number + ' ' + player.name}
                                 key={i} leftAvatar={player.faceSrc } 
@@ -89,11 +89,11 @@ export default class GameStats extends React.Component {
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 30 }}>{selectedTeam2.played[this.props.currentGame].userScore}</Text>
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20 }}>{selectedTeam2.name}</Text>
                 </View>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {sortedRoster(selectedTeam2, 'position').map((player, i) => (
                         <ListItem
-                            titleStyle={{ fontFamily: 'advent-pro' }} subtitleStyle={{ fontFamily: 'advent-pro' }}
+                            titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}}
                             containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }}
                             title={player.positionString + ' #' + player.number + ' ' + player.name}
                             key={i} leftAvatar={player.faceSrc }

@@ -14,23 +14,21 @@ export default class RetirementStage extends React.Component{
 
 return (
     <Background>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
 
         <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.rosterlist({ selectedTeam: franchise.retirements, back: 'seasonmenu', view: 'retirements' }) }}>
          <Card
           containerStyle={{
-            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-            borderRadius: 25,
-            alignSelf:'center'
+            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
           }}
           >
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Picache style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} source = {{uri: selectedTeam.logoSrc }} />
           </View>
-          <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-          <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{collegeMode ? 'Graduates' : 'Retirements'}</Text>
+          <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+          <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{collegeMode ? 'Graduates' : 'Retirements'}</Text>
         </Card>
       </TouchableOpacity>
 
@@ -41,17 +39,15 @@ return (
         franchise.stage = collegeMode? 'freeagency' : 'draft', franchise.simStage(), this.props.teamListStage(franchise.stage), collegeMode ? Actions.replace('freeagencystage', {teamListStage : this.props.teamListStage} ) : Actions.replace('draftmenu', { franchise: franchise, teamListStage : this.props.teamListStage}) }}>
         <Card
           containerStyle={{
-            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-            borderRadius: 25,
-            alignSelf:'center'
+            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
           }}
           >
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <Picache style={{ flex: 1, overflow: 'hidden',  resizeMode: 'contain', height: 75, width: 75, margin: 5 }} source = {{uri: selectedTeam.logoSrc }}/>
           </View>
-          <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-          <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{collegeMode? 'Advance To Recruiting' : 'Advance To Draft'}</Text>
+          <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+          <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{collegeMode? 'Advance To Recruiting' : 'Advance To Draft'}</Text>
         </Card>
       </TouchableOpacity>
 
@@ -62,24 +58,20 @@ return (
 
           <Card
             containerStyle={{
-              width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-              borderRadius: 25,
-              alignSelf:'center'
+              width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
             }}
           >
-            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Download Draft Class</Text>
+            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Download Draft Class</Text>
           </Card>
         </TouchableOpacity>
         <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.savesmenu({filtered: '.draftclass', loadOnly: true}) }}>
 
           <Card
             containerStyle={{
-              width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-              borderRadius: 25,
-              alignSelf:'center'
+              width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
             }}
           >
-            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Load Local Draft Class</Text>
+            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Load Local Draft Class</Text>
           </Card>
         </TouchableOpacity>
 

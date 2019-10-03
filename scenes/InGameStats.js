@@ -63,7 +63,7 @@ export default class InGameStats extends React.Component {
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 30 }}>{this.props.currentGame.homescore}</Text>
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20 }}>{home.name}</Text>
                 </View>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {sortedRoster(home, 'position').map((player, i) => (
                         <ListItem 
@@ -84,7 +84,7 @@ export default class InGameStats extends React.Component {
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 30 }}>{this.props.currentGame.awayscore}</Text>
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20 }}>{away.name}</Text>
                 </View>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {sortedRoster(away, 'position').map((player, i) => (
                         <ListItem

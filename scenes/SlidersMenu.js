@@ -311,26 +311,24 @@ export default class SlidersMenu extends React.Component {
     render() {
         return (
             <Background>
-                <ScrollView >
+                <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
                 <Card
                         containerStyle={{
-                            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                            borderRadius: 25,
-                            alignSelf:'center',
+                            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                         }} >
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro', marginBottom:10}}>Slider Presets</Text>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro', marginBottom:10}}>Slider Presets</Text>
                             <View style={{flexDirection:'row'}}>
                         <TouchableOpacity style={{flex:1}} onPress={() => {this.resetSliders()}}>
                             <View style={{ borderRightWidth:1, borderColor:'white'}}>
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Pro</Text>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Pro</Text>
                             </View>
 
 
                         </TouchableOpacity>
                         <TouchableOpacity style={{flex:1}} onPress={() => {this.collegeSliders()}}>
                                 <View>
-                                <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>College</Text>
+                                <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>College</Text>
                                     </View>
 
                             
@@ -342,17 +340,15 @@ export default class SlidersMenu extends React.Component {
 
                     <Card
                         containerStyle={{
-                            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                            borderRadius: 25,
-                            alignSelf:'center'
+                            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                         }} >
 
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Game Sliders'}</Text>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Game Sliders'}</Text>
                         </View>
-                        <Divider style={{ backgroundColor: 'white', margin: 10 }}></Divider>
+                        <Divider style={{ backgroundColor: 'black', margin: 10 }}></Divider>
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Difficulty: " + this.difficultyString(this.state.difficulty)}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Difficulty: " + this.difficultyString(this.state.difficulty)}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -363,7 +359,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ difficulty: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Average Possesion Time: " + this.state.soc +" Seconds"}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Average Possesion Time: " + this.state.soc +" Seconds"}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -374,7 +370,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ soc: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Trade Difficulty: " + Math.floor(this.state.tradeDifficulty * 100)}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Trade Difficulty: " + Math.floor(this.state.tradeDifficulty * 100)}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -385,7 +381,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ tradeDifficulty: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Two Point Percentage Low: " + this.state.twopl}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Two Point Percentage Low: " + this.state.twopl}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -398,7 +394,7 @@ export default class SlidersMenu extends React.Component {
 
 
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Two Point Percentage High: " + this.state.twoph}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Two Point Percentage High: " + this.state.twoph}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -409,7 +405,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ twoph: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Three Point Percentage Low: " + this.state.threepl}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Three Point Percentage Low: " + this.state.threepl}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -420,7 +416,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ threepl: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Three Point Percentage High: " + this.state.threeph}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Three Point Percentage High: " + this.state.threeph}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -431,7 +427,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ threeph: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Defense Low: " + this.state.defl}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Defense Low: " + this.state.defl}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -442,7 +438,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ defl: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Defense High: " + this.state.defh}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Defense High: " + this.state.defh}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -453,7 +449,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ defh: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Rebounding: " + this.state.reboundSlider}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Rebounding: " + this.state.reboundSlider}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -463,7 +459,7 @@ export default class SlidersMenu extends React.Component {
                             value={this.state.reboundSlider}
                             onValueChange={value => { this.checkGameSliders(), this.setState({ reboundSlider: value }) }}
                         />
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Training Points Available: " + this.state.trainingPointsAvailable}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Training Points Available: " + this.state.trainingPointsAvailable}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -479,25 +475,23 @@ export default class SlidersMenu extends React.Component {
 
 
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25 }} title={this.state.gameSlidersChanged ? "Commit Game Slider Changes" : "Current"} disabled={this.state.gameSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'white' }} onPress={() => { this.saveChanges() }}></Button>
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title={this.state.gameSlidersChanged ? "Commit Game Slider Changes" : "Current"} disabled={this.state.gameSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'white' }} onPress={() => { this.saveChanges() }}></Button>
 
                     </Card>
 
                     <Card
                         containerStyle={{
-                            width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                            borderRadius: 25,
-                            alignSelf:'center'
+                            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                         }} >
 
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Franchise Sliders'}</Text>
-                            <Text style={{ textAlign: "center", fontSize: 14, color: 'white', fontFamily: 'advent-pro' }}>{'Note: Modyfying these sliders will require a new franchise to be started, The franchise you are currently in will be restarted.'}</Text>
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Franchise Sliders'}</Text>
+                            <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro' }}>{'Note: Modyfying these sliders will require a new franchise to be started, The franchise you are currently in will be restarted.'}</Text>
 
                         </View>
-                        <Divider style={{ backgroundColor: 'white', margin: 10 }}></Divider>
+                        <Divider style={{ backgroundColor: 'black', margin: 10 }}></Divider>
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Season Games: " + this.state.games}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Season Games: " + this.state.games}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -508,7 +502,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkFranchiseSliders(), this.setState({ games: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Playoff Seeds: " + this.state.seeds}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Playoff Seeds: " + this.state.seeds}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -519,7 +513,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkFranchiseSliders(), this.playoffSeeds(value) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{"Series Length: Best Of " + (this.state.gamesToWin + this.state.gamesToWin - 1)}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Series Length: Best Of " + (this.state.gamesToWin + this.state.gamesToWin - 1)}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -530,18 +524,18 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkFranchiseSliders(), this.setState({ gamesToWin: value }) }}
                         />
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,0.75)', marginBottom: 10, borderWidth: 1, borderRadius: 25 }} title={this.state.conferencesOn ? 'Conferences: ON' : 'Conferences: OFF'} onPress={() => { this.checkFranchiseSliders(), this.setState({ maxSeeds: this.updateMaxSeeds(!this.state.conferencesOn), seedSelection: this.updateMaxSeeds(!this.state.conferencesOn), conferencesOn: !this.state.conferencesOn }), this.playoffSeeds(this.updateMaxSeeds(!this.state.conferencesOn)) }}></Button>
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'black', marginBottom: 10, borderWidth: 1, borderRadius: 25 }} title={this.state.conferencesOn ? 'Conferences: ON' : 'Conferences: OFF'} onPress={() => { this.checkFranchiseSliders(), this.setState({ maxSeeds: this.updateMaxSeeds(!this.state.conferencesOn), seedSelection: this.updateMaxSeeds(!this.state.conferencesOn), conferencesOn: !this.state.conferencesOn }), this.playoffSeeds(this.updateMaxSeeds(!this.state.conferencesOn)) }}></Button>
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25, marginBottom: 10 }} title={this.state.collegeMode ? 'Offseason Type: College' : 'Offseason Type: Pro'} onPress={() => { this.setState({ collegeMode: !this.state.collegeMode }), this.checkFranchiseSliders() }}></Button>
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'black', borderWidth: 1, borderRadius: 25, marginBottom: 10 }} title={this.state.collegeMode ? 'Offseason Type: College' : 'Offseason Type: Pro'} onPress={() => { this.setState({ collegeMode: !this.state.collegeMode }), this.checkFranchiseSliders() }}></Button>
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25 }} title={this.state.franchiseSlidersChanged ? "Commit Franchise Slider Changes" : "Current"} disabled={this.state.franchiseSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'white' }} onPress={() => { this.saveFranchiseChanges() }}></Button>
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title={this.state.franchiseSlidersChanged ? "Commit Franchise Slider Changes" : "Current"} disabled={this.state.franchiseSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'white' }} onPress={() => { this.saveFranchiseChanges() }}></Button>
 
 
                     </Card>
 
 
 
-                    <Button titleStyle={{ fontFamily: 'advent-pro' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0.75)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderRadius: 25, width:'90%', marginTop:10, alignSelf:'center', marginBottom:10 }} title={"Reset To Default Sliders"} onPress={() => { this.resetSliders() }}></Button>
+                    <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25, width:'90%', marginTop:10, alignSelf:'center', marginBottom:10 }} title={"Reset To Default Sliders"} onPress={() => { this.resetSliders() }}></Button>
 
                 </ScrollView>
             </Background>

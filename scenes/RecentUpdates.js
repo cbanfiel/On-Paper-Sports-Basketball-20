@@ -9,6 +9,10 @@ import ListItem from '../components/ListItem';
 
 const updateLog = [
     {
+        date: '8/13/2019',
+        updates: "-Added a fantasy draft in the edit roster menu"
+    },
+    {
         date: '7/31/2019',
         updates: "-Added more efficient list view in draft and roster lists \n-You can now do franchise mode with an uneven number of teams, (In order to keep the team number and season length as customizable as possible the scheduling algorithim gives one team each 'week' a 'bye' week, these result in an automatic win for the team, The 'bye week' system is only implemented when you have an odd number of teams in your league)\n-Testing menu display changing every time you go back to the menu \n-Various bug fixes.."
     },

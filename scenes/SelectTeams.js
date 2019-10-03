@@ -24,37 +24,33 @@ export default class SelectTeams extends React.Component {
     return (
       <Background>
 
-        <ScrollView >
+        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
           <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 0, updateState: this.update })}>
 
           <Card
                     containerStyle={{
-                      width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25,
-                      alignSelf:'center'
+                      width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                     }}
                     >
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                       <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={home.logoSrc } />
                     </View>
-                    <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-                    <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{home.name + ' OVR: ' + home.rating}</Text>
+                    <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+                    <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{home.name + ' OVR: ' + home.rating}</Text>
                   </Card>
           </TouchableOpacity>
           <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 1, updateState: this.update })}>
 
           <Card
                     containerStyle={{
-                      width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25,
-                      alignSelf:'center'
+                      width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                     }}
                     >
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                       <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={away.logoSrc} />
                     </View>
-                    <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-                    <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{away.name + ' OVR: ' + away.rating}</Text>
+                    <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+                    <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{away.name + ' OVR: ' + away.rating}</Text>
                   </Card>
           </TouchableOpacity>
 
@@ -62,17 +58,15 @@ export default class SelectTeams extends React.Component {
 
           <Card
                     containerStyle={{
-                      width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                      borderRadius: 25,
-                      alignSelf:'center'
+                      width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
                     }}
                     >
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                       <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5, marginRight: 20 }} uri={ home.logoSrc } />
                       <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5, marginLeft: 20 }} uri={ away.logoSrc } />
                     </View>
-                    <Divider style={{backgroundColor:'white' ,  height:1, margin:5}} ></Divider>
-                    <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>{'Start Game'}</Text>
+                    <Divider style={{backgroundColor:'black' ,  height:1, margin:5}} ></Divider>
+                    <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Start Game'}</Text>
                   </Card>
                 </TouchableOpacity>
 

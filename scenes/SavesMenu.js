@@ -244,8 +244,8 @@ export default class SavesMenu extends React.Component {
 
 
   <View style={{flexDirection:'column', backgroundColor:'rgba(0,0,0,0.75)', padding:10}}>
-  <Text style={{ textAlign: "center", fontSize: 14, color: 'white', fontFamily: 'advent-pro', margin:5 }}>{'Note: Sliders are saved and loaded with rosters'}</Text>
-  <Text style={{ textAlign: "center", fontSize: 14, color: 'white', fontFamily: 'advent-pro', margin: 5 }}>{'To delete a save press and hold the desired save file until the delete prompt appears...'}</Text>
+  <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro', margin:5 }}>{'Note: Sliders are saved and loaded with rosters'}</Text>
+  <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro', margin: 5 }}>{'To delete a save press and hold the desired save file until the delete prompt appears...'}</Text>
   </View>
 {
 
@@ -264,9 +264,9 @@ null :
 }
 
 
-        <ScrollView>
+        <ScrollView contentContainerStyle={{paddingBottom: 20}}>
         {this.state.keys.map((item, i) => (
-                        <ListItem titleStyle={{ fontFamily: 'advent-pro' }} subtitleStyle={{ fontFamily: 'advent-pro' }} containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }} 
+                        <ListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0.75)' }} 
                         onPress={() => {this.load(item)}} 
                         onLongPress={() => {this.delete(item)}}
                         title={item.substring(0, item.indexOf('.'))} 

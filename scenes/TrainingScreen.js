@@ -115,15 +115,15 @@ export default class TrainingScreen extends React.Component {
         return (
             <Background>
 
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth: 1 }}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth: 1 }}>
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20, padding: 20 }}>{this.state.player.positionString + ' #' + this.state.player.number + ' ' + this.state.player.name}</Text>
                 </View>
 
-                <View style={{ backgroundColor: 'rgba(255,255,255,0.75)', borderBottomWidth: 1 }}>
+                <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth: 1 }}>
                     <Text style={{ fontFamily: 'advent-pro', textAlign: 'center', fontSize: 20, padding: 20 }}>{'Training Points Remaining: ' + this.state.points}</Text>
                 </View>
 
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
                     <ListItem
                         title={'Offense: ' + this.state.off}
                         rightTitle={this.state.offGrowth >= 0 ? 'Growth: +' + this.state.offGrowth : 'Growth: ' + this.state.offGrowth}

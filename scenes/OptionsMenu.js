@@ -18,18 +18,16 @@ export default class OptionsMenu extends React.Component {
     return (
 
       <Background>
-        <ScrollView >
+        <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
         <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.communityrosters({update: this.props.update})}}>
 
 <Card
   containerStyle={{
-    width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-    borderRadius: 25,
-    alignSelf:'center'
+    width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
   }}
 >
-  <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Community Rosters</Text>
+  <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Community Rosters</Text>
 </Card>
 </TouchableOpacity>
 
@@ -37,12 +35,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Sliders</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Sliders</Text>
             </Card>
           </TouchableOpacity>
 
@@ -52,12 +48,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Manage Saves</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Manage Saves</Text>
             </Card>
           </TouchableOpacity>
 
@@ -65,12 +59,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>New Franchise</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>New Franchise</Text>
             </Card>
           </TouchableOpacity>
 
@@ -78,12 +70,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Remove All Teams</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Remove All Teams</Text>
             </Card>
           </TouchableOpacity>
 
@@ -91,12 +81,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Generate New Free Agents</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Generate New Free Agents</Text>
             </Card>
           </TouchableOpacity>
 
@@ -104,12 +92,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Import/Export</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Import/Export</Text>
             </Card>
           </TouchableOpacity>
 
@@ -118,12 +104,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Reset</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Reset</Text>
             </Card>
           </TouchableOpacity>
 
@@ -131,12 +115,10 @@ export default class OptionsMenu extends React.Component {
 
             <Card
               containerStyle={{
-                width: '90%', backgroundColor: 'rgba(0,0,0,0.75)',
-                borderRadius: 25,
-                alignSelf:'center'
+                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
               }}
             >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'white', fontFamily: 'advent-pro' }}>Patch Notes</Text>
+              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Patch Notes</Text>
             </Card>
           </TouchableOpacity>
 
