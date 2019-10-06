@@ -535,7 +535,7 @@ export default class SlidersMenu extends React.Component {
 
 
 
-                    <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25, width:'90%', marginTop:10, alignSelf:'center', marginBottom:10 }} title={"Reset To Default Sliders"} onPress={() => { this.resetSliders() }}></Button>
+                    <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'black', borderWidth: 1, borderRadius: 25, width:'90%', marginTop:10, alignSelf:'center', marginBottom:10 }} title={"Reset To Default Sliders"} onPress={() => { this.resetSliders() }}></Button>
 
                 </ScrollView>
             </Background>

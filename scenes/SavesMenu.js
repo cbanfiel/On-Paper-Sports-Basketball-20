@@ -243,7 +243,7 @@ export default class SavesMenu extends React.Component {
       <Background>
 
 
-  <View style={{flexDirection:'column', backgroundColor:'rgba(0,0,0,0.75)', padding:10}}>
+  <View style={{flexDirection:'column', backgroundColor:'rgba(0,0,0,0)', padding:10}}>
   <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro', margin:5 }}>{'Note: Sliders are saved and loaded with rosters'}</Text>
   <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro', margin: 5 }}>{'To delete a save press and hold the desired save file until the delete prompt appears...'}</Text>
   </View>
