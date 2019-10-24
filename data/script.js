@@ -52,6 +52,7 @@ export let secondsOffClock = 16;
 export let tradeThreshold = 0.3;
 export let reboundSlider = 50;
 export let trainingPointsAvailable = 2;
+export let playerSigningDifficulty = 90;
 //Seconds Off Clock Random Factor
 let secondsOffClockRandomFactor = 6;
 export let gamesPerSeason = 82;
@@ -88,6 +89,7 @@ export function resetSliders() {
     tradeThreshold = 0.3;
     reboundSlider = 50;
     trainingPointsAvailable = 2;
+    playerSigningDifficulty = 90;
 }
 
 export function collegeSliderPreset() {
@@ -128,7 +130,7 @@ export function collegeSliderPreset() {
     }
 }
 
-export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeDiff, rebSli, tptsavail) {
+export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeDiff, rebSli, tptsavail, psd) {
     twoPointPercentageLow = twopl;
     twoPointPercentageHigh = twoph;
     threePointPercentageLow = thrpl;
@@ -147,6 +149,12 @@ export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeD
         trainingPointsAvailable = 2;
     } else {
         trainingPointsAvailable = tptsavail;
+    }
+    console.log(psd)
+    if(psd == null){
+        playerSigningDifficulty = 90;
+    }else{
+        playerSigningDifficulty = psd;
     }
 }
 
@@ -346,6 +354,7 @@ class Team {
     constructor(team) {
 
         this.scheduleRating = 0;
+        this.oldRating = 0;
 
         this.totalRankingRating = 0;
         this.conferenceId = team.conferenceId;
@@ -494,7 +503,7 @@ class Team {
 
             this.rating = Math.round(total / (this.firstTeam.length + this.bench.length));
 
-            this.rating  = Math.round(scaleBetween(this.rating,60,99,65,85));
+            this.rating  = Math.round(scaleBetween(this.rating,68,95,65,85));
       if(this.rating>=99){
         this.rating = 99;
       }
@@ -1214,15 +1223,16 @@ export function generateCustomRoster(team, rating) {
           }
 
           ply.years = Math.floor(Math.random() * 3) + 1;
-          ply.salary = Math.round(
-            scaleBetween(
-              tradeValueCalculation(ply),
-              VETERANSMINIMUM,
-              40000000,
-              80,
-              600
-            )
-          ) + Math.round(Math.random()*100000);
+          ply.salary = Math.round(scaleBetween(ply.rating, VETERANSMINIMUM, 50000000, 74, 99));
+          ply.salary -= Math.round(Math.random() * 100000);
+          if(ply.salary < VETERANSMINIMUM){
+              ply.salary = VETERANSMINIMUM;
+          }
+
+
+
+
+
           ply.age = Math.floor(Math.random()*14)+23;
           if(collegeMode){
             //set up for college fr - sr
@@ -1371,6 +1381,8 @@ function generateDraftClass() {
 
       let age = Math.floor(Math.random()*5)+18;
       ply.age = age;
+      ply.years = 2 + 1;
+      ply.salary = 1200000;
 
 
         draftClass.roster.push(ply);
@@ -2269,6 +2281,8 @@ export class Season {
       
           //setup rankings
           sortStandings();
+          //set power rankings
+        setPowerRankings();
 
     }
 
@@ -3188,8 +3202,9 @@ export class Franchise {
 
     }
 
+
+    //not working for some odd reason??
     manageWalkOns() {
-        let ply;
         for (let i = 0; i < teams.length; i++) {
 
 
@@ -3219,13 +3234,12 @@ export class Franchise {
 
             }
 
-
-
-
+            let ply;
 
             while (pgs < POS_PG_REQUIREMENTS) {
                 ply = generatePlayer(POS_PG, 60);
                 teams[i].roster.push(ply);
+
                 pgs++;
             }
             while (sgs < POS_SG_REQUIREMENTS) {
@@ -3245,6 +3259,7 @@ export class Franchise {
             }
             while (cs < POS_C_REQUIREMENTS) {
                 ply = generatePlayer(POS_C, 60);
+
                 teams[i].roster.push(ply);
                 cs++;
             }
@@ -3264,10 +3279,10 @@ export class Franchise {
             for (let i = 0; i < teams.length; i++) {
                 let seedRat = teams.length - teams[i].seed;
                 let teamRating = teams[i].rating;
-                let scaledSeed = scaleBetween((seedRat), 70, 90, 0, teams.length);
+                let scaledSeed = scaleBetween((seedRat), 68, 95, 0, teams.length);
 
 
-                let rating = Math.round((teamRating + scaledSeed) / 2) - 20;
+                let rating = Math.round((teamRating + scaledSeed) / 2) - 17;
                 // console.log(`${teams[i].name} ${rating}`);
 
                 if (teams[i] === selectedTeam) {
@@ -3517,8 +3532,10 @@ export class Franchise {
     
         console.log(`H: ${high} L: ${low} AVG: ${total/teams.length}`);
 
-        saveFranchise('Franchise_Autosave');
-
+        
+    //added specific autosave names
+    let teamName = selectedTeam.name.split(' ').join('');
+    saveFranchise(teamName + "_Autosave");
 
     }
 
@@ -4163,12 +4180,25 @@ function tradeValueCalculation(ply) {
     if (ply.isPick === true) {
         isPick = true;
         // console.log(ply.projectedPick);
-        if (ply.round > 1) {
-            ply = draftClass.roster[ply.projectedPick + teams.length - 2];
-        } else {
-            ply = draftClass.roster[ply.projectedPick - 1];
-
-        }
+        if(inDraft){
+            //FIXED 10-6-19
+            if (ply.round > 1) {
+                let index = ply.projectedPick + (teams.length * (ply.round-1)) - 1 - franchise.currentDraft.drafted.roster.length;
+                // console.log(`index ${index} proj${ply.projectedPick} round${ply.round} len${franchise.currentDraft.drafted.roster.length}`);
+                ply = draftClass.roster[index];
+            } else {
+                let index = ply.projectedPick - 1 - franchise.currentDraft.drafted.roster.length;
+                ply = draftClass.roster[index];
+            }
+          }else{
+            if (ply.round > 1) {
+                let index = ply.projectedPick + (teams.length * (ply.round-1)) - 1
+                ply = draftClass.roster[index];
+                // console.log(`index ${index} proj${ply.projectedPick} round${ply.round}`);
+            } else {
+              ply = draftClass.roster[ply.projectedPick - 1];
+            }
+          }
     }
 
 
@@ -4197,7 +4227,7 @@ function tradeValueCalculation(ply) {
         // console.log(certainty);
         totalVal += ((totalVal * certainty) * 0.7);
     }
-    // console.log(ply.name + " Skil: " + skillVal + " Age: " + ageVal + " Sal: " + salVal + " " + totalVal);
+    console.log(ply.name + " Skil: " + skillVal + " Age: " + ageVal + " Sal: " + salVal + " " + totalVal);
     return totalVal;
 }
 
@@ -4482,7 +4512,10 @@ export function saveData(slot) {
         conferencesOn: conferencesOn,
         collegeMode: collegeMode,
         difficulty: difficulty,
-        tradeThreshold: tradeThreshold
+        tradeThreshold: tradeThreshold,
+        reboundSlider: reboundSlider,
+        trainingPointsAvailable: trainingPointsAvailable,
+        playerSigningDifficulty: playerSigningDifficulty
     }
 
     let write = JSON.stringify(data);
@@ -4603,7 +4636,7 @@ export const loadData = (data) => {
             if (loadedData.sliders.tradeThreshold == null) {
                 resetSliders();
             } else {
-                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold);
+                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold, loadedData.sliders.reboundSlider, loadedData.sliders.trainingPointsAvailable, loadedData.sliders.playerSigningDifficulty);
                 setFranchiseSliders(loadedData.sliders.gamesPerSeason, loadedData.sliders.playoffSeeds, loadedData.sliders.seriesWinCount, loadedData.sliders.conferencesOn, loadedData.sliders.collegeMode);
             }
 
@@ -5135,23 +5168,21 @@ export function offerContract(team, ply, years, salary, playerpool, isForced) {
         return true;
     }
 
-    if (ply.salary <= VETERANSMINIMUM) {
-        signPlayer(team, ply, years, salary, playerpool);
-        return true;
-    }
+    // if (ply.salary <= VETERANSMINIMUM) {
+    //     signPlayer(team, ply, years, salary, playerpool);
+    //     return true;
+    // }
 
-    if (ply.rating < 78) {
-        signPlayer(team, ply, years, salary, playerpool);
-        return true;
-    }
+    // if (ply.rating < 78) {
+    //     signPlayer(team, ply, years, salary, playerpool);
+    //     return true;
+    // }
 
-    sortTeamsByRating();
+    // sortTeamsByRating();
 
-    let salaryAddition = scaleBetween(team.ratingRank, (-(ply.salary * 0.1)), ply.salary * 0.3, 1, teams.length);
-    salaryAddition = salaryAddition - ((salaryAddition * .32) * years);
-    // console.log(salaryAddition);
+    let salaryRequested = getPlayerSigningInterest(team, ply, years);
 
-    if (ply.salary + salaryAddition < salary) {
+    if (salaryRequested <= salary) {
         signPlayer(team, ply, years, salary, playerpool);
         return true;
     } else {
@@ -5159,6 +5190,33 @@ export function offerContract(team, ply, years, salary, playerpool, isForced) {
     }
 
 }
+
+export function getPlayerSigningInterest(team, ply, years) {
+
+
+    let playForWinner = scaleBetween(ply.age, 0.1, -0.25, 19,40 );
+    let playForLoser = scaleBetween(ply.age, 0.3,0.4,19,40);
+
+    let manyYears = scaleBetween(ply.age, 0.15,0.05,19,40);
+    let fewYears = scaleBetween(ply.age, -0.4,-0.1,19,40);
+
+
+    let salaryAddition = scaleBetween(team.powerRanking, ply.salary*playForWinner , ply.salary * playForLoser, 1, teams.length);
+  
+    let yearFactor = scaleBetween(years, ply.salary * fewYears, ply.salary * manyYears, 1,6);
+  
+    let salaryRequested = Math.floor((ply.salary + salaryAddition - yearFactor)*(playerSigningDifficulty/100));
+
+
+
+    if(ply.salary<= VETERANSMINIMUM){
+        return VETERANSMINIMUM;
+    }
+  
+    // console.log(`SAL: ${ply.salary} TMSD ${team.powerRanking}, SALADD ${salaryAddition}, yearfactor ${yearFactor} ageyr ${ageYrFactor} FIN ${salaryRequested}`);
+    
+    return salaryRequested;
+  }
 
 export function setPowerRankings() {
 
@@ -5362,7 +5420,10 @@ export function saveFranchise(slot) {
         conferencesOn: conferencesOn,
         collegeMode: collegeMode,
         difficulty: difficulty,
-        tradeThreshold: tradeThreshold
+        tradeThreshold: tradeThreshold,
+        reboundSlider: reboundSlider,
+        trainingPointsAvailable: trainingPointsAvailable,
+        playerSigningDifficulty: playerSigningDifficulty
     }
 
     let dc = [];
@@ -5513,7 +5574,7 @@ export const loadFranchise = (data) => {
             if (loadedData.sliders.tradeThreshold == null) {
                 resetSliders();
             } else {
-                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold);
+                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold, loadedData.sliders.reboundSlider, loadedData.sliders.trainingPointsAvailable, loadedData.sliders.playerSigningDifficulty);
                 setFranchiseSliders(loadedData.sliders.gamesPerSeason, loadedData.sliders.playoffSeeds, loadedData.sliders.seriesWinCount, loadedData.sliders.conferencesOn, loadedData.sliders.collegeMode, true);
             }
 

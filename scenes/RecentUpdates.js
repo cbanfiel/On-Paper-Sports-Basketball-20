@@ -9,6 +9,14 @@ import ListItem from '../components/ListItem';
 
 const updateLog = [
     {
+        date: '10/24/2019',
+        updates: "-Overhauled player signing interests\n-Simplified sign player menu\n-Added player signing difficulty slider\n-Added team specific franchise autosaves\n-Fixed bug with some sliders not being saved/loaded"
+    },
+    {
+        date: '10/6/2019',
+        updates: "-College mode overhaul (redshirting, recruiting, rankings in ui and schedule view, etc) \n-updated the look of the ui \n-in game and previous game stat menus updated \n-various bug fixes"
+    },
+    {
         date: '8/13/2019',
         updates: "-Added a fantasy draft in the edit roster menu"
     },
