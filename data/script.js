@@ -1,6 +1,6 @@
 
 
-var teamsData = require('./JSON/Teams.json');
+export let teamsData = require('./JSON/Teams.json');
 var playerData = require('./JSON/Players.json');
 var freeAgents = require('./JSON/FreeAgents.json');
 
@@ -8,6 +8,9 @@ var freeAgents = require('./JSON/FreeAgents.json');
 var draftData = require('./JSON/DraftData.json');
 
 import * as FileSystem from 'expo-file-system';
+
+export const portraits = require('./Portraits.json');
+
 
 //for draft trades
 export let inDraft = false;
@@ -150,7 +153,7 @@ export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeD
     } else {
         trainingPointsAvailable = tptsavail;
     }
-    console.log(psd)
+    // console.log(psd)
     if(psd == null){
         playerSigningDifficulty = 90;
     }else{
@@ -187,6 +190,9 @@ class Player {
         this.positionString;
         this.getPositionString();
         this.faceSrc = player.faceSrc;
+        if (player.faceSrc == null || player.faceSrc.length < 1) {
+        this.faceSrc = portraits[Math.floor(Math.random()*portraits.length)];
+        }
         this.teamLogoSrc;
         this.teamName;
         this.usage = 0;
@@ -419,7 +425,7 @@ class Team {
         this.expiring = {
             name: 'Expiring Contracts',
             roster: [],
-            logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+            logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
             reorderLineup: function () {
                 availableFreeAgents.roster.sort(function (a, b) {
                     if (a.rating > b.rating)
@@ -1091,14 +1097,14 @@ export let conferences = [];
 let easternConference = {
     name: 'Eastern Conference',
     teams: [],
-    logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
     id: 0
 };
 
 let westernConference = {
     name: 'Western Conference',
     teams: [],
-    logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
     id: 1
 };
 
@@ -1107,7 +1113,7 @@ conferences.push(easternConference, westernConference);
 export let availableFreeAgents = {
     name: 'Free Agents',
     roster: [],
-    logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
     reorderLineup: function () {
         availableFreeAgents.roster.sort(function (a, b) {
             if (a.rating > b.rating)
@@ -1137,7 +1143,9 @@ export function loadRosters() {
             }
         }
         if (teams[i].roster.length <= 0) {
-            generateCustomRoster(teams[i], 80);
+            //changed init custom rost to 78
+            let rating = 83+(Math.round(Math.random()*6)-3);
+            generateCustomRoster(teams[i], rating);
         }
         for (let k = 0; k < conferences.length; k++) {
             if (teams[i].conferenceId === conferences[k].id) {
@@ -1165,6 +1173,7 @@ export function loadRosters() {
     availableFreeAgents.reorderLineup();
     setSalaryExpectations(availableFreeAgents);
 
+    generateFreeAgents(150,20);
     generateDraftClass();
 }
 
@@ -1172,7 +1181,7 @@ export function loadRosters() {
 export let draftClass = {
     name: 'Draft Class',
     roster: [],
-    logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
     reorderLineup: function () {
         draftClass.roster.sort(function (a, b) {
             if (a.rating > b.rating)
@@ -1200,6 +1209,9 @@ export function generateCustomRoster(team, rating) {
     if(rat<61){
       rat = 61;
     }
+    if (rat > 99) {
+        rat = 99;
+      }
         if (pg < POS_PG_REQUIREMENTS) {
             ply = generatePlayer(POS_PG, rat);
             pg++;
@@ -1223,8 +1235,8 @@ export function generateCustomRoster(team, rating) {
           }
 
           ply.years = Math.floor(Math.random() * 3) + 1;
-          ply.salary = Math.round(scaleBetween(ply.rating, VETERANSMINIMUM, 50000000, 74, 99));
-          ply.salary -= Math.round(Math.random() * 100000);
+          ply.salary = Math.round(scaleBetween(ply.rating, VETERANSMINIMUM, 25000000, 74, 99));
+          ply.salary -= Math.round(Math.random() * 2000000);
           if(ply.salary < VETERANSMINIMUM){
               ply.salary = VETERANSMINIMUM;
           }
@@ -2440,7 +2452,7 @@ export class Franchise {
         this.retirements = {
             name: 'Retirements',
             roster: [],
-            logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+            logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
             reorderLineup: function () {
                 draftClass.roster.sort(function (a, b) {
                     if (a.rating > b.rating)
@@ -3696,7 +3708,7 @@ export class Franchise {
             drafted: {
                 name: 'Drafted',
                 roster: [],
-                logoSrc: 'https://i.ibb.co/51fFLv2/GENERIC.png',
+                logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
                 reorderLineup: function () {
                     availableFreeAgents.roster.sort(function (a, b) {
                         if (a.rating > b.rating)
@@ -4553,24 +4565,30 @@ saveToFileSystem = async (data, saveName, type) => {
 };
 
 
-export const loadFromFileSystem = async (fileName) => {
+export const loadFromFileSystem = async (fileName, _callback) => {
     const file = fileName;
     if (file.includes('.draftclass')) {
         const load = FileSystem.readAsStringAsync(FileSystem.documentDirectory + "saves/" + file).then((value) => {
             let data = JSON.parse(value);
             importDraftClassJson(data);
+            _callback();
+
         }).catch((err) => {
             console.log(err);
         });
     } else if (file.includes('.franchise')) {
         const load = FileSystem.readAsStringAsync(FileSystem.documentDirectory + "saves/" + file).then((value) => {
             loadFranchise(value);
+            _callback();
+
         }).catch((err) => {
             console.log(err);
         });
     } else {
         const load = FileSystem.readAsStringAsync(FileSystem.documentDirectory + "saves/" + file).then((value) => {
             loadData(value);
+            _callback();
+
         }).catch((err) => {
             console.log(err);
         });
@@ -4865,7 +4883,7 @@ export function exportRosterJson() {
     return write;
 }
 
-export async function getDataFromLink(link, type, sliderType) {
+export async function getDataFromLink(link, type, sliderType, _callback) {
     type = type.toLowerCase();
     try {
         let response = await fetch(
@@ -4878,12 +4896,18 @@ export async function getDataFromLink(link, type, sliderType) {
                 collegeSliderPreset();
                 resetFranchise();
             }
+            _callback();
+
         }
         else if (type === 'team') {
             importTeamJson(responseJson);
+            _callback();
+
         }
         else if (type === 'draftclass') {
             importDraftClassJson(responseJson);
+            _callback();
+
         } else if (type === 'communityroster') {
             communityRosters = responseJson;
         }
