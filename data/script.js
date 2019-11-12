@@ -56,6 +56,7 @@ export let tradeThreshold = 0.3;
 export let reboundSlider = 50;
 export let trainingPointsAvailable = 2;
 export let playerSigningDifficulty = 90;
+export let recruitingDifficulty = 100;
 //Seconds Off Clock Random Factor
 let secondsOffClockRandomFactor = 6;
 export let gamesPerSeason = 82;
@@ -93,6 +94,7 @@ export function resetSliders() {
     reboundSlider = 50;
     trainingPointsAvailable = 2;
     playerSigningDifficulty = 90;
+    recruitingDifficulty = 100;
 }
 
 export function collegeSliderPreset() {
@@ -158,6 +160,12 @@ export function setSliders(twopl, twoph, thrpl, thrph, dl, dh, soc, diff, tradeD
         playerSigningDifficulty = 90;
     }else{
         playerSigningDifficulty = psd;
+    }
+
+    if(rsd == null){
+        recruitingDifficulty = 100;
+    }else{
+        recruitingDifficulty = rsd;
     }
 }
 
@@ -3298,6 +3306,8 @@ export class Franchise {
                 // console.log(`${teams[i].name} ${rating}`);
 
                 if (teams[i] === selectedTeam) {
+                    console.log(`generateprospect b4: ${rating}`);
+                    rating = Math.round(((((recruitingDifficulty*-1)+100)/100) * rating) + rating);
                     console.log(`generateprospect rating: ${rating}`);
                 }
 
@@ -4527,7 +4537,8 @@ export function saveData(slot) {
         tradeThreshold: tradeThreshold,
         reboundSlider: reboundSlider,
         trainingPointsAvailable: trainingPointsAvailable,
-        playerSigningDifficulty: playerSigningDifficulty
+        playerSigningDifficulty: playerSigningDifficulty,
+        recruitingDifficulty: recruitingDifficulty
     }
 
     let write = JSON.stringify(data);
@@ -4654,7 +4665,7 @@ export const loadData = (data) => {
             if (loadedData.sliders.tradeThreshold == null) {
                 resetSliders();
             } else {
-                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold, loadedData.sliders.reboundSlider, loadedData.sliders.trainingPointsAvailable, loadedData.sliders.playerSigningDifficulty);
+                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold, loadedData.sliders.reboundSlider, loadedData.sliders.trainingPointsAvailable, loadedData.sliders.playerSigningDifficulty, loadedData.sliders.recruitingDifficulty);
                 setFranchiseSliders(loadedData.sliders.gamesPerSeason, loadedData.sliders.playoffSeeds, loadedData.sliders.seriesWinCount, loadedData.sliders.conferencesOn, loadedData.sliders.collegeMode);
             }
 
@@ -5447,7 +5458,8 @@ export function saveFranchise(slot) {
         tradeThreshold: tradeThreshold,
         reboundSlider: reboundSlider,
         trainingPointsAvailable: trainingPointsAvailable,
-        playerSigningDifficulty: playerSigningDifficulty
+        playerSigningDifficulty: playerSigningDifficulty,
+        recruitingDifficulty: recruitingDifficulty
     }
 
     let dc = [];
@@ -5598,7 +5610,7 @@ export const loadFranchise = (data) => {
             if (loadedData.sliders.tradeThreshold == null) {
                 resetSliders();
             } else {
-                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold, loadedData.sliders.reboundSlider, loadedData.sliders.trainingPointsAvailable, loadedData.sliders.playerSigningDifficulty);
+                setSliders(loadedData.sliders.twoPointPercentageLow, loadedData.sliders.twoPointPercentageHigh, loadedData.sliders.threePointPercentageLow, loadedData.sliders.threePointPercentageHigh, loadedData.sliders.defenseLow, loadedData.sliders.defenseHigh, loadedData.sliders.secondsOffClock, loadedData.sliders.difficulty, loadedData.sliders.tradeThreshold, loadedData.sliders.reboundSlider, loadedData.sliders.trainingPointsAvailable, loadedData.sliders.playerSigningDifficulty, loadedData.sliders.recruitingDifficulty);
                 setFranchiseSliders(loadedData.sliders.gamesPerSeason, loadedData.sliders.playoffSeeds, loadedData.sliders.seriesWinCount, loadedData.sliders.conferencesOn, loadedData.sliders.collegeMode, true);
             }
 
