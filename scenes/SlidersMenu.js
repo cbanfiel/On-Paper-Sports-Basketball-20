@@ -3,7 +3,8 @@ import { Text, View, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import { Button, Card, Slider, Divider } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import Background from '../components/background';
-import { setSliders, setFranchiseSliders, twoPointPercentageLow, twoPointPercentageHigh, threePointPercentageHigh, defenseHigh, defenseLow, secondsOffClock, threePointPercentageLow, conferences, gamesPerSeason, playoffSeeds, seriesWinCount, conferencesOn, teams, franchise, collegeMode, difficulty, tradeThreshold, resetSliders, collegeSliderPreset, reboundSlider, trainingPointsAvailable, playerSigningDifficulty } from '../data/script';
+import { setSliders, setFranchiseSliders, twoPointPercentageLow, twoPointPercentageHigh, threePointPercentageHigh, defenseHigh, defenseLow, secondsOffClock, threePointPercentageLow, conferences, gamesPerSeason, playoffSeeds, seriesWinCount, conferencesOn, teams, franchise, collegeMode, difficulty, tradeThreshold, resetSliders, collegeSliderPreset, reboundSlider, trainingPointsAvailable, playerSigningDifficulty, sliders } from '../data/script';
+import { Sliders } from '../data/Sliders';
 
 export default class SlidersMenu extends React.Component {
 
@@ -26,7 +27,8 @@ export default class SlidersMenu extends React.Component {
         tradeDifficulty : tradeThreshold,
         reboundSlider: reboundSlider,
         trainingPointsAvailable: trainingPointsAvailable,
-        playerSigningDifficulty: playerSigningDifficulty
+        playerSigningDifficulty: playerSigningDifficulty,
+        recruitingDifficulty : sliders.recruitingDifficulty
     }
 
 
@@ -76,6 +78,10 @@ export default class SlidersMenu extends React.Component {
             return;
         }
         if(this.state.playerSigningDifficulty != playerSigningDifficulty){
+            this.setState({ gameSlidersChanged: true });
+            return;
+        }
+        if(this.state.recruitingDifficulty != sliders.recruitingDifficulty){
             this.setState({ gameSlidersChanged: true });
             return;
         }
@@ -233,6 +239,7 @@ export default class SlidersMenu extends React.Component {
 
     saveChanges() {
         setSliders(this.state.twopl, this.state.twoph, this.state.threepl, this.state.threeph, this.state.defl, this.state.defh, this.state.soc, this.state.difficulty, this.state.tradeDifficulty, this.state.reboundSlider, this.state.trainingPointsAvailable, this.state.playerSigningDifficulty);
+        sliders.recruitingDifficulty = this.state.recruitingDifficulty;
         this.setState({ gameSlidersChanged: false });
     }
 
@@ -263,6 +270,7 @@ export default class SlidersMenu extends React.Component {
 
     resetSliders(){
         resetSliders();
+        sliders.proSliderPreset();
         this.setState({
             twopl: twoPointPercentageLow,
             twoph: twoPointPercentageHigh,
@@ -283,12 +291,15 @@ export default class SlidersMenu extends React.Component {
             reboundSlider: reboundSlider,
             trainingPointsAvailable: trainingPointsAvailable,
             franchiseSlidersChanged: false,
-            gameSlidersChanged: false
+            gameSlidersChanged: false,
+            recruitingDifficulty: sliders.recruitingDifficulty
+
         });
     }
 
     collegeSliders(){
         collegeSliderPreset();
+        sliders.collegeSliderPreset();
         this.setState({
             twopl: twoPointPercentageLow,
             twoph: twoPointPercentageHigh,
@@ -309,7 +320,8 @@ export default class SlidersMenu extends React.Component {
             reboundSlider: reboundSlider,
             trainingPointsAvailable: trainingPointsAvailable,
             franchiseSlidersChanged: false,
-            gameSlidersChanged: false
+            gameSlidersChanged: false,
+            recruitingDifficulty: sliders.recruitingDifficulty
         });
     }
 
@@ -475,7 +487,7 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ trainingPointsAvailable: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Player Signing Difficulty: " + this.state.playerSigningDifficulty}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"User Signing Difficulty: " + this.state.playerSigningDifficulty}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -486,12 +498,23 @@ export default class SlidersMenu extends React.Component {
                             onValueChange={value => { this.checkGameSliders(), this.setState({ playerSigningDifficulty: value }) }}
                         />
 
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"User Recruiting Difficulty: " + this.state.recruitingDifficulty}</Text>
+                        <Slider
+                            thumbTintColor={'rgb(180,180,180)'}
+                            maximumTrackTintColor={'rgb(180,180,180)'}
+                            step={2}
+                            minimumValue={80}
+                            maximumValue={120}
+                            value={this.state.recruitingDifficulty}
+                            onValueChange={value => { this.checkGameSliders(), this.setState({ recruitingDifficulty: value }) }}
+                        />
 
 
 
 
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title={this.state.gameSlidersChanged ? "Commit Game Slider Changes" : "Current"} disabled={this.state.gameSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'white' }} onPress={() => { this.saveChanges() }}></Button>
+
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title={this.state.gameSlidersChanged ? "Commit Game Slider Changes" : "Current"} disabled={this.state.gameSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'black' }} onPress={() => { this.saveChanges() }}></Button>
 
                     </Card>
 
@@ -544,7 +567,7 @@ export default class SlidersMenu extends React.Component {
 
                         <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'black', borderWidth: 1, borderRadius: 25, marginBottom: 10 }} title={this.state.collegeMode ? 'Offseason Type: College' : 'Offseason Type: Pro'} onPress={() => { this.setState({ collegeMode: !this.state.collegeMode }), this.checkFranchiseSliders() }}></Button>
 
-                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title={this.state.franchiseSlidersChanged ? "Commit Franchise Slider Changes" : "Current"} disabled={this.state.franchiseSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'white' }} onPress={() => { this.saveFranchiseChanges() }}></Button>
+                        <Button titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} buttonStyle={{ backgroundColor: 'rgba(255,0,0,0.75)', borderColor: 'black', borderWidth: 1, borderRadius: 25 }} title={this.state.franchiseSlidersChanged ? "Commit Franchise Slider Changes" : "Current"} disabled={this.state.franchiseSlidersChanged ? false : true} disabledStyle={{ backgroundColor: 'rgba(10,200,60,0.75)' }} disabledTitleStyle={{ color: 'black' }} onPress={() => { this.saveFranchiseChanges() }}></Button>
 
 
                     </Card>

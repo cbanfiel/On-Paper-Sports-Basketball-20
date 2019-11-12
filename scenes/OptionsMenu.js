@@ -4,7 +4,7 @@ import { Card } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { TouchableOpacity } from 'react-native';
 import Background from '../components/background';
-import { loadRosters, resetFranchise, resetSliders, removeTeams, generateFreeAgents} from '../data/script';
+import { loadRosters, resetFranchise, resetSliders, removeTeams, generateFreeAgents, sliders} from '../data/script';
 
 export default class OptionsMenu extends React.Component {
 
@@ -96,7 +96,7 @@ export default class OptionsMenu extends React.Component {
           </TouchableOpacity>
 
 
-          <TouchableOpacity style={{ width: '100%' }} onPress={() => {loadRosters(), resetFranchise(), resetSliders(), this.props.update(()=>Actions.popTo('mainmenu'))}}>
+          <TouchableOpacity style={{ width: '100%' }} onPress={() => {loadRosters(), resetFranchise(), resetSliders(), sliders.proSliderPreset(), this.props.update(()=>Actions.popTo('mainmenu'))}}>
 
             <Card
               containerStyle={{
