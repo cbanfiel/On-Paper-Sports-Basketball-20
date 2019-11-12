@@ -83,6 +83,7 @@ export function setAutoSign(bool) {
 
 
 export function resetSliders() {
+    sliders.proSliderPreset();
     twoPointPercentageLow = 20;
     twoPointPercentageHigh = 73;
     threePointPercentageLow = 25;
@@ -103,6 +104,7 @@ export function resetSliders() {
 }
 
 export function collegeSliderPreset() {
+    sliders.collegeSliderPreset();
     twoPointPercentageLow = 20;
     twoPointPercentageHigh = 73;
     threePointPercentageLow = 25;

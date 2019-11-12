@@ -270,7 +270,6 @@ export default class SlidersMenu extends React.Component {
 
     resetSliders(){
         resetSliders();
-        sliders.proSliderPreset();
         this.setState({
             twopl: twoPointPercentageLow,
             twoph: twoPointPercentageHigh,
@@ -299,7 +298,6 @@ export default class SlidersMenu extends React.Component {
 
     collegeSliders(){
         collegeSliderPreset();
-        sliders.collegeSliderPreset();
         this.setState({
             twopl: twoPointPercentageLow,
             twoph: twoPointPercentageHigh,

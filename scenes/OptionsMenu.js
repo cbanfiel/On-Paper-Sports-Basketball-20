@@ -96,7 +96,7 @@ export default class OptionsMenu extends React.Component {
           </TouchableOpacity>
 
 
-          <TouchableOpacity style={{ width: '100%' }} onPress={() => {loadRosters(), resetFranchise(), resetSliders(), sliders.proSliderPreset(), this.props.update(()=>Actions.popTo('mainmenu'))}}>
+          <TouchableOpacity style={{ width: '100%' }} onPress={() => {loadRosters(), resetFranchise(), resetSliders(), this.props.update(()=>Actions.popTo('mainmenu'))}}>
 
             <Card
               containerStyle={{
