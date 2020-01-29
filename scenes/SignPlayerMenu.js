@@ -23,6 +23,33 @@ export default class SignPlayerMenu extends React.Component {
     }
 }
 
+update = (_callback) => {
+  let data = [];
+  if(this.state.filteredList != null){
+    for(let i=0; i<this.state.filteredList.length; i++){
+      data.push({
+        type:'NORMAL',
+        item: this.state.filteredList[i]
+      })
+    }
+  }else{
+  for(let i=0; i<selectedTeam.interestedProspects.roster.length; i++){
+    data.push({
+      type:'NORMAL',
+      item: sortedRoster(selectedTeam.interestedProspects,'rating')[i]
+    })
+  }
+}
+
+  this.setState({
+    list: new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(data), secondChancePoints: selectedTeam.secondChancePoints
+  }, () => {
+    if(_callback){
+      _callback();
+    }
+  });
+}
+
 setPositionFilter(arr){
   const data = [];
   const empty = [];
@@ -45,70 +72,82 @@ setModalVisible(visible, player) {
   this.setState({ modalVisible: visible, modalPlayer: player });
 }
 
-getPositionString(position) {
-  let positionString = '';
-  if (position === 0) {
-    positionString = "QB";
-  } else if (position === 1) {
-    positionString = "RB";
-  } else if (position === 2) {
-    positionString = "FB";
-  } else if (position === 3) {
-    positionString = "WR";
-  } else if (position === 4) {
-    positionString = "TE";
-  } else if (position === 5) {
-    positionString = "LT";
-  } else if (position === 6) {
-    positionString = "LG";
-  } else if (position === 7) {
-    positionString = "C";
-  } else if (position === 8) {
-    positionString = "RG";
-  } else if (position === 9) {
-    positionString = "RT";
-  } else if (position === 10) {
-    positionString = "LE";
-  } else if (position === 11) {
-    positionString = "RE";
-  } else if (position === 12) {
-    positionString = "DT";
-  } else if (position === 13) {
-    positionString = "LOLB";
-  } else if (position === 14) {
-    positionString = "MLB";
-  } else if (position === 15) {
-    positionString = "ROLB";
-  } else if (position === 16) {
-    positionString = "CB";
-  } else if (position === 17) {
-    positionString = "FS";
-  } else if (position === 18) {
-    positionString = "SS";
-  } else if (position === 19) {
-    positionString = "K";
-  } else if (position === 20) {
-    positionString = "P";
-  }
+// getPositionString(position) {
+//   let positionString = '';
+//   if (position === 0) {
+//     positionString = "QB";
+//   } else if (position === 1) {
+//     positionString = "RB";
+//   } else if (position === 2) {
+//     positionString = "FB";
+//   } else if (position === 3) {
+//     positionString = "WR";
+//   } else if (position === 4) {
+//     positionString = "TE";
+//   } else if (position === 5) {
+//     positionString = "LT";
+//   } else if (position === 6) {
+//     positionString = "LG";
+//   } else if (position === 7) {
+//     positionString = "C";
+//   } else if (position === 8) {
+//     positionString = "RG";
+//   } else if (position === 9) {
+//     positionString = "RT";
+//   } else if (position === 10) {
+//     positionString = "LE";
+//   } else if (position === 11) {
+//     positionString = "RE";
+//   } else if (position === 12) {
+//     positionString = "DT";
+//   } else if (position === 13) {
+//     positionString = "LOLB";
+//   } else if (position === 14) {
+//     positionString = "MLB";
+//   } else if (position === 15) {
+//     positionString = "ROLB";
+//   } else if (position === 16) {
+//     positionString = "CB";
+//   } else if (position === 17) {
+//     positionString = "FS";
+//   } else if (position === 18) {
+//     positionString = "SS";
+//   } else if (position === 19) {
+//     positionString = "K";
+//   } else if (position === 20) {
+//     positionString = "P";
+//   }
 
-  return positionString;
-}
+//   return positionString;
+// }
 
-rosterRequirements(){
-  selectedTeam.reorderLineup();
-  let arr = selectedTeam.checkRequirements();
-  let str = '';
-  for(let i=0; i<arr.length; i++){
-    if(str.length>1){
-      str+='\n';
-    }
-    str += this.getPositionString(arr[i].position) + ': ' + arr[i].amount ;
-  }
+// rosterRequirements(){
+//   selectedTeam.reorderLineup();
+//   let arr = selectedTeam.checkRequirements();
+//   let str = '';
+//   for(let i=0; i<arr.length; i++){
+//     if(str.length>1){
+//       str+='\n';
+//     }
+//     str += this.getPositionString(arr[i].position) + ': ' + arr[i].amount ;
+//   }
 
-  return str;
-}
+//   return str;
+// }
 
 manageOffer(ply){
+
+  if(ply.signed){
+    if(selectedTeam.roster.includes(ply)){
+      return;
+    }else{
+      if(selectedTeam.secondChancePoints>0){
+        Actions.secondchancemenu({player: ply, update: this.update});
+      }
+      return;
+    }
+  }
+
   if(this.state.scholarships<1){
     return;
   }
@@ -175,7 +214,8 @@ manageOffer(ply){
           modalVisible:false,
           offered: selectedTeam.offered,
           scholarships: selectedTeam.scholarshipsAvailable - selectedTeam.offered.length,
-          arrayForFilter : arrayForFilter
+          arrayForFilter : arrayForFilter,
+          secondChancePoints: selectedTeam.secondChancePoints
         };
       
         this.layoutProvider = new LayoutProvider((i) => {
@@ -269,6 +309,11 @@ manageOffer(ply){
 
 
                 </View>
+                {
+                  collegeMode? 
+                  <Text style={{ fontFamily: 'advent-pro', textAlign:'center', fontSize:20 }}>{'Second Chance Points Remaining: ' + this.state.secondChancePoints}</Text>
+                  :null
+                }
                 <PositionFilter roster={this.state.arrayForFilter} setPositionFilter={this.setPositionFilter}></PositionFilter>
 
 

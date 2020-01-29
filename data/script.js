@@ -399,6 +399,8 @@ class Team {
         this.bench = [];
         this.constantBench = [];
         this.trainingPoints = 0;
+        this.secondChancePoints = 0;
+
         // this.reorderLineup();
 
         //COACH update
@@ -2553,6 +2555,9 @@ export class Franchise {
             //roster size limit
             this.releasePlayers();
 
+            this.trainingPoints();
+
+
             //new season
             this.advanceToNextYear();
         }
@@ -2697,7 +2702,7 @@ export class Franchise {
                 ply.ftOld = ply.ft;
 
                 let coachTraining = scaleBetween(teams[i].coach.training,0,2,40,99);
-                let development = scaleBetween(ply.age,-4,3.5 + coachTraining, 43,20);
+                let development = scaleBetween(ply.age,-4,3.5 + coachTraining, 36,18);
 
                     ply.off += Math.round(Math.random() * development);
                     ply.def += Math.round(Math.random() * development);
@@ -3180,7 +3185,7 @@ export class Franchise {
                 }
             }
             //cleanup
-            teams[i].scholarshipsAvailable = 8;
+            teams[i].scholarshipsAvailable = 6;
             teams[i].interestedProspects.roster = [];
             teams[i].offered = [];
 
@@ -3266,6 +3271,7 @@ export class Franchise {
 
             //NEW WAY
             for (let i = 0; i < teams.length; i++) {
+                teams[i].secondChancePoints = 3;
                 let seedRat = teams.length - teams[i].seed;
                 let teamRating = teams[i].rating;
                 let recruiting = scaleBetween(teams[i].coach.signingInterest,-2,2,40,99);
@@ -3577,8 +3583,8 @@ export class Franchise {
 
 
 
-                if (teams[i].scholarshipsAvailable < 8) {
-                    teams[i].scholarshipsAvailable = 8;
+                if (teams[i].scholarshipsAvailable < 6) {
+                    teams[i].scholarshipsAvailable = 6;
                 }
             }
 

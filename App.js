@@ -52,6 +52,7 @@ import CoachList from './scenes/CoachList';
 import CoachMenu from './scenes/CoachMenu';
 import CoachHistory from './scenes/CoachHistory';
 import EditCoach from './scenes/EditCoach';
+import SecondChanceMenu from './scenes/SecondChanceMenu';
 
 export default class App extends React.Component {
   
@@ -114,6 +115,7 @@ export default class App extends React.Component {
               <Scene key="coachmenu" component={CoachMenu} title="" hideNavBar />
               <Scene key="coachhistory" component={CoachHistory} title="" hideNavBar />
               <Scene key="editcoach" component={EditCoach} title="" hideNavBar />
+              <Scene key="secondchancemenu" component={SecondChanceMenu} title="" hideNavBar />
 
 
 

@@ -8,6 +8,7 @@ import ListItem from '../components/ListItem';
 import { LayoutProvider, DataProvider, RecyclerListView } from 'recyclerlistview';
 import PlayerCardModal from '../components/PlayerCardModal';
 import StatFilter from '../components/StatFilter';
+import StatListItem from '../components/StatListItem';
 
 
 var {height, width} = Dimensions.get('window');
@@ -82,7 +83,7 @@ export default class StatsList extends React.Component {
       switch(type){
         case 'NORMAL':
           dim.width = width;
-          dim.height = 70;
+          dim.height = 140;
           break;
         default :
           dim.width=0;
@@ -94,15 +95,16 @@ export default class StatsList extends React.Component {
 
   rowRenderer = (type,data) => {
     return(
-            <ListItem 
-              title={data.item.positionString + ' #' + data.item.number + ' ' + data.item.name}
-              leftAvatar={data.item.faceSrc}
-              subtitle={this.statsView(data.item)}
-              rightAvatar={data.item.teamLogoSrc}
-              onPress={() => Actions.playerprofile({selectedPlayer: data.item})}
-              onLongPress={() => this.setModalVisible(true, data.item)}
-            >
-            </ListItem>
+      <StatListItem 
+      stats={this.statsView(data.item) }
+      teamName={data.item.teamName}
+      teamLogoSrc={data.item.teamLogoSrc}
+      playerInfo = {data.item.positionString + ' #' + data.item.number + ' ' + data.item.name}
+      faceSrc={data.item.faceSrc}
+        onPress={() => Actions.playerprofile({selectedPlayer: data.item})}
+        onLongPress={() => this.setModalVisible(true, data.item)}
+      >
+      </StatListItem>
     )
   }
 
