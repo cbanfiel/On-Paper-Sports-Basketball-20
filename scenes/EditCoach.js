@@ -19,11 +19,13 @@ export default class EditCoach extends React.Component {
         defenseRating: this.props.coach.defenseRating,
         signingInterest: this.props.coach.signingInterest,
         training: this.props.coach.training,
-        offVsDefFocus: this.props.coach.offVsDefFocus,
-        offenseType: this.props.coach.offenseType,
-        defenseType: this.props.coach.defenseType,
-        runVsPass: this.props.coach.runVsPass,
-        offTempo: this.props.coach.offTempo
+               offVsDefFocus: this.props.coach.offVsDefFocus,
+            offTwoVsThree: this.props.coach.offTwoVsThree,
+            defTwoVsThree: this.props.coach.defTwoVsThree,
+            tempo: this.props.coach.tempo,
+            rotationSize: this.props.coach.rotationSize,
+            frontCourtVsBackCourt: this.props.coach.frontCourtVsBackCourt,
+            reboundVsRunInTransition: this.props.coach.reboundVsRunInTransition
 
     }
 
@@ -38,10 +40,12 @@ export default class EditCoach extends React.Component {
         this.props.coach.signingInterest = this.state.signingInterest
         this.props.coach.training = this.state.training;
         this.props.coach.offVsDefFocus = this.state.offVsDefFocus;
-        this.props.coach.offenseType = this.state.offenseType
-        this.props.coach.defenseType = this.state.defenseType;
-        this.props.coach.runVsPass= this.state.runVsPass;
-        this.props.coach.offTempo= this.state.offTempo;
+        this.props.coach.offTwoVsThree = this.state.offTwoVsThree;
+        this.props.coach.defTwoVsThree = this.state.defTwoVsThree;
+        this.props.coach.tempo = this.state.tempo;
+        this.props.coach.frontCourtVsBackCourt = this.state.frontCourtVsBackCourt;
+        this.props.coach.reboundVsRunInTransition =  this.state.reboundVsRunInTransition;
+        this.props.coach.rotationSize = this.state.rotationSize;
         this.props.coach.calculateRating();
         this.props.update(Actions.popTo, 'coachsettings');
     }
@@ -65,69 +69,65 @@ export default class EditCoach extends React.Component {
         }
 
     
-    getOffVsDefFocusString() {
-        if (this.state.offVsDefFocus === 0) {
-            return "Focus: Balanced"
-        } else if (this.state.offVsDefFocus > 0) {
-            return "Focus: Offense"
-        } else {
-            return "Focus: Defense"
+        getOffVsDefFocusString() {
+            if (this.state.offVsDefFocus === 0) {
+                return "Focus: Balanced"
+            } else if (this.state.offVsDefFocus > 0) {
+                return "Focus: Offense"
+            } else {
+                return "Focus: Defense"
+            }
         }
-    }
-
-    getOffenseType(){
-        if(this.state.offenseType === OFF_PRO){
-            return "Pro Style"
+    
+        getOffTwoVsThreeString() {
+            if (this.state.offTwoVsThree === 0) {
+                return "Offensive Focus: Balanced"
+            } else if (this.state.offTwoVsThree > 0) {
+                return "Offensive Focus: Three Point"
+            } else {
+                return "Offensive Focus: Two Point"
+            }
         }
-        if(this.state.offenseType === OFF_SPREAD){
-            return "Spread"
+    
+        getDefTwoVsThree() {
+            if (this.state.defTwoVsThree === 0) {
+                return "Defensive Focus: Balanced"
+            } else if (this.state.defTwoVsThree > 0) {
+                return "Defensive Focus: Limit Three Pointers"
+            } else {
+                return "Defensive Focus: Protect The Paint"
+            }
         }
-        if(this.state.offenseType === OFF_OPTION){
-            return "Option"
+    
+        getTempo() {
+            if (this.state.tempo === 0) {
+                return "Tempo: Balanced"
+            } else if (this.state.tempo > 0) {
+                return "Tempo: Fast Tempo"
+            } else {
+                return "Tempo: Slow Tempo"
+            }
         }
-        if(this.state.offenseType === OFF_PISTOL){
-            return "Pistol"
+    
+        getFrontCourtVsBackCourt() {
+            if (this.state.frontCourtVsBackCourt === 0) {
+                return "Scoring Focus: Balanced"
+            } else if (this.state.frontCourtVsBackCourt > 0) {
+                return "Scoring Focus: Backcourt"
+            } else {
+                return "Scoring Focus: Frontcourt"
+            }
         }
-    }
-
-    getDefenseType(){
-        if(this.state.defenseType === DEF_43){
-            return "4-3"
+    
+        getReboundVsRunInTransition() {
+            if (this.state.reboundVsRunInTransition === 0) {
+                return "Rebounding Focus: Balanced"
+            } else if (this.state.reboundVsRunInTransition > 0) {
+                return "Rebounding Focus: Run In Transition"
+            } else {
+                return "Rebounding Focus: Crash The Boards"
+            }
         }
-        if(this.state.defenseType === DEF_34){
-            return "3-4"
-        }
-        if(this.state.defenseType === DEF_335){
-            return "3-3-5"
-        }
-        if(this.state.defenseType === DEF_425){
-            return "4-2-5"
-        }
-        if(this.state.defenseType === DEF_52){
-            return "5-2"
-        }
-    }
-
-    getRunVsPass(){
-        if(this.state.runVsPass>60){
-            return "Focus: Pass";
-        }
-        if(this.state.runVsPass<54){
-            return "Focus: Run";
-        }
-
-        return "Focus: Balanced";
-    }
-    getOffTempo(){
-        if(this.state.offTempo>1){
-            return `Tempo: Fast + ${this.state.offTempo}`;
-        }
-        if(this.state.offTempo<-1){
-            return `Tempo: Slow  ${this.state.offTempo}`;
-        }
-
-        return `Tempo: Balanced  ${this.state.offTempo}`;
-    }
 
     setFaceSource(value) {
         //check to see if it is link
@@ -211,8 +211,7 @@ this.props.team == null ?(null):
                             onValueChange={value => this.setState({ salary: value })}
                         />
 
-                    
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffVsDefFocusString()}</Text>
+<Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffVsDefFocusString()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
@@ -225,49 +224,75 @@ this.props.team == null ?(null):
 
 
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffenseType()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffTwoVsThreeString()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
                             step={1}
-                            minimumValue={0}
+                            minimumValue={-3}
                             maximumValue={3}
-                            value={this.state.offenseType}
-                            onValueChange={value => { this.setState({ offenseType: value }) }}
+                            value={this.state.offTwoVsThree}
+                            onValueChange={value => { this.setState({ offTwoVsThree: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getDefenseType()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getDefTwoVsThree()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
                             step={1}
-                            minimumValue={0}
-                            maximumValue={4}
-                            value={this.state.defenseType}
-                            onValueChange={value => { this.setState({ defenseType: value }) }}
+                            minimumValue={-3}
+                            maximumValue={3}
+                            value={this.state.defTwoVsThree}
+                            onValueChange={value => { this.setState({ defTwoVsThree: value }) }}
                         />
 
-                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getRunVsPass()}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getTempo()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
                             step={1}
-                            minimumValue={44}
-                            maximumValue={70}
-                            value={this.state.runVsPass}
-                            onValueChange={value => { this.setState({ runVsPass: value }) }}
+                            minimumValue={-3}
+                            maximumValue={3}
+                            value={this.state.tempo}
+                            onValueChange={value => { this.setState({ tempo: value }) }}
                         />
 
-                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getOffTempo()}</Text>
+                    <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getFrontCourtVsBackCourt()}</Text>
                         <Slider
                             thumbTintColor={'rgb(180,180,180)'}
                             maximumTrackTintColor={'rgb(180,180,180)'}
                             step={1}
-                            minimumValue={-5}
-                            maximumValue={5}
-                            value={this.state.offTempo}
-                            onValueChange={value => { this.setState({ offTempo: value }) }}
-                        />
+                            minimumValue={-3}
+                            maximumValue={3}
+                            value={this.state.frontCourtVsBackCourt}
+                            onValueChange={value => { this.setState({ frontCourtVsBackCourt: value }) }}
+                        />   
+
+                         <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{this.getReboundVsRunInTransition()}</Text>
+                        <Slider
+                            thumbTintColor={'rgb(180,180,180)'}
+                            maximumTrackTintColor={'rgb(180,180,180)'}
+                            step={1}
+                            minimumValue={-3}
+                            maximumValue={3}
+                            value={this.state.reboundVsRunInTransition}
+                            onValueChange={value => { this.setState({ reboundVsRunInTransition: value }) }}
+                        />    
+                            
+                            <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{"Rotation Size: " + this.state.rotationSize}</Text>
+                            <Slider
+                                thumbTintColor={'rgb(180,180,180)'}
+                                maximumTrackTintColor={'rgb(180,180,180)'}
+                                step={1}
+                                minimumValue={8}
+                                maximumValue={12}
+                                value={this.state.rotationSize}
+                                onValueChange={value => { this.setState({ rotationSize: value }) }}
+                            />
+
+
+
+
 
                         <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Offense: ' + this.state.offenseRating}</Text>
                         <Slider

@@ -48,7 +48,10 @@ import PlayerSearch from './scenes/PlayerSearch';
 import TrainingStage from './scenes/TrainingStage';
 import TrainingScreen from './scenes/TrainingScreen';
 import FantasyDraft from './scenes/FantasyDraft';
-
+import CoachList from './scenes/CoachList';
+import CoachMenu from './scenes/CoachMenu';
+import CoachHistory from './scenes/CoachHistory';
+import EditCoach from './scenes/EditCoach';
 
 export default class App extends React.Component {
   
@@ -107,7 +110,13 @@ export default class App extends React.Component {
               <Scene key="trainingstage" component={TrainingStage} title="Training Stage" hideNavBar />
               <Scene key="trainingscreen" component={TrainingScreen} title="Training Stage" hideNavBar />
               <Scene key="fantasydraft" component={FantasyDraft} title="Fantasy" hideNavBar />
-              
+              <Scene key="coachlist" component={CoachList} title="" hideNavBar />
+              <Scene key="coachmenu" component={CoachMenu} title="" hideNavBar />
+              <Scene key="coachhistory" component={CoachHistory} title="" hideNavBar />
+              <Scene key="editcoach" component={EditCoach} title="" hideNavBar />
+
+
+
         </Stack>
         </Router>
     );
