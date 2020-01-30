@@ -46,7 +46,7 @@ export default class CoachSettings extends React.Component {
         selectedTeam.coach.frontCourtVsBackCourt = this.state.frontCourtVsBackCourt;
         selectedTeam.coach.reboundVsRunInTransition =  this.state.reboundVsRunInTransition;
         if(this.props.inGame!=true){
-            if(this.state.rotationSize != selectedTeam.rotationSize){
+            if(this.state.rotationSize != selectedTeam.coach.rotationSize){
                 selectedTeam.coach.rotationSize = this.state.rotationSize;
                 selectedTeam.reorderLineup();
             }
@@ -129,6 +129,7 @@ export default class CoachSettings extends React.Component {
 
                 <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 
+{!this.props.inGame ? (
 
 <Card
                 
@@ -160,6 +161,8 @@ export default class CoachSettings extends React.Component {
                     <Button titleStyle={{ fontFamily: 'advent-pro', color: 'black' }} buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)', borderColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderColor: 'black', marginTop: 5}} title={selectedTeam.coach.contractExpired?"Resign Coach" : "Coach Menu"} onPress={() => {Actions.coachmenu({coach: selectedTeam.coach, team: selectedTeam, update:this.update})}}></Button>
 
                     </Card>
+                    ):null}
+
 
                     <Card
                         containerStyle={{

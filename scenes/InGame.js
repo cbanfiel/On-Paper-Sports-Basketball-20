@@ -11,12 +11,12 @@ let poss;
 export default class InGame extends React.Component {
 
   resetCoachingSliders(){
-    selectedTeam.offVsDefFocus = this.state.offVsDefFocus;
-    selectedTeam.offTwoVsThree = this.state.offTwoVsThree;
-    selectedTeam.defTwoVsThree = this.state.defTwoVsThree;
-    selectedTeam.tempo = this.state.tempo;
-    selectedTeam.frontCourtVsBackCourt = this.state.frontCourtVsBackCourt;
-    selectedTeam.reboundVsRunInTransition =  this.state.reboundVsRunInTransition;
+    selectedTeam.coach.offVsDefFocus = this.state.offVsDefFocus;
+    selectedTeam.coach.offTwoVsThree = this.state.offTwoVsThree;
+    selectedTeam.coach.defTwoVsThree = this.state.defTwoVsThree;
+    selectedTeam.coach.tempo = this.state.tempo;
+    selectedTeam.coach.frontCourtVsBackCourt = this.state.frontCourtVsBackCourt;
+    selectedTeam.coach.reboundVsRunInTransition =  this.state.reboundVsRunInTransition;
   }
 
 
@@ -29,13 +29,13 @@ export default class InGame extends React.Component {
     playByPlay: null,
     speed: 100,
     completed: false,
-    offVsDefFocus: selectedTeam.offVsDefFocus,
-    offTwoVsThree: selectedTeam.offTwoVsThree,
-    defTwoVsThree: selectedTeam.defTwoVsThree,
-    tempo: selectedTeam.tempo,
-    rotationSize: selectedTeam.rotationSize,
-    frontCourtVsBackCourt: selectedTeam.frontCourtVsBackCourt,
-    reboundVsRunInTransition: selectedTeam.reboundVsRunInTransition
+    offVsDefFocus: selectedTeam.coach.offVsDefFocus,
+    offTwoVsThree: selectedTeam.coach.offTwoVsThree,
+    defTwoVsThree: selectedTeam.coach.defTwoVsThree,
+    tempo: selectedTeam.coach.tempo,
+    rotationSize: selectedTeam.coach.rotationSize,
+    frontCourtVsBackCourt: selectedTeam.coach.frontCourtVsBackCourt,
+    reboundVsRunInTransition: selectedTeam.coach.reboundVsRunInTransition
   }
 
   time = () => {

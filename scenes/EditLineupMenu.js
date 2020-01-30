@@ -155,7 +155,7 @@ export default class EditLineupMenu extends React.Component {
                                 subtitle={'Rating: ' + player.rating}
                                 rightSubtitle={'STARTER'}
                                 rightTitle={this.getPositionString(i)}
-                                color={this.state.selectedPlayer === player? 'rgba(180,180,180,0.75)': this.state.selectedPlayer2 === player? 'rgba(180,180,180,0.75)': null}
+                                color={this.state.selectedPlayer === player? 'rgba(53,115,209,.75)': this.state.selectedPlayer2 === player? 'rgba(53,115,209,.75)': null}
                                 onPress={() => this.selectPlayer(player, selectedTeam.firstTeam, i)}
                                 onLongPress={() => this.setModalVisible(true, player)}
 
@@ -168,7 +168,7 @@ export default class EditLineupMenu extends React.Component {
                                 key={i} leftAvatar={ player.faceSrc } 
                                 subtitle={'Rating: ' + player.rating}
                                 rightSubtitle={'BENCH'}
-                                color={this.state.selectedPlayer === player? 'rgba(180,180,180,0.75)': this.state.selectedPlayer2 === player? 'rgba(180,180,180,0.75)': null}
+                                color={this.state.selectedPlayer === player? 'rgba(53,115,209,.75)': this.state.selectedPlayer2 === player? 'rgba(53,115,209,.75)': null}
                                 onPress={() => this.selectPlayer(player, selectedTeam.bench , i)}
                                 onLongPress={() => this.setModalVisible(true, player)}
 

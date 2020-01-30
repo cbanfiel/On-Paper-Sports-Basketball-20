@@ -73,7 +73,7 @@ export let playoffSeeds = 8;
 export let seriesWinCount = 4;
 export let conferencesOn = true;
 export let collegeMode = false;
-export let difficulty = -1;
+export let difficulty = 0;
 //************************************ */
 
 let autoSign = true;
@@ -99,7 +99,7 @@ export function resetSliders() {
     seriesWinCount = 4;
     conferencesOn = true;
     collegeMode = false;
-    difficulty = -1;
+    difficulty = 0;
     tradeThreshold = 0.3;
     reboundSlider = 50;
     trainingPointsAvailable = 2;
@@ -119,7 +119,7 @@ export function collegeSliderPreset() {
     seriesWinCount = 1;
     conferencesOn = false;
     collegeMode = true;
-    difficulty = -1;
+    difficulty = 0;
     tradeThreshold = 0.3;
     reboundSlider = 50;
     trainingPointsAvailable = 2;
@@ -442,7 +442,7 @@ class Team {
         this.expiring = {
             name: 'Expiring Contracts',
             roster: [],
-            logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+            logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
             reorderLineup: function () {
                 availableFreeAgents.roster.sort(function (a, b) {
                     if (a.rating > b.rating)
@@ -1104,14 +1104,14 @@ export let conferences = [];
 let easternConference = {
     name: 'Eastern Conference',
     teams: [],
-    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+    logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
     id: 0
 };
 
 let westernConference = {
     name: 'Western Conference',
     teams: [],
-    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+    logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
     id: 1
 };
 
@@ -1120,7 +1120,7 @@ conferences.push(easternConference, westernConference);
 export let availableFreeAgents = {
     name: 'Free Agents',
     roster: [],
-    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+    logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
     reorderLineup: function () {
         availableFreeAgents.roster.sort(function (a, b) {
             if (a.rating > b.rating)
@@ -1190,7 +1190,7 @@ export function loadRosters() {
 export let draftClass = {
     name: 'Draft Class',
     roster: [],
-    logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+    logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
     reorderLineup: function () {
         draftClass.roster.sort(function (a, b) {
             if (a.rating > b.rating)
@@ -2463,7 +2463,7 @@ export class Franchise {
         this.retirements = {
             name: 'Retirements',
             roster: [],
-            logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+            logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
             reorderLineup: function () {
                 draftClass.roster.sort(function (a, b) {
                     if (a.rating > b.rating)
@@ -3701,7 +3701,7 @@ export class Franchise {
             drafted: {
                 name: 'Drafted',
                 roster: [],
-                logoSrc: 'https://github.com/cbanfiel/On-Paper-Sports-Images/blob/master/app/basketball.png?raw=true',
+                logoSrc: 'https://on-paper-sports.s3.us-east-2.amazonaws.com/app_icons/basketball.png',
                 reorderLineup: function () {
                     availableFreeAgents.roster.sort(function (a, b) {
                         if (a.rating > b.rating)
@@ -4921,7 +4921,7 @@ export async function getDataFromLink(link, type, sliderType, _callback) {
 
 
 export let communityRosters = [];
-communityRosters = getDataFromLink('https://raw.githubusercontent.com/cbanfiel/On-Paper-Sports-Basketball-2020-Rosters/master/AndroidRosters.json', 'communityroster');
+communityRosters = getDataFromLink('https://on-paper-sports.s3.us-east-2.amazonaws.com/basketball/CommunityFiles.json', 'communityroster');
 
 
 export function loadRosterJson(loadedDataIn) {

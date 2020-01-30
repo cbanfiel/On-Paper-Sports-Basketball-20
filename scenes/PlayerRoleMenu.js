@@ -80,7 +80,7 @@ export default class PlayerRoleMenu extends React.Component {
             }
         }
 
-        if(stars>1 || starters+stars!=5 || sixthMan>1 || starters + stars + sixthMan + rolePlayers != selectedTeam.rotationSize){
+        if(stars>1 || starters+stars!=5 || sixthMan>1 || starters + stars + sixthMan + rolePlayers != selectedTeam.coach.rotationSize){
             this.setState({ready:false});
         }else{
             this.setState({ready:true});
