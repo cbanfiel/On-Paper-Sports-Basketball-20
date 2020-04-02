@@ -58,7 +58,7 @@ export default class TradeFinderResults extends React.Component {
     rowRenderer = (type, data) => {
         let offer = data.item;
         return (
-            <TradeFinderListItem offer={offer} onPress={() => { setSelectedTeam2(offer.team), Actions.trademenu({ t1Offers: this.state.userOffer, t2Offers: offer, popTo: 'seasonrostermenu' }) }} />
+            <TradeFinderListItem offer={offer} onPress={() => { setSelectedTeam2(offer.team), Actions.trademenu({ t1Offers: this.state.userOffer, t2Offers: offer, popTo: this.props.popTo }) }} />
         );
 
     }

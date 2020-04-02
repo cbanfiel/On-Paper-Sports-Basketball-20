@@ -47,9 +47,7 @@ export default class TradeFinder extends React.Component {
         super();
 
         const data = [];
-        const dataT2 = [];
         let arrayForFilter = [];
-        let arrayForFilterT2 = [];
         this.setPositionFilter = this.setPositionFilter.bind(this);
 
         arrayForFilter = selectedTeam.roster;
@@ -60,26 +58,16 @@ export default class TradeFinder extends React.Component {
             })
         }
 
-        arrayForFilterT2 = selectedTeam2.roster;
-        for (let i = 0; i < selectedTeam2.roster.length; i++) {
-            dataT2.push({
-                type: 'NORMAL',
-                item: sortedRoster(selectedTeam2, 'rating')[i]
-            })
-        }
+
 
         this.state = {
             t1Offers: [],
-            t2Offers: [],
             declined: '',
             t1salary: selectedTeam.salary,
-            t2salary: selectedTeam2.salary,
             modalVisible: false,
             modalPlayer: null,
             arrayForFilter: arrayForFilter,
-            arrayForFilterT2: arrayForFilterT2,
             list: new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(data),
-            listT2: new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(dataT2)
         }
 
         this.layoutProvider = new LayoutProvider((i) => {
@@ -97,20 +85,6 @@ export default class TradeFinder extends React.Component {
             }
         })
 
-        this.layoutProvider2 = new LayoutProvider((i) => {
-            return this.state.listT2.getDataForIndex(i).type
-        }, (type, dim) => {
-            switch (type) {
-                case 'NORMAL':
-                    dim.width = width;
-                    dim.height = 70;
-                    break;
-                default:
-                    dim.width = 0;
-                    dim.height = 0;
-                    break
-            }
-        })
 
     }
 
@@ -202,12 +176,6 @@ export default class TradeFinder extends React.Component {
                     })
                 }
 
-                // for(let i=0; i<team.draftPicks.length; i++){
-                //     data.push({
-                //       type:'NORMAL',
-                //       item: team.draftPicks[i]
-                //     })
-                // }
             }
 
             this.setState({
@@ -234,50 +202,6 @@ export default class TradeFinder extends React.Component {
             this.setState({
                 listT2: new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(data),
             });
-        }
-    }
-
-    offer() {
-
-        t1PlayerAmount = 0;
-        t2PlayerAmount = 0;
-        for (let i = 0; i < this.state.t1Offers.length; i++) {
-            if (!this.state.t1Offers[i].isPick) {
-                t1PlayerAmount++;
-            }
-        }
-        for (let i = 0; i < this.state.t2Offers.length; i++) {
-            if (!this.state.t2Offers[i].isPick) {
-                t2PlayerAmount++;
-            }
-        }
-
-
-        //Check for requirements DOES NOT HAPPEN IN OFFSEASON
-        if (this.props.requirementsOff != true) {
-            if (selectedTeam.roster.length - t1PlayerAmount + t2PlayerAmount < 10) {
-                Alert.alert('Roster Requirements Not Met', 'This move will set the ' + selectedTeam.name + ' under the roster requirements, please sign more players before making this move');
-                return;
-            }
-            if (selectedTeam2.roster.length - t2PlayerAmount + t1PlayerAmount < 10) {
-                Alert.alert('Roster Requirements Not Met', 'This move will set the ' + selectedTeam2.name + ' under the roster requirements, please sign more players before making this move');
-                return;
-            }
-        }
-
-
-
-        if (!trade(selectedTeam, selectedTeam2, this.state.t1Offers, this.state.t2Offers, this.props.isForced)) {
-            this.state.declined = true;
-
-        } else {
-            this.setState({ t1Offers: [], t2Offers: [], declined: false })
-            if (this.props.updateScene != null) {
-                this.props.updateScene();
-            }
-
-            console.log(inDraft);
-            Actions.pop();
         }
     }
 
@@ -328,7 +252,7 @@ export default class TradeFinder extends React.Component {
                 </View>
                 {
 
-                    <Button titleStyle={{ fontFamily: 'advent-pro', color: 'black' }} buttonStyle={{ padding: 15, borderRadius: 0, borderBottomWidth: 1, backgroundColor: 'rgba(255,255,255,0)', borderColor: 'rgba(0,0,0,0.75)' }} title="View Offers" onPress={() => { Actions.tradefinderresults({ userOffer: this.state.t1Offers, offers: getTradeFinderOffers(this.state.t1Offers) }) }}></Button>
+                    <Button titleStyle={{ fontFamily: 'advent-pro', color: 'black' }} buttonStyle={{ padding: 15, borderRadius: 0, borderBottomWidth: 1, backgroundColor: 'rgba(255,255,255,0)', borderColor: 'rgba(0,0,0,0.75)' }} title="View Offers" onPress={() => { Actions.tradefinderresults({ userOffer: this.state.t1Offers, offers: getTradeFinderOffers(this.state.t1Offers), popTo: this.props.popTo }) }}></Button>
 
                 }
                 <PositionFilter roster={this.state.arrayForFilter} setPositionFilter={this.setPositionFilter} draftPicks={selectedTeam.draftPicks} team={selectedTeam}></PositionFilter>
