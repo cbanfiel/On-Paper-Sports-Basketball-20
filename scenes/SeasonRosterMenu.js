@@ -83,7 +83,7 @@ export default class SeasonRosterMenu extends React.Component {
                         !collegeMode ? (
                             <View>
 
-                                <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.tradefinder({ popTo: Actions.currentScene })}>
+                                <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.tradefinder({ popTo: Actions.currentScene, requirementsOff: false })}>
                                     <Card
                                         containerStyle={{
                                             width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'

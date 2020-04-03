@@ -14,7 +14,7 @@ export default class DraftMenu extends React.Component {
     }
 
     state = {
-        onTheClock: !franchise.completed? franchise.currentDraft.draftOrder[franchise.currentDraft.pick].currentTeam : franchise.currentDraft.draftOrder[franchise.currentDraft.pick-1].currentTeam,
+        onTheClock: !franchise.completed ? franchise.currentDraft.draftOrder[franchise.currentDraft.pick].currentTeam : franchise.currentDraft.draftOrder[franchise.currentDraft.pick - 1].currentTeam,
 
         draftClass: draftClass,
         drafted: franchise.currentDraft.drafted,
@@ -48,7 +48,7 @@ export default class DraftMenu extends React.Component {
     render() {
         return (
             <Background>
-                <ScrollView contentContainerStyle={{paddingBottom: 20}}>
+                <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
                     {
                         this.state.advance === false ? (
 
@@ -58,7 +58,7 @@ export default class DraftMenu extends React.Component {
                             <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.rosterlist({ selectedTeam: draftClass, view: 'draft', selectable: true, franchise: franchise, update: this.update }) }}>
                                 <Card
                                     containerStyle={{
-                                        width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                        width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                     }}
                                 >
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -80,7 +80,7 @@ export default class DraftMenu extends React.Component {
                             <TouchableOpacity style={{ width: '100%' }} onPress={() => { Actions.rosterlist({ selectedTeam: franchise.currentDraft.drafted, view: 'draft' }) }}>
                                 <Card
                                     containerStyle={{
-                                        width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                        width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                     }}
                                 >
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
@@ -99,11 +99,11 @@ export default class DraftMenu extends React.Component {
 
                     {
                         this.state.advance === true ? (
-                            <TouchableOpacity style={{ width: '100%' }} onPress={() => { franchise.stage = 'resigning', franchise.simStage(), this.props.teamListStage(franchise.stage), Actions.replace('resigningstage', {teamListStage: this.props.teamListStage}) }}>
+                            <TouchableOpacity style={{ width: '100%' }} onPress={() => { franchise.stage = 'resigning', franchise.simStage(), this.props.teamListStage(franchise.stage), Actions.replace('resigningstage', { teamListStage: this.props.teamListStage }) }}>
 
                                 <Card
                                     containerStyle={{
-                                        width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                        width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                     }}
                                 >
 
@@ -123,10 +123,25 @@ export default class DraftMenu extends React.Component {
 
 
                             <View>
+                                <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.tradefinder({ popTo: Actions.currentScene, requirementsOff: true, updateScene: this.update })}>
+                                    <Card
+                                        containerStyle={{
+                                            width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
+                                        }}
+                                    >
+
+                                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                            <CachedImage style={{ flex: 1, overflow: 'hidden', resizeMode: 'contain', height: 75, width: 75, margin: 5 }} uri={selectedTeam.logoSrc} />
+                                        </View>
+                                        <Divider style={{ backgroundColor: 'black', height: 1, margin: 5 }} ></Divider>
+                                        <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Trade Finder'}</Text>
+                                    </Card>
+                                </TouchableOpacity>
+
                                 <TouchableOpacity style={{ width: '100%' }} onPress={() => Actions.teamlist({ home: 3, back: 'season', isForced: false, updateScene: this.update, requirementsOff: true })}>
                                     <Card
                                         containerStyle={{
-                                            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                            width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                         }}
                                     >
 
@@ -142,7 +157,7 @@ export default class DraftMenu extends React.Component {
                                 <TouchableOpacity style={{ width: '100%' }} onPress={() => { franchise.currentDraft.simPick(), this.update() }}>
                                     <Card
                                         containerStyle={{
-                                            width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                            width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                         }}
                                     >
                                         <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Sim Pick'}</Text>
@@ -160,10 +175,10 @@ export default class DraftMenu extends React.Component {
 
 
 
-                            <TouchableOpacity style={{ width: '100%' }} onPress={() => { franchise.currentDraft.simDraft(), this.update(), this.setState({pick: teams.length, round : 2}) }}>
+                            <TouchableOpacity style={{ width: '100%' }} onPress={() => { franchise.currentDraft.simDraft(), this.update(), this.setState({ pick: teams.length, round: 2 }) }}>
                                 <Card
                                     containerStyle={{
-                                        width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                        width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                     }}
                                 >
                                     <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>{'Sim To End'}</Text>
@@ -177,7 +192,7 @@ export default class DraftMenu extends React.Component {
                         <TouchableOpacity style={{ width: '100%' }} onPress={() => { franchise.currentDraft.simToNextUserPick(), this.update() }}>
                             <Card
                                 containerStyle={{
-                                    width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
+                                    width: '95%', backgroundColor: 'rgba(255,255,255,0)', alignSelf: 'center', borderColor: 'rgba(0,0,0,0.9)'
                                 }}
                             // image={{ uri: selectedTeam.logoSrc }}
                             // 

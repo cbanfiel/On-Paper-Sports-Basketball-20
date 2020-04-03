@@ -4142,6 +4142,9 @@ function tradeValueCalculation(ply) {
                 ply = draftClass.roster[index];
             }
         } else {
+
+            draftClass.reorderLineup();
+
             if (ply.round > 1) {
                 let index = ply.projectedPick + (teams.length * (ply.round - 1)) - 1
                 ply = draftClass.roster[index];
@@ -4238,6 +4241,9 @@ export function getTradeFinderOffers(offer) {
     let offerValue = 0;
     let offers = [];
     for (let i = 0; i < offer.length; i++) {
+        if (offer[i].isPick === true) {
+            getDraftPickProjectedPick(offer[i]);
+        }
         offerValue += tradeValueCalculation(offer[i]);
     }
 
@@ -4247,18 +4253,70 @@ export function getTradeFinderOffers(offer) {
         if (teams[i] != selectedTeam) {
             let offer = { team: teams[i], players: [] }
             let otherTeamOfferValue = 0;
-            for (let j = 0; j < teams[i].roster.length; j++) {
-                let ply = teams[i].roster[j];
-                let playerValue = tradeValueCalculation(ply);
-                if (playerValue + otherTeamOfferValue + ((playerValue + otherTeamOfferValue) * tradeThreshold) < offerValue) {
-                    offer.players.push(ply);
-                    otherTeamOfferValue += playerValue;
-                }
-                if (offer.players.length > 2) {
-                    break;
+
+            //pick first vs player first
+            if (Math.random() * 100 > 40) {
+                for (let j = 0; j < teams[i].roster.length; j++) {
+                    let ply = teams[i].roster[j];
+                    let playerValue = tradeValueCalculation(ply);
+                    if (playerValue + otherTeamOfferValue + ((playerValue + otherTeamOfferValue) * tradeThreshold) < offerValue) {
+                        offer.players.push(ply);
+                        otherTeamOfferValue += playerValue;
+                    }
+                    if (offer.players.length > 2) {
+                        break;
+                    }
+
                 }
 
+                for (let j = 0; j < teams[i].draftPicks.length; j++) {
+                    let ply = teams[i].draftPicks[j];
+                    getDraftPickProjectedPick(ply);
+                    let playerValue = tradeValueCalculation(ply);
+                    if (playerValue + otherTeamOfferValue + ((playerValue + otherTeamOfferValue) * tradeThreshold) < offerValue) {
+                        offer.players.push(ply);
+                        otherTeamOfferValue += playerValue;
+                        break;
+                    }
+                    if (offer.players.length > 2) {
+                        break;
+                    }
+                }
+            } else {
+                for (let j = 0; j < teams[i].draftPicks.length; j++) {
+                    let ply = teams[i].draftPicks[j];
+                    getDraftPickProjectedPick(ply);
+                    let playerValue = tradeValueCalculation(ply);
+                    if (playerValue + otherTeamOfferValue + ((playerValue + otherTeamOfferValue) * tradeThreshold) < offerValue) {
+                        offer.players.push(ply);
+                        otherTeamOfferValue += playerValue;
+                        break;
+                    }
+                    if (offer.players.length > 2) {
+                        break;
+                    }
+                }
+                for (let j = 0; j < teams[i].roster.length; j++) {
+                    let ply = teams[i].roster[j];
+                    let playerValue = tradeValueCalculation(ply);
+                    if (playerValue + otherTeamOfferValue + ((playerValue + otherTeamOfferValue) * tradeThreshold) < offerValue) {
+                        offer.players.push(ply);
+                        otherTeamOfferValue += playerValue;
+                    }
+                    if (offer.players.length > 2) {
+                        break;
+                    }
+
+                }
+
+
+
             }
+
+
+
+
+
             if (offer.players.length > 0) {
                 offers.push(offer);
             }

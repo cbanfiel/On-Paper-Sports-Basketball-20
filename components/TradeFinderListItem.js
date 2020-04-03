@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native';
 import CachedImage from './CachedImage';
 import { Divider } from 'react-native-elements';
+import { getDraftPickProjectedPick } from '../data/script';
 
 
 
@@ -12,7 +13,12 @@ export default class TradeFinderListItem extends React.Component {
         str = "";
         for (let i = 1; i < this.props.offer.players.length; i++) {
             let player = this.props.offer.players[i];
-            str += player.rating + " OVR " + player.positionString + " #" + player.number + " " + player.name;
+            if (player.isPick === true) {
+                str += 'Round: ' + player.round + ' Projected Pick: ' + getDraftPickProjectedPick(player)
+
+            } else {
+                str += player.rating + " OVR " + player.positionString + " #" + player.number + " " + player.name;
+            }
             if (i < this.props.offer.players.length) {
                 str += "\n";
             }
@@ -36,7 +42,12 @@ export default class TradeFinderListItem extends React.Component {
                     </View>
 
                     {
-                        <Text style={{ textAlign: "center", fontSize: 18, color: 'black', fontFamily: 'advent-pro' }}>{this.props.offer.players[0].rating + " OVR " + this.props.offer.players[0].positionString + " #" + this.props.offer.players[0].number + " " + this.props.offer.players[0].name}</Text>
+                        <Text style={{ textAlign: "center", fontSize: 18, color: 'black', fontFamily: 'advent-pro' }}>{
+
+                            this.props.offer.players[0].isPick === true ?
+                                'Round: ' + this.props.offer.players[0].round + ' Projected Pick: ' + getDraftPickProjectedPick(this.props.offer.players[0]) :
+
+                                this.props.offer.players[0].rating + " OVR " + this.props.offer.players[0].positionString + " #" + this.props.offer.players[0].number + " " + this.props.offer.players[0].name}</Text>
                     }
 
 
@@ -45,7 +56,7 @@ export default class TradeFinderListItem extends React.Component {
                         <View style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
 
                             {
-                                <CachedImage uri={this.props.offer.players[0].faceSrc} style={{ height: 100, width: 100, resizeMode: 'contain', position: 'relative', bottom: 0 }} />
+                                <CachedImage uri={this.props.offer.players[0].isPick === true ? 'https://www.2kratings.com/wp-content/uploads/NBA-Player.png' : this.props.offer.players[0].faceSrc} style={{ height: 100, width: 100, resizeMode: 'contain', position: 'relative', bottom: 0 }} />
                             }
 
                         </View>
