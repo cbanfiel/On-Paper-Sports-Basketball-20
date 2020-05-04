@@ -5,6 +5,10 @@ import Background from '../components/background';
 
 const updateLog = [
     {
+        date: '5/4/2020',
+        updates: "-Added league news\n-added CPU trading/midseason signing\n-added ability to view all offseason signings\n-various bugfixes and updates"
+    },
+    {
         date: '4/3/2020',
         updates: "-Added trade finder, use this to easily find trade offers"
     },
