@@ -3,9 +3,20 @@ import { ScrollView, View, Text, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { communityRosters, getDataFromLink } from '../data/script';
 import Background from '../components/background';
-import ListItem from '../components/ListItem';
+import CommunityRosterListItem from '../components/CommunityRosterListItem';
+import Button from '../components/Button';
+
+const URL = 'http://10.0.0.106:3000/roster/basketball/';
 
 export default class CommunityRosters extends React.Component {
+
+
+    componentDidMount = () => {
+        fetch(URL).then(res => res.json())
+        .then(json => {
+            this.setState({filteredList : this.filterList(json.rosters)});
+        })
+    }
 
     leaveScene = () => {
         //   console.log('called');
@@ -18,23 +29,23 @@ export default class CommunityRosters extends React.Component {
           }
       }
 
-    filterList(){
+    filterList(array){
 
         if(this.props.filtered != null){
             let filtered = [];
-            for(let i=0; i<communityRosters.length; i++){
-                if(communityRosters[i].type === this.props.filtered){
-                    filtered.push(communityRosters[i]);
+            for(let i=0; i<array.length; i++){
+                if(array[i].type === this.props.filtered){
+                    filtered.push(array[i]);
                 }
             }
             return filtered;
         }else{
-            return communityRosters;
+            return array;
         }
     }
 
     state = {
-        filteredList : this.filterList()
+        filteredList: null
     }
 
 
@@ -43,6 +54,8 @@ export default class CommunityRosters extends React.Component {
     render() {
         return (
             <Background>
+       
+            
 
                 <View style={{ backgroundColor: 'rgba(255,255,255,0)', borderBottomWidth:1}}>
                     <Image
@@ -55,20 +68,25 @@ export default class CommunityRosters extends React.Component {
                 <ScrollView contentContainerStyle={{paddingBottom: 20}}>
 
                     {
-                        this.state.filteredList.length > 1 ?
-                        
+                        this.state.filteredList==null ? null :
+                        this.state.filteredList.length > 0 ?
                         
                         this.state.filteredList.map((item, i) => (
-                        <ListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0)' }} 
-                        onPress={() => {getDataFromLink(item.link, item.type, item.sliderType, this.leaveScene)}}
-                        title={item.name} 
+                        <CommunityRosterListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0)' }} 
+                        onPress={() => {getDataFromLink(URL + item._id, item.type, item.sliderType, this.leaveScene)}}
+                        title={item.name}
+                        subtitle={`Created By: ${item.userName}`} 
                         rightTitleStyle={{fontFamily:'advent-pro'}}
-                        rightTitle={item.type}
+                        rightTitle={`Downloads: ${item.downloads}`}
+                        rightSubtitle={`Updates: ${item.updates}`}
                         key={i} 
-                        ></ListItem>
+                        ></CommunityRosterListItem>
                     )): null
                     }
                 </ScrollView>
+                        <Button title={'Upload A Roster'} color={'rgba(255,0,0,.75)'} textColor={'white'} onPress={()=>{Actions.login()}}></Button>
+                    
+
             </Background>
         )
     }

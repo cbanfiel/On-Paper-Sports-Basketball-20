@@ -59,6 +59,8 @@ import TradeFinderResults from './scenes/TradeFinderResults';
 import OtherGames from './scenes/OtherGames';
 import News from './scenes/News';
 import OffseasonSignings from './scenes/OffseasonSignings';
+import Login from './scenes/Login';
+import Upload from './scenes/Upload';
 
 export default class App extends React.Component {
 
@@ -128,7 +130,8 @@ export default class App extends React.Component {
           <Scene key="othergames" component={OtherGames} title="" hideNavBar />
           <Scene key="news" component={News} title="" hideNavBar />
           <Scene key="offseasonsignings" component={OffseasonSignings} title="" hideNavBar />
-
+          <Scene key="login" component={Login} title="" hideNavBar />
+          <Scene key="upload" component={Upload} title="" hideNavBar />
 
         </Stack>
       </Router>

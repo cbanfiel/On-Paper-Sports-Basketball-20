@@ -5009,7 +5009,7 @@ export async function getDataFromLink(link, type, sliderType, _callback) {
 
 
 export let communityRosters = [];
-communityRosters = getDataFromLink('https://on-paper-sports.s3.us-east-2.amazonaws.com/basketball/CommunityFiles.json', 'communityroster');
+communityRosters = getDataFromLink('http://10.0.0.106:3000/roster/basketball/', 'communityroster');
 
 
 export function loadRosterJson(loadedDataIn) {
@@ -6244,4 +6244,27 @@ function getBestPlayer(players) {
     })
 
     return players[0];
+}
+
+export function getRosterJSON() {
+    let data = {
+        teams: [],
+        freeAgents: '',
+    }
+
+    for (let i = 0; i < teams.length; i++) {
+        let teamDat = {
+            name: teams[i].name,
+            id: teams[i].id,
+            conferenceId: teams[i].conferenceId,
+            logoSrc: teams[i].logoSrc,
+            roster: teams[i].roster,
+            coach: teams[i].coach
+        };
+        data.teams.push(teamDat);
+    }
+
+    data.freeAgents = availableFreeAgents;
+
+    return data;
 }
