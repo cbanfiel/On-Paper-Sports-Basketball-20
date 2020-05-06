@@ -6246,12 +6246,25 @@ function getBestPlayer(players) {
     return players[0];
 }
 
-export function getRosterJSON() {
+export function getRosterJSON(roster = null) {
     let data = {
         teams: [],
         freeAgents: '',
     }
-
+    if(roster){
+        for (let i = 0; i < roster.teams.length; i++) {
+            let teamDat = {
+                name: roster.teams[i].name,
+                id: roster.teams[i].id,
+                conferenceId: roster.teams[i].conferenceId,
+                logoSrc: roster.teams[i].logoSrc,
+                roster: roster.teams[i].roster,
+                coach: roster.teams[i].coach
+            };
+            data.teams.push(teamDat);
+        }
+        data.freeAgents = roster.availableFreeAgents;
+    }else{
     for (let i = 0; i < teams.length; i++) {
         let teamDat = {
             name: teams[i].name,
@@ -6263,8 +6276,7 @@ export function getRosterJSON() {
         };
         data.teams.push(teamDat);
     }
-
     data.freeAgents = availableFreeAgents;
-
+}
     return data;
 }

@@ -61,6 +61,7 @@ import News from './scenes/News';
 import OffseasonSignings from './scenes/OffseasonSignings';
 import Login from './scenes/Login';
 import Upload from './scenes/Upload';
+import SelectRoster from './scenes/SelectRoster';
 
 export default class App extends React.Component {
 
@@ -132,6 +133,7 @@ export default class App extends React.Component {
           <Scene key="offseasonsignings" component={OffseasonSignings} title="" hideNavBar />
           <Scene key="login" component={Login} title="" hideNavBar />
           <Scene key="upload" component={Upload} title="" hideNavBar />
+          <Scene key="selectroster" component={SelectRoster} title="" hideNavBar />
 
         </Stack>
       </Router>

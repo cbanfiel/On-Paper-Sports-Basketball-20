@@ -45,7 +45,7 @@ export default class Login extends Component {
         <View>
           {
             <View style={{ padding: 20 }}>
-              <View style={{ marginBottom: 20 }}>
+              <View style={{ margin: 10 }}>
                 <Text style={{ fontFamily: "advent-pro", fontSize: 16, textTransform:'uppercase', color:'#616161' }}>
                   Email Address
                 </Text>
@@ -57,7 +57,7 @@ export default class Login extends Component {
                 ></Input>
               </View>
 
-              <View style={{ marginBottom: 20 }}>
+              <View style={{ margin: 10 }}>
                 <Text style={{ fontFamily: "advent-pro", fontSize: 16, textTransform:'uppercase', color:'#616161' }}>
                   Password
                 </Text>
