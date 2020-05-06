@@ -6,7 +6,8 @@ import Background from '../components/background';
 import CommunityRosterListItem from '../components/CommunityRosterListItem';
 import Button from '../components/Button';
 
-const URL = 'http://10.0.0.106:3000/roster/basketball/';
+const URL = 'http://10.0.0.106:3000/roster/all/basketball/';
+const DOWNLOAD = 'http://10.0.0.106:3000/roster/download/';
 
 export default class CommunityRosters extends React.Component {
 
@@ -73,8 +74,8 @@ export default class CommunityRosters extends React.Component {
                         
                         this.state.filteredList.map((item, i) => (
                         <CommunityRosterListItem titleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} subtitleStyle={{ fontFamily: 'advent-pro' , color: 'black'}} containerStyle={{ backgroundColor: 'rgba(255,255,255,0)' }} 
-                        onPress={() => {getDataFromLink(URL + item._id, item.type, item.sliderType, this.leaveScene)}}
-                        title={item.name}
+                        onPress={() => {getDataFromLink(DOWNLOAD + item._id, item.type, item.sliderType, this.leaveScene)}}
+                        title={item.name + ' (' + item.type.toUpperCase() + ')'}
                         subtitle={`Created By: ${item.userName}`} 
                         rightTitleStyle={{fontFamily:'advent-pro'}}
                         rightTitle={`Downloads: ${item.downloads}`}
@@ -84,7 +85,7 @@ export default class CommunityRosters extends React.Component {
                     )): null
                     }
                 </ScrollView>
-                        <Button title={'Upload A Roster'} color={'rgba(255,0,0,.75)'} textColor={'white'} onPress={()=>{Actions.login()}}></Button>
+                        <Button title={'Upload A Roster'} color={'rgba(255,0,0,.75)'} textColor={'white'} style={{padding:25}} onPress={()=>{Actions.replace('login')}}></Button>
                     
 
             </Background>

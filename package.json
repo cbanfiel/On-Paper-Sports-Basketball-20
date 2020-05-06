@@ -22,7 +22,8 @@
     "recyclerlistview": "^1.3.4",
     "roundrobin": "^1.0.3",
     "shorthash": "0.0.2",
-    "square-batman": "^1.0.0"
+    "square-batman": "^1.0.0",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

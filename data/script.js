@@ -6258,12 +6258,81 @@ export function getRosterJSON(roster = null) {
                 id: roster.teams[i].id,
                 conferenceId: roster.teams[i].conferenceId,
                 logoSrc: roster.teams[i].logoSrc,
-                roster: roster.teams[i].roster,
-                coach: roster.teams[i].coach
+                roster: []
             };
+
+            roster.teams[i].roster.forEach(ply => {
+                let {
+                    name,
+                    position,
+                    faceSrc,
+                    number,
+                    height,
+                    off,
+                    def,
+                    threePoint,
+                    reb,
+                    ft,
+                    years,
+                    salary,
+                    age
+                } = ply;
+                teamDat.roster.push({
+                    name,
+                    position,
+                    faceSrc,
+                    number,
+                    height,
+                    off,
+                    def,
+                    threePoint,
+                    reb,
+                    ft,
+                    years,
+                    salary,
+                    age
+                })
+            })
+
             data.teams.push(teamDat);
         }
-        data.freeAgents = roster.availableFreeAgents;
+        let freeAgents = {name: availableFreeAgents.name, logoSrc: availableFreeAgents.logoSrc, roster:[] };
+        roster.freeAgents.roster.forEach(ply => {
+            let {
+                name,
+                position,
+                faceSrc,
+                number,
+                height,
+                off,
+                def,
+                threePoint,
+                reb,
+                ft,
+                years,
+                salary,
+                age
+            } = ply;
+            freeAgents.roster.push({
+                name,
+                position,
+                faceSrc,
+                number,
+                height,
+                off,
+                def,
+                threePoint,
+                reb,
+                ft,
+                years,
+                salary,
+                age
+            })
+    
+        });
+
+        data.freeAgents = freeAgents;
+
     }else{
     for (let i = 0; i < teams.length; i++) {
         let teamDat = {
@@ -6271,12 +6340,78 @@ export function getRosterJSON(roster = null) {
             id: teams[i].id,
             conferenceId: teams[i].conferenceId,
             logoSrc: teams[i].logoSrc,
-            roster: teams[i].roster,
-            coach: teams[i].coach
+            roster: [],
         };
+        teams[i].roster.forEach(ply => {
+            let {
+                name,
+                position,
+                faceSrc,
+                number,
+                height,
+                off,
+                def,
+                threePoint,
+                reb,
+                ft,
+                years,
+                salary,
+                age
+            } = ply;
+            teamDat.roster.push({
+                name,
+                position,
+                faceSrc,
+                number,
+                height,
+                off,
+                def,
+                threePoint,
+                reb,
+                ft,
+                years,
+                salary,
+                age
+            })
+        })
         data.teams.push(teamDat);
     }
-    data.freeAgents = availableFreeAgents;
+    let freeAgents = {name: availableFreeAgents.name, logoSrc: availableFreeAgents.logoSrc, roster:[] };
+    availableFreeAgents.roster.forEach(ply => {
+        let {
+            name,
+            position,
+            faceSrc,
+            number,
+            height,
+            off,
+            def,
+            threePoint,
+            reb,
+            ft,
+            years,
+            salary,
+            age
+        } = ply;
+        freeAgents.roster.push({
+            name,
+            position,
+            faceSrc,
+            number,
+            height,
+            off,
+            def,
+            threePoint,
+            reb,
+            ft,
+            years,
+            salary,
+            age
+        })
+
+    });
+
+    data.freeAgents = freeAgents;
 }
     return data;
 }

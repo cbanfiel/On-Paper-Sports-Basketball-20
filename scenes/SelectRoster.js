@@ -31,7 +31,11 @@ export default class SelectRoster extends React.Component {
       if(item){
           const load = await FileSystem.readAsStringAsync(FileSystem.documentDirectory + "saves/" + item).then((value) => {
               let ros = JSON.parse(value);
-              this.props.setSelectedRoster({data: ros, name: item.substring(0, item.indexOf('.')), type: item.substring(item.indexOf('.') + 1, item.length)})
+              let type = item.substring(item.indexOf('.') + 1, item.length);
+              if(type == 'franchise'){
+                type = 'roster';
+              }
+              this.props.setSelectedRoster({data: ros, name: item.substring(0, item.indexOf('.')), type})
           })
       }else{
           this.props.setSelectedRoster(null)
