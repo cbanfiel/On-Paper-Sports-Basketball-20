@@ -191,7 +191,7 @@ export function setRefreshOff(ans) {
 
 
 
-class Player {
+export class Player {
     constructor(player) {
         this.name = player.name;
         this.position = player.position;
@@ -363,7 +363,7 @@ class Player {
     }
 
 }
-class Team {
+export class Team {
 
     constructor(team) {
 

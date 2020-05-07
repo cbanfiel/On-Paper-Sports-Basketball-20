@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { TouchableOpacity } from 'react-native';
 import Background from '../components/background';
 import { loadRosters, resetFranchise, resetSliders, removeTeams, generateFreeAgents, sliders} from '../data/script';
+import DualButton from '../components/DualButton';
 
 export default class OptionsMenu extends React.Component {
 
@@ -26,6 +27,13 @@ export default class OptionsMenu extends React.Component {
   <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Community Rosters</Text>
 </Card>
 </TouchableOpacity>
+
+                    <DualButton  
+                    leftTitle={'Search Community Players'}
+                    leftOnPress={()=> {Actions.communityplayers()}}
+                    rightTitle={'Search Community Team'}
+                    rightOnPress={()=> {Actions.communityteams()}}
+                    />
 
           <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.slidersmenu()}}>
 
