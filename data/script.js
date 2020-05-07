@@ -5009,8 +5009,6 @@ export async function getDataFromLink(link, type, sliderType, _callback) {
 
 
 export let communityRosters = [];
-communityRosters = getDataFromLink('http://10.0.0.106:3000/roster/basketball/', 'communityroster');
-
 
 export function loadRosterJson(loadedDataIn) {
 

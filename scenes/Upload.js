@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import { Text, View, Alert, ActivityIndicator } from "react-native";
+import { Text, View, Alert, ActivityIndicator, ScrollView, Image } from "react-native";
 import { Input } from "react-native-elements";
 import Background from "../components/background";
 import Button from "../components/Button";
 import { Actions } from "react-native-router-flux";
 import {getRosterJSON, exportDraftClassJson} from '../data/script.js'
 import CommunityRosterListItem from '../components/CommunityRosterListItem';
+var filter = require('leo-profanity');
 
 const GAME = 'basketball';
-const URL = 'http://10.0.0.106:3000/roster/user/basketball/'
-const DELETE_URL = 'http://10.0.0.106:3000/roster/delete/'
+const URL = 'https://onpapersports.com/roster/user/basketball/'
+const DELETE_URL = 'https://onpapersports.com/roster/delete/'
 
 export default class Upload extends Component {
+
 
   componentDidMount(){
       this.fetchUsersRosters();
@@ -20,7 +22,7 @@ export default class Upload extends Component {
   fetchUsersRosters(){
     fetch(URL+this.props.user._id).then(res => res.json())
     .then(json => {
-    let slots = 2-json.rosters.length;
+    let slots = this.props.user.uploadsAllowed-json.rosters.length;
     let emptySlots = [];
     for(let i=0; i<slots; i++){
       emptySlots.push(i);
@@ -68,6 +70,34 @@ export default class Upload extends Component {
       this.setState({rosterName: roster.name, update: true, updateRosterId:roster._id, uploadShown:true})
     }
 
+    deleteAccount = () => {
+      Alert.alert('Are you sure you want to delete your account?', 'This will delete all your uploaded rosters as well...',[
+        {
+          text: 'Cancel',
+          onPress: () => {return},
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: () => {
+            let url = 'https://onpapersports.com/users/' + this.props.user._id
+            fetch(url, {
+            method: 'DELETE',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }
+          }).then(res => res.json()).then(json =>{
+            Alert.alert(json.message)
+            Actions.pop();
+          }).catch(err=> 
+            Alert.alert(err.message)
+            );
+          },
+        },
+      ])
+    }
+
     delete = (roster) => {
       Alert.alert('Are you sure you want to delete ' + roster.name +'?', 'Choose an option', [
         {
@@ -107,12 +137,17 @@ export default class Upload extends Component {
 
 
     upload = () => {
+      
+    if(filter.check(this.state.rosterName)){
+      Alert.alert('Watch your mouth', 'Please do not use bad words in your roster name')
+      return;
+    }
       this.setState({loading: true})
 
       let data = this.state.selectedRoster ? this.state.selectedRoster.type.toLowerCase() == 'draftclass' ? JSON.parse(exportDraftClassJson()) : getRosterJSON(this.state.selectedRoster.data) : getRosterJSON()
 
-      let url = this.state.update ? 'http://10.0.0.106:3000/roster/update/' + this.state.updateRosterId:
-      'http://10.0.0.106:3000/roster/upload/'+GAME;
+      let url = this.state.update ? 'https://onpapersports.com/roster/update/' + this.state.updateRosterId:
+      'https://onpapersports.com/roster/upload/'+GAME;
          fetch(url, {
             method: this.state.update? 'PATCH' : 'POST',
             headers: {
@@ -143,13 +178,21 @@ export default class Upload extends Component {
                 </View>
                 :
 
-            <View style={{ padding: 20 }}>
-
+            <ScrollView style={{ padding: 20 }}>
+        <Image
+                style={{
+                  resizeMode: "contain",
+                  height: 75,
+                  alignSelf: "center",
+                  margin: 5,
+                }}
+                source={require("../assets/icon.png")}
+              />
             <Text style={{ fontFamily: 'advent-pro' , fontSize:22, color:'black', textAlign: 'center' }}>{`Welcome back ${user.user},`}</Text>
 
             <View style={{padding: 20}}>
 
-            <Text style={{ fontFamily: 'advent-pro' , fontSize:18, color:'black', textAlign: 'center' }}>{`Rosters you have uploaded (${this.state.usersRosters.length}/2)`}</Text>
+            <Text style={{ fontFamily: 'advent-pro' , fontSize:18, color:'black', textAlign: 'center' }}>{`Rosters you have uploaded (${this.state.usersRosters.length}/${this.props.user.uploadsAllowed})`}</Text>
             <Text style={{ fontFamily: 'advent-pro' , fontSize:18, color:'black', textAlign: 'center' }}>{`Select a roster slot`}</Text>
 
 
@@ -176,7 +219,6 @@ export default class Upload extends Component {
                   ></CommunityRosterListItem>
                 ))
 }
-
             </View>
             
 
@@ -214,6 +256,10 @@ export default class Upload extends Component {
             style={{marginVertical:10}}
             onPress={() => {this.upload()}}
           ></Button>
+
+
+
+
               </View>
 
             </View>
@@ -222,10 +268,39 @@ export default class Upload extends Component {
 
 }
 
+<View style={{padding: 20}}>
+<Text style={{ fontFamily: "advent-pro", fontSize: 16, color:'#616161', marginVertical:20 }}>
+                  {`NOTE: There is a zero tolerance policy for innapropriate names/images in your uploaded roster files, perpetrators will be permanently banned`}
+                </Text>
+                <Text style={{ fontFamily: "advent-pro", fontSize: 16, color:'#616161', marginVertical:20 }}>
+                  {`NOTE: Feel free to edit/update existing rosters!`}
+                </Text>
+                <Text style={{ fontFamily: "advent-pro", fontSize: 16, color:'#616161', marginVertical:20 }}>
+                  {`NOTE: There is currently a limit on maximum uploads per user, this is to protect against spam uploads. Please try to use common sense when uploading rosters. If you would like to upload more than 2 rosters, send a request via the button below, and I will check your rosters and grant you more upload priviliges.`}
+                </Text>
+
+                <Button
+            title={'Request More Upload Privileges'}
+            color={"#333333"}
+            textColor={"white"}
+            style={{marginVertical:10}}
+            onPress={() => {}}
+          ></Button>
+
+          <Button
+            title={'Delete Your Account'}
+            color={'rgba(255,0,0,.75)'}
+            textColor={"white"}
+            style={{marginVertical:10}}
+            onPress={() => {this.deleteAccount()}}
+          ></Button>
+
+</View>
+
 <Text style={{ fontFamily: "advent-pro", fontSize: 18, textTransform:'uppercase', color:'red' }}>
                   {this.state.message}
                 </Text>
-            </View>
+            </ScrollView>
               }
 
             </Background>

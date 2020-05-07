@@ -29,9 +29,9 @@ export default class OptionsMenu extends React.Component {
 </TouchableOpacity>
 
                     <DualButton  
-                    leftTitle={'Search Community Players'}
+                    leftTitle={'Community Players'}
                     leftOnPress={()=> {Actions.communityplayers()}}
-                    rightTitle={'Search Community Team'}
+                    rightTitle={'Community Teams'}
                     rightOnPress={()=> {Actions.communityteams()}}
                     />
 
@@ -91,18 +91,6 @@ export default class OptionsMenu extends React.Component {
               <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Generate New Free Agents</Text>
             </Card>
           </TouchableOpacity>
-
-          <TouchableOpacity style={{ width: '100%' }} onPress={() => {Actions.importexportmenu()}}>
-
-            <Card
-              containerStyle={{
-                width:'95%', backgroundColor:'rgba(255,255,255,0)', alignSelf:'center', borderColor:'rgba(0,0,0,0.9)'
-              }}
-            >
-              <Text style={{ textAlign: "center", fontSize: 20, color: 'black', fontFamily: 'advent-pro' }}>Import/Export</Text>
-            </Card>
-          </TouchableOpacity>
-
 
           <TouchableOpacity style={{ width: '100%' }} onPress={() => {loadRosters(), resetFranchise(), resetSliders(), this.props.update(()=>Actions.popTo('mainmenu'))}}>
 

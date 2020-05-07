@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Dimensions } from 'react-native';
+import { Alert, Dimensions, ActivityIndicator, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { DataProvider, LayoutProvider, RecyclerListView } from 'recyclerlistview';
@@ -13,10 +13,11 @@ var {height, width} = Dimensions.get('window');
 
 let allPlayers = [];
 
-const URL = 'http://10.0.0.106:3000/roster/teams/'
+const URL = 'https://onpapersports.com/roster/teams/'
 
 export default class CommunityTeams extends React.Component {
   search(value){
+    this.setState({loading: true});
     fetch(URL+value).then(res => res.json()).then(json => {
         const data = [];
         for(let i=0; i<json.teams.length; i++){
@@ -25,9 +26,13 @@ export default class CommunityTeams extends React.Component {
             for(let ply of json.teams[i].roster){
                 let player = new Player(ply);
                 player.calculateRating();
+                player.teamName = team.name;
+                player.teamLogoSrc = team.logoSrc;
                 team.roster.push(player);
             }
 
+            team.rosterName = json.teams[i].rosterName;
+            team.rosterCreator = json.teams[i].rosterCreator;
             team.reorderLineup();
             team.calculateRating();
             data.push({
@@ -48,9 +53,12 @@ export default class CommunityTeams extends React.Component {
 
           this.setState({
             list: new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(data),
-            order: data
+            order: data,
+            loading: false
           })
-    }).catch(err => console.log(err))
+    }).catch(err => {console.log(err)
+      this.setState({loading: false});
+    })
   }
 
   copyToRoster(team){
@@ -95,6 +103,10 @@ export default class CommunityTeams extends React.Component {
               title={data.item.name} 
               leftAvatar={data.item.logoSrc} 
               subtitle={'Rating: ' + data.item.rating}
+              rightTitleStyle={{fontSize: 12}}
+              rightSubtitleStyle={{fontSize: 12}}
+              rightTitle={`${data.item.rosterName}`}
+              rightSubtitle={`${data.item.rosterCreator}`}
               onPress={() => {this.viewRoster(data.item)}}
               onLongPress={() => {this.copyToRoster(data.item)}}
             >
@@ -109,7 +121,7 @@ export default class CommunityTeams extends React.Component {
     return (
       <Background>
 
-    <Input containerStyle = {{backgroundColor:'rgba(255,255,255,0)', padding: 15}} onChangeText={value => {this.setState({search: value})}} placeholder={'Enter player name'} placeholderTextColor={'rgb(80,80,80)'} inputStyle={{ color: 'black', fontFamily: 'advent-pro', textAlign:'center' }} ></Input>
+    <Input containerStyle = {{backgroundColor:'rgba(255,255,255,0)', padding: 15}} onChangeText={value => {this.setState({search: value})}} placeholder={'Enter team name'} placeholderTextColor={'rgb(80,80,80)'} inputStyle={{ color: 'black', fontFamily: 'advent-pro', textAlign:'center' }} ></Input>
     <Button
             title={"Search"}
             color={"#333333"}
@@ -117,7 +129,16 @@ export default class CommunityTeams extends React.Component {
             textColor={"white"}
             onPress={() => {this.search(this.state.search)}}
           ></Button>
+
+
+{
+  this.state.loading ? <View style={{height: '60%', alignItems:'center', justifyContent:'center'}}>
+  <ActivityIndicator size={"large"}></ActivityIndicator>
+</View>:
 <RecyclerListView style={{flex:1, padding: 0, margin: 0}} rowRenderer={this.rowRenderer} dataProvider={this.state.list} layoutProvider={this.layoutProvider} forceNonDeterministicRendering={false}/>
+
+}
+
 
 
       </Background>

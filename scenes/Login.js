@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
 import { Input } from "react-native-elements";
 import Background from "../components/background";
 import Button from "../components/Button";
 import { Actions } from "react-native-router-flux";
 import isEmail from 'validator/lib/isEmail';
 import * as FileSystem from 'expo-file-system';
-
+var filter = require('leo-profanity');
 const VIEW = {
   LOGIN: 0,
   REGISTER: 1,
@@ -40,10 +40,11 @@ export default class Login extends Component {
   }
 
   login = () => {
+
     this.saveUserToFileSystem();
 
     if(isEmail(this.state.email)){
-    fetch("http://10.0.0.106:3000/users/login", {
+    fetch("https://onpapersports.com/users/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -69,11 +70,17 @@ export default class Login extends Component {
   };
 
   register = () => {
+
+    if(filter.check(this.state.user)){
+      Alert.alert('Watch your mouth', 'Please do not use bad words in your user name')
+      return;
+    }
+
     this.saveUserToFileSystem();
 
 
     if(isEmail(this.state.email)){
-    fetch("http://10.0.0.106:3000/users/register", {
+    fetch("https://onpapersports.com/users/register", {
       method: "POST",
       headers: {
         Accept: "application/json",
