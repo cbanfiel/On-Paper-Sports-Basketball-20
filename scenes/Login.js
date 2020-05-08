@@ -4,27 +4,29 @@ import { Input } from "react-native-elements";
 import Background from "../components/background";
 import Button from "../components/Button";
 import { Actions } from "react-native-router-flux";
-import isEmail from 'validator/lib/isEmail';
-import * as FileSystem from 'expo-file-system';
-var filter = require('leo-profanity');
+import isEmail from "validator/lib/isEmail";
+import * as FileSystem from "expo-file-system";
+var filter = require("leo-profanity");
 const VIEW = {
   LOGIN: 0,
   REGISTER: 1,
 };
 export default class Login extends Component {
-
-  async componentDidMount (){
-    await FileSystem.readAsStringAsync(FileSystem.documentDirectory+'settings.json').then((value)=>{
+  async componentDidMount() {
+    await FileSystem.readAsStringAsync(
+      FileSystem.documentDirectory + "settings.json"
+    )
+      .then((value) => {
         let data = JSON.parse(value);
-        this.setState({email: data.email, password: data.password})
-    }).catch(err => {
-      console.log(err);
-    })
-
+        this.setState({ email: data.email, password: data.password });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   state = {
-    user: null,
+    user: "",
     email: "",
     password: "",
     view: VIEW.LOGIN,
@@ -32,77 +34,97 @@ export default class Login extends Component {
   };
 
   saveUserToFileSystem = async () => {
-  await FileSystem.writeAsStringAsync(FileSystem.documentDirectory+'settings.json',JSON.stringify({email: this.state.email, password: this.state.password})).then(() => {
-      console.log('saved user to file system');
-  }).catch((err) => {
-      console.log(err);
-  });
-  }
+    await FileSystem.writeAsStringAsync(
+      FileSystem.documentDirectory + "settings.json",
+      JSON.stringify({ email: this.state.email, password: this.state.password })
+    )
+      .then(() => {
+        console.log("saved user to file system");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   login = () => {
-
     this.saveUserToFileSystem();
 
-    if(isEmail(this.state.email)){
-    fetch("https://onpapersports.com/users/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.user) {
-          //logged in
-          Actions.replace('upload', { user: json.user });
-        } else {
-          this.setState({ error: json.message });
-        }
-      });
-    }else{
-      this.setState({error: 'Not a valid email address'})
+    if (isEmail(this.state.email)) {
+      fetch("http://10.0.0.106:3000/users/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          password: this.state.password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.user) {
+            //logged in
+            Actions.replace("upload", {
+              user: json.user,
+              password: this.state.password,
+            });
+          } else {
+            this.setState({ error: json.message });
+          }
+        });
+    } else {
+      this.setState({ error: "Not a valid email address" });
     }
   };
 
   register = () => {
+    if (filter.check(this.state.user)) {
+      Alert.alert(
+        "Watch your mouth",
+        "Please do not use bad words in your user name"
+      );
+      return;
+    }
 
-    if(filter.check(this.state.user)){
-      Alert.alert('Watch your mouth', 'Please do not use bad words in your user name')
+    if (
+      this.state.user.length < 3 ||
+      this.state.email.length < 3 ||
+      this.state.password.length < 3
+    ) {
+      Alert.alert("Please fill out all the fields", "");
       return;
     }
 
     this.saveUserToFileSystem();
 
-
-    if(isEmail(this.state.email)){
-    fetch("https://onpapersports.com/users/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        user: this.state.user,
-        password: this.state.password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.user) {
-          //logged in
-          Actions.replace('upload', { user: json.user });
-        } else {
-          this.setState({ error: json.message });
-        }
-      });
-    }else{
-      this.setState({error: 'Not a valid email address'})
+    if (isEmail(this.state.email)) {
+      fetch("http://10.0.0.106:3000/users/register", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          user: this.state.user,
+          password: this.state.password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.user) {
+            //logged in
+            Actions.replace("upload", {
+              user: json.user,
+              password: this.state.password,
+            });
+          } else {
+            this.setState({ error: json.message });
+          }
+        });
+    } else {
+      this.setState({ error: "Not a valid email address" });
     }
   };
 
@@ -152,7 +174,9 @@ export default class Login extends Component {
                   placeholder={"your email address"}
                   placeholderTextColor={"rgb(180,180,180)"}
                   inputStyle={{ color: "black", fontFamily: "advent-pro" }}
-                >{this.state.email}</Input>
+                >
+                  {this.state.email}
+                </Input>
               </View>
 
               {this.state.view == VIEW.LOGIN ? null : (
@@ -193,7 +217,9 @@ export default class Login extends Component {
                   secureTextEntry={true}
                   placeholderTextColor={"rgb(180,180,180)"}
                   inputStyle={{ color: "black", fontFamily: "advent-pro" }}
-                >{this.state.password}</Input>
+                >
+                  {this.state.password}
+                </Input>
               </View>
 
               <TouchableOpacity
@@ -227,7 +253,7 @@ export default class Login extends Component {
                     fontSize: 16,
                     color: "red",
                     textAlign: "center",
-                    padding: 10
+                    padding: 10,
                   }}
                 >
                   {this.state.error ? this.state.error : ""}

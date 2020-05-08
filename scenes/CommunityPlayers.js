@@ -13,7 +13,7 @@ var {height, width} = Dimensions.get('window');
 
 let allPlayers = [];
 
-const URL = 'https://onpapersports.com/roster/players/'
+const URL = 'http://10.0.0.106:3000/roster/players/'
 
 export default class CommunityPlayers extends React.Component {
 

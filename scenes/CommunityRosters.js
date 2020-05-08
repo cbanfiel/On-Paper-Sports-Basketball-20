@@ -6,11 +6,13 @@ import Background from "../components/background";
 import CommunityRosterListItem from "../components/CommunityRosterListItem";
 import Button from "../components/Button";
 
-const URL = "https://onpapersports.com/roster/all/basketball/";
-const DOWNLOAD = "https://onpapersports.com/roster/download/";
+const URL = "http://10.0.0.106:3000/roster/all/basketball/";
+const DOWNLOAD = "http://10.0.0.106:3000/roster/download/";
 
 export default class CommunityRosters extends React.Component {
   componentDidMount = () => {
+
+
     fetch(URL)
       .then((res) => res.json())
       .then((json) => {
@@ -18,7 +20,7 @@ export default class CommunityRosters extends React.Component {
           filteredList: this.filterList(json.rosters),
           loading: false,
         });
-      });
+      }).catch(err => console.log(err));
   };
 
   leaveScene = () => {
