@@ -4983,6 +4983,7 @@ export async function getDataFromLink(link, type, sliderType, _callback) {
         );
         let responseJson = await response.json();
         if (type === 'roster') {
+            console.log(sliderType)
             loadRosterJson(responseJson);
             if (sliderType === 'college') {
                 collegeSliderPreset();
@@ -6220,6 +6221,9 @@ function pickGameOfTheWeek() {
 
         return 0;
     })
+    if(games[0].team1 == games[0].team2){
+        return games[1];
+    }
     return games[0]
 }
 

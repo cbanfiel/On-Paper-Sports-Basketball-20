@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Dimensions, ActivityIndicator, View } from 'react-native';
+import { Alert, Dimensions, ActivityIndicator, View, Text } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { DataProvider, LayoutProvider, RecyclerListView } from 'recyclerlistview';
@@ -13,7 +13,7 @@ var {height, width} = Dimensions.get('window');
 
 let allPlayers = [];
 
-const URL = 'http://10.0.0.106:3000/roster/teams/'
+const URL = 'https://onpapersports.com/roster/teams/basketball/'
 
 export default class CommunityTeams extends React.Component {
   search(value){
@@ -129,6 +129,11 @@ export default class CommunityTeams extends React.Component {
             textColor={"white"}
             onPress={() => {this.search(this.state.search)}}
           ></Button>
+   <View style={{flexDirection:'column', backgroundColor:'rgba(0,0,0,0)', padding:5}}>
+  <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro', margin: 5 }}>{'Press and hold to add a team to your current roster'}</Text>
+  <Text style={{ textAlign: "center", fontSize: 14, color: 'black', fontFamily: 'advent-pro', margin: 5 }}>{'NOTE: You can edit players info/ratings before adding them to your roster but it will NOT affect the database, if a player is not added to your current roster the changes made in this screen will be lost'}</Text>
+
+  </View>
 
 
 {

@@ -16,8 +16,8 @@ import CommunityRosterListItem from "../components/CommunityRosterListItem";
 var filter = require("leo-profanity");
 
 const GAME = "basketball";
-const URL = "http://10.0.0.106:3000/roster/user/basketball/";
-const DELETE_URL = "http://10.0.0.106:3000/roster/delete/";
+const URL = "https://onpapersports.com/roster/user/basketball/";
+const DELETE_URL = "https://onpapersports.com/roster/delete/";
 
 export default class Upload extends Component {
   componentDidMount() {
@@ -54,11 +54,32 @@ export default class Upload extends Component {
     loading: true,
     update: false,
     updateRosterId: "",
+    sliderType: 'pro'
   };
 
   setSelectedRoster = (roster) => {
     this.setState({ selectedRoster: roster }, () => Actions.pop());
   };
+
+  requestUploadPrivileges = () => {
+    let url =
+    "https://onpapersports.com/users/request/" + this.props.user._id;
+  fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: this.props.password
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      Alert.alert(json.message);
+    })
+    .catch((err) => Alert.alert(err.message));
+  }
 
   manageRosterPress = (roster) => {
     Alert.alert(roster.name, "Choose an option", [
@@ -90,6 +111,7 @@ export default class Upload extends Component {
       update: true,
       updateRosterId: roster._id,
       uploadShown: true,
+      sliderType: roster.sliderType ? roster.sliderType : 'pro'
     });
   };
 
@@ -109,7 +131,7 @@ export default class Upload extends Component {
           text: "Delete",
           onPress: () => {
             let url =
-              "http://10.0.0.106:3000/users/delete/" + this.props.user._id;
+              "https://onpapersports.com/users/delete/" + this.props.user._id;
             fetch(url, {
               method: "POST",
               headers: {
@@ -201,8 +223,8 @@ export default class Upload extends Component {
       : getRosterJSON();
 
     let url = this.state.update
-      ? "http://10.0.0.106:3000/roster/update/" + this.state.updateRosterId
-      : "http://10.0.0.106:3000/roster/upload/" + GAME;
+      ? "https://onpapersports.com/roster/update/" + this.state.updateRosterId
+      : "https://onpapersports.com/roster/upload/" + GAME;
     fetch(url, {
       method: this.state.update ? "PATCH" : "POST",
       headers: {
@@ -217,6 +239,7 @@ export default class Upload extends Component {
           ? this.state.selectedRoster.type
           : "roster",
         data: data,
+        sliderType: this.state.sliderType
       }),
     })
       .then((res) => res.json())
@@ -367,6 +390,20 @@ export default class Upload extends Component {
                         : "Current Roster"
                     }`}
                   </Text>
+
+                  <Button
+                    title={"Roster Type: " + this.state.sliderType}
+                    color={"#333333"}
+                    style={{ marginVertical: 10 }}
+                    textColor={"white"}
+                    onPress={() => {
+                          if(this.state.sliderType == 'pro'){this.setState({sliderType: 'college'})}
+                          else if(this.state.sliderType == 'college'){this.setState({sliderType: 'pro'})}
+                          else{this.setState({sliderType: 'pro'})}
+                    }}
+                  ></Button>
+
+
                   <Button
                     title={"Select A Roster"}
                     color={"#333333"}
@@ -429,7 +466,7 @@ export default class Upload extends Component {
                 color={"#333333"}
                 textColor={"white"}
                 style={{ marginVertical: 10 }}
-                onPress={() => {}}
+                onPress={() => {this.requestUploadPrivileges()}}
               ></Button>
 
               <Button

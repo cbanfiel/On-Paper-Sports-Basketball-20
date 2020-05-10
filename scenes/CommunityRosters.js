@@ -5,14 +5,13 @@ import { communityRosters, getDataFromLink } from "../data/script";
 import Background from "../components/background";
 import CommunityRosterListItem from "../components/CommunityRosterListItem";
 import Button from "../components/Button";
+import { Input } from 'react-native-elements';
 
-const URL = "http://10.0.0.106:3000/roster/all/basketball/";
-const DOWNLOAD = "http://10.0.0.106:3000/roster/download/";
+const URL = "https://onpapersports.com/roster/all/basketball";
+const DOWNLOAD = "https://onpapersports.com/roster/download/";
 
 export default class CommunityRosters extends React.Component {
   componentDidMount = () => {
-
-
     fetch(URL)
       .then((res) => res.json())
       .then((json) => {
@@ -22,6 +21,19 @@ export default class CommunityRosters extends React.Component {
         });
       }).catch(err => console.log(err));
   };
+
+  search(value){
+    this.setState({loading: true});
+    let search = `?name=${value}`;
+    fetch(URL+search).then(res => res.json()).then(json => {
+      this.setState({
+        filteredList: this.filterList(json.rosters),
+        loading: false,
+      });
+    }).catch(err => {console.log(err)
+      this.setState({loading: false});
+    })
+  }
 
   leaveScene = () => {
     //   console.log('called');
@@ -59,6 +71,7 @@ export default class CommunityRosters extends React.Component {
   state = {
     filteredList: null,
     loading: true,
+    search: ''
   };
 
   render() {
@@ -97,6 +110,15 @@ export default class CommunityRosters extends React.Component {
           >
             {"Note: These are free rosters created by the community"}
           </Text>
+          
+    <Input containerStyle = {{backgroundColor:'rgba(255,255,255,0)', padding: 15}} onChangeText={value => {this.setState({search: value})}} placeholder={'Enter roster name'} placeholderTextColor={'rgb(80,80,80)'} inputStyle={{ color: 'black', fontFamily: 'advent-pro', textAlign:'center' }} ></Input>
+    <Button
+            title={"Search"}
+            color={"#333333"}
+            style={{marginVertical:10}}
+            textColor={"white"}
+            onPress={() => {this.search(this.state.search)}}
+          ></Button>
         </View>
         {this.state.loading ? (
           <View

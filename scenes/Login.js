@@ -50,7 +50,7 @@ export default class Login extends Component {
     this.saveUserToFileSystem();
 
     if (isEmail(this.state.email)) {
-      fetch("http://10.0.0.106:3000/users/login", {
+      fetch("https://onpapersports.com/users/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -99,7 +99,7 @@ export default class Login extends Component {
     this.saveUserToFileSystem();
 
     if (isEmail(this.state.email)) {
-      fetch("http://10.0.0.106:3000/users/register", {
+      fetch("https://onpapersports.com/users/register", {
         method: "POST",
         headers: {
           Accept: "application/json",
