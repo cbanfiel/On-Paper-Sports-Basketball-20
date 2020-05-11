@@ -170,6 +170,7 @@ export default class Login extends Component {
                   Email Address
                 </Text>
                 <Input
+                  autoCapitalize ={"none"}
                   onChangeText={(value) => this.setState({ email: value })}
                   placeholder={"your email address"}
                   placeholderTextColor={"rgb(180,180,180)"}
@@ -192,6 +193,7 @@ export default class Login extends Component {
                     Username
                   </Text>
                   <Input
+                  autoCapitalize ={"none"}
                     onChangeText={(value) => this.setState({ user: value })}
                     placeholder={"your username"}
                     placeholderTextColor={"rgb(180,180,180)"}
@@ -212,6 +214,7 @@ export default class Login extends Component {
                   Password
                 </Text>
                 <Input
+                  autoCapitalize ={"none"}
                   onChangeText={(value) => this.setState({ password: value })}
                   placeholder={"your password"}
                   secureTextEntry={true}

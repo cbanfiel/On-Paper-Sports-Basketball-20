@@ -50,7 +50,7 @@ export default class CommunityRosters extends React.Component {
     if (this.props.filtered != null) {
       let filtered = [];
       for (let i = 0; i < array.length; i++) {
-        if (array[i].type === this.props.filtered) {
+        if (array[i].type.toLowerCase() === this.props.filtered.toLowerCase()) {
           filtered.push(array[i]);
         }
       }
