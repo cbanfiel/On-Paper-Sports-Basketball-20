@@ -5,6 +5,10 @@ import Background from '../components/background';
 
 const updateLog = [
     {
+        date: '5/12/2020',
+        updates: "-Users can now share custom rosters directly within the app.\nYou must create an account and you will be able to then share your rosters/draft classes for others to download."
+    },
+    {
         date: '5/4/2020',
         updates: "-Added league news\n-added CPU trading/midseason signing\n-added ability to view all offseason signings\n-various bugfixes and updates"
     },

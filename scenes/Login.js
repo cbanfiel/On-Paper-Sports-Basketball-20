@@ -29,6 +29,7 @@ export default class Login extends Component {
     user: "",
     email: "",
     password: "",
+    confirmPassword: "",
     view: VIEW.LOGIN,
     error: null,
   };
@@ -81,8 +82,14 @@ export default class Login extends Component {
   register = () => {
     if (filter.check(this.state.user)) {
       Alert.alert(
-        "Watch your mouth",
         "Please do not use bad words in your user name"
+      );
+      return;
+    }
+
+    if(this.state.password != this.state.confirmPassword){
+      Alert.alert(
+        "Passwords do not match"
       );
       return;
     }
@@ -224,6 +231,29 @@ export default class Login extends Component {
                   {this.state.password}
                 </Input>
               </View>
+
+              {this.state.view == VIEW.LOGIN ? null : (
+                <View style={{ margin: 10 }}>
+                  <Text
+                    style={{
+                      fontFamily: "advent-pro",
+                      fontSize: 18,
+                      textTransform: "uppercase",
+                      color: "#616161",
+                    }}
+                  >
+                    Confirm Password
+                  </Text>
+                  <Input
+                  autoCapitalize ={"none"}
+                    onChangeText={(value) => this.setState({ confirmPassword: value })}
+                    placeholder={"confirm password"}
+                  secureTextEntry={true}
+                    placeholderTextColor={"rgb(180,180,180)"}
+                    inputStyle={{ color: "black", fontFamily: "advent-pro" }}
+                  ></Input>
+                </View>
+              )}
 
               <TouchableOpacity
                 onPress={() =>
