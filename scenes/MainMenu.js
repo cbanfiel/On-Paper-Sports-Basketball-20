@@ -8,12 +8,6 @@ import { home, away, selectedTeam, generated1, generated2, generated3, generated
 import CachedImage from '../components/CachedImage';
 import {Updates} from 'expo';
 export default class MainMenu extends React.Component {
-
-  // componentDidMount(){
-  //   Alert.alert('7/7/19 Patch Notes:', 
-  //   "-In college mode players can now graduate early \n-In college mode you can now save graduates as draft classes for use in other \n");
-  // }
-
   static async onEnter(){
     try {
       const update = await Updates.checkForUpdateAsync();
@@ -33,26 +27,15 @@ export default class MainMenu extends React.Component {
         
       }
     } catch (e) {
-      // console.log(e);
     }
   }
-
-  // shuffles menu teams
-  // static onExit(){
-  //   menuDisplayTeams();
-  // }
-
-
-
 
   startFranchise(){
       if(teams.length >= 4){
         Actions.teamlist({ home: 4, updateState: this.update })
       }else{
         Alert.alert('LESS THAN 4 TEAMS','Currently for franchise mode you must have at least 4 teams' );
-
       }
-
   }
 
 

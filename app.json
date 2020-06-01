@@ -25,7 +25,9 @@
     "ios": {
       "bundleIdentifier": "com.chadbanfield.onpapersportsbasketball20",
       "supportsTablet": true,
-      "buildNumber": "1.2.0"
+      "buildNumber": "1.2.0",
+      "appStoreUrl": "https://apps.apple.com/us/app/on-paper-sports-basketball-20/id1462680635"
+
     },
     "android": {
       "package": "com.chadbanfield.onpapersportsbasketball20",
