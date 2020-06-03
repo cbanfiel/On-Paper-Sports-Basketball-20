@@ -25,7 +25,7 @@ export function setInDraft() {
 }
 
 export const REDSHIRT_LOGO = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Redshirt.svg/1280px-Redshirt.svg.png';
-
+export const GENERIC_PLAYER_PORTRAIT = 'https://on-paper-sports.s3.us-east-2.amazonaws.com/player_portraits/NBA-Player.png'
 
 export let franchise;
 export let selectedTeam;
@@ -198,6 +198,9 @@ export class Player {
         this.positionString;
         this.getPositionString();
         this.faceSrc = player.faceSrc;
+        if(player.faceSrc == 'https://www.2kratings.com/wp-content/uploads/NBA-Player.png'){
+            this.faceSrc = GENERIC_PLAYER_PORTRAIT;
+        }
         if (player.faceSrc == null || player.faceSrc.length < 1) {
             this.faceSrc = portraits[Math.floor(Math.random() * portraits.length)];
         }
